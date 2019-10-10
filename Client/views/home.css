@@ -1,0 +1,26 @@
+.main{
+    background: lightgrey;
+    padding: 30px;
+}
+.post-form{
+    width: 80%;
+    margin: auto;
+    align-content: center;
+}
+textarea{
+    width: 50%;
+}
+.post-author{
+    display: flex;
+}
+.author-img{
+    padding: 5px;
+}
+.author-img i{
+    font-size: 50px;
+}
+.author-details{
+    padding: 5px;
+    font-size: 18px;
+    font-weight: bold;
+}

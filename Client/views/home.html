@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/7bfc1da72e.js"></script>
+    <link rel="stylesheet" href="home.css">
+    <title>Home</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3" ></div>
+            <div class="col-sm-6 main" >
+                <form class="post" action="#" method="POST" class="post-form">
+                    <div class="form-group">
+                        <h5>Create Your Post:</h5>
+                        <textarea id="myTextarea" rows="3" ></textarea><br>
+                        <button type="button" class="btn btn-primary">Post</button>
+                        <hr>
+                    </div>
+                </form>
+                <div class="display-post">
+                    <div class="post-author">
+                       <div class="author-img"><img src="post.jpg" class="rounded-circle" alt="Cinque Terre" width="80" height="80"> </div>
+                       <div class="author-details"><br>
+                           <p>Birendra Khawash updated his status</p>
+                       </div>
+                    </div>
+                    <div class="content">
+                        <div class="post-desciption">
+                            <p>having fun in austerlia</p>
+                        </div>
+                        <div class="image-div">
+                            <img src="post.jpg" class="rounded" alt="Cinque Terre" width="304" height="236"> 
+                        </div>
+                        <div class="like-comment-share">
+                            <button type="button" class="btn btn-primary"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-info"><i class="fa fa-comment" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-success"><i class="fa fa-share-alt-square" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3" ></div>
+        </div>
+    </div>
+</body>
+</html>
