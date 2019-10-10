@@ -17,4 +17,4 @@ const SignUpModel = new Schema({
     }
 })
 
-module.exports = mongoose.model('usersModel',SignUpModel)
+module.exports = mongoose.model('SIgnUpModel',SignUpModel)
