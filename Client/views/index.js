@@ -1,14 +1,15 @@
 
 $(document).ready( function(){
-    $('#btnSave').click( function(){
-        var fname = document.getElementById("FirstName").value;
-        var lname = document.getElementById("LastName").value;
-        var email = document.getElementById("FormEmail").value;
-        var pwd = document.getElementById("FormPassword").value;
-        var phone = document.getElementById("FormPhone").value;
-         console.log(lname+' '+fname);
+    $('#btnSave').click( function(event){
+        event.preventDefault()
+        var fname = document.getElementById("SignUpFirstName").value;
+        var lname = document.getElementById("SignUpLastName").value;
+        var email = document.getElementById("SignUpFormEmail").value;
+        var pwd = document.getElementById("SignUpFormPassword").value;
+        var phone = document.getElementById("SignUpFormPhone").value;
+        console.log(lname+' '+fname);
         
-        $.ajax("http://0.0.0.0:9000/",{
+        $.ajax("http://localhost:9000/signup",{
             type:"POST",
             dataType: "json",
             contentType: "application/json",
@@ -28,7 +29,6 @@ $(document).ready( function(){
                  
             },
             error: function(){
-               
                 alert('something went worng');
             }
         });
