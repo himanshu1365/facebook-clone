@@ -1,7 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const { PORT, HOST } =require('./config')
-
+const mongooseConnection = require('../db').connection;
 
 const app = express()
 
