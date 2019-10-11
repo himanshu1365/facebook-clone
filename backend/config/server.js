@@ -8,16 +8,15 @@ const cors = require('cors')
 
 const app = express()
 
-
 app.use(bodyParser.urlencoded({
     extended: true
 }))
 
-app.use(router())
-app.use(bodyParser.json())
-
 app.use(cors())
 app.options('*', cors())
+
+app.use(router())
+app.use(bodyParser.json())
 
 
 app.listen(PORT,HOST, err=>{
