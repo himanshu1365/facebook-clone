@@ -1,4 +1,5 @@
 const SignUpModel = require('./signupdata')
+const PostModel = require('./post')
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const {SECRET} = require('../config/config')
@@ -41,9 +42,39 @@ const checkUserToken = async(req,res)=>{
         return res.status(200).send({'msg':'Valid Token'})
     })
 }
+const userPost = async( req, res )=>{
+    try{
+    let post = await PostModel.find({userid:req.body.userid});
+    console.log(post);
 
+    if ( post.length != 0 ){
+
+        await PostModel.findOneAndUpdate({
+            userid:req.body.userid,
+        },
+        {
+            $push:{
+                posts:req.body.posts
+            }
+        });
+
+        return res.status(200).send("user post added");
+
+    }
+    else
+    {
+        let postData = new PostModel(req.body);
+        await postData.save();
+        return res.status(200).send("user post saved");
+        }
+    
+    }catch(err){
+        return res.status(404).send(err + "could not find");
+    }
+}
 module.exports = {
     saveSignUpData,
     loginUser,
-    checkUserToken
+    checkUserToken,
+    userPost
 }
