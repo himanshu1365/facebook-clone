@@ -1,8 +1,5 @@
 const express = require('express')
 const Users = require('../controller/Users')
-const path = require('path')
-const {Router} = require('express')
-const cors = require('cors')
 
 module.exports =()=> {
     const router = express.Router();
@@ -18,4 +15,6 @@ module.exports =()=> {
     router.get('/login/loginAuthentication',(req,res)=>{
         let status = Users.checkUserToken(req,res)
     })
+
+    return router
 }
