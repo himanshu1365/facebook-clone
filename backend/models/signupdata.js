@@ -14,6 +14,9 @@ const SignUpModel = new Schema({
     },
     Password: {
         type: String
+    },
+    Phone_number: {
+        type: String
     }
 })
 
