@@ -1,0 +1,36 @@
+*{
+    margin: 0px;
+}
+
+body{
+    /* background-image: url("image.png"); */
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.container1{
+    float: left;
+    margin-top: 70px;
+    margin-left: 150px;
+    -moz-box-shadow: 0 0 5px 5px #888;
+    -webkit-box-shadow: 0 0 5px 5px#888;  
+    box-shadow: 0 0 5px 5px #888;
+    background-color: transparent;
+}
+
+.container2{
+    float: right;
+    margin-top: 70px;
+    margin-right: 150px;
+    -moz-box-shadow: 0 0 5px 5px #888;
+    -webkit-box-shadow: 0 0 5px 5px#888;
+    box-shadow: 0 0 5px 5px #888;
+    background-color: transparent;
+}
+
+.card{
+    background-color: transparent; 
+    color: beige;
+    width: 450px;
+    height: 550px;
+}

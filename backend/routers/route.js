@@ -1,26 +1,21 @@
-const app = require('../config/server')
 const express = require('express')
+const Users = require('../controller/Users')
 const path = require('path')
 const {Router} = require('express')
 const cors = require('cors')
 
-var whitelist = ['http://localhost:5500', 'http://localhost:9000']
-var corsOptions = {
-    origin: function (origin, callback) {
-      if (whitelist.indexOf(origin) !== -1) {
-        callback(null, true)
-      } else {
-        callback(new Error('Not allowed by CORS'))
-      }
-    }
-  }
-
 module.exports =()=> {
-    const router = Router();
-
-    router.post('/signup',cors(),function(req,res){
-        console.log(req.body)
-    })
+    const router = express.Router();
     
-    return router
+    router.post('/signup',(req,res)=>{
+        Users.saveSignUpData(req,res)
+    })
+
+    router.post('/login',(req,res)=>{
+        Users.checkLoginUser(req,res)
+    })
+
+    router.get('/login/loginAuthentication',(req,res)=>{
+        let status = Users.checkUserToken(req,res)
+    })
 }

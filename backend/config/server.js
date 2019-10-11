@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const { PORT, HOST } =require('./config')
 const mongooseConnection = require('../db').connection;
+
 const router = require('../routers/route')
 const cors = require('cors')
 
@@ -18,12 +19,11 @@ app.options('*', cors())
 app.use(router())
 app.use(bodyParser.json())
 
-// app.use(cors())
-// app.use(function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//     next();
-//   });
+app.use(cors())
+app.options('*', cors())
+
+app.use(routes())
+
 
 app.listen(PORT,HOST, err=>{
     if(err) throw err;
@@ -31,6 +31,8 @@ app.listen(PORT,HOST, err=>{
 })
 
 
-  module.exports = {
-      app
-  }
+
+module.exports = {
+    app
+}
+
