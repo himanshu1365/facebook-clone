@@ -10,8 +10,8 @@ $(document).ready( function(){
         $.ajax("http://localhost:9000/signup",{
             type:"POST",
             dataType: "json",
-            contentType: "application/json",
             data:JSON.stringify(signUpData),
+            contentType: "application/json; charset=utf-8",
             success:function(data, status){
                 console.log(data.msg)
             },
@@ -27,6 +27,7 @@ $(document).ready( function(){
             Email: $('#LoginFormEmail').val(),
             Password: $("#LoginFormPassword").val()
         }
+        console.log(logindata)
         $.ajax("http://localhost:9000/login",{
             type:"POST",
             dataType:"json",
