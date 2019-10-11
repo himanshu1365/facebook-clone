@@ -19,7 +19,7 @@ module.exports =()=> {
         Users.checkLoginUser(req,res)
     })
     router.post('/home',(req, res)=>{
-        Users.userPost(req,res);
+        Users.saveUserPost(req,res);
     })
     return router
 }

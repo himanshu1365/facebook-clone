@@ -42,39 +42,30 @@ const checkUserToken = async(req,res)=>{
         return res.status(200).send({'msg':'Valid Token'})
     })
 }
-const userPost = async( req, res )=>{
+
+const saveUserPost = async( req, res )=>{
     try{
-    let post = await PostModel.find({userid:req.body.userid});
-    console.log(post);
-
-    if ( post.length != 0 ){
-
-        await PostModel.findOneAndUpdate({
-            userid:req.body.userid,
-        },
-        {
-            $push:{
-                posts:req.body.posts
-            }
-        });
-
-        return res.status(200).send("user post added");
-
-    }
-    else
-    {
-        let postData = new PostModel(req.body);
-        await postData.save();
-        return res.status(200).send("user post saved");
+        let post = await PostModel.find({userid:req.body.userid});
+        if (post.length != 0){
+            await PostModel.findOneAndUpdate({ userid:req.body.userid }, { $push:{ posts:req.body.posts } });
+            return res.status(200).send({msg:"user post added"});
         }
-    
-    }catch(err){
-        return res.status(404).send(err + "could not find");
+        else
+        {
+            let postData = new PostModel(req.body);
+            await postData.save();
+            return res.status(200).send({msg:"user post saved"});
+        }
+    }
+    catch(err){
+        return res.status(404).send({err : "could not find"});
     }
 }
+
+
 module.exports = {
     saveSignUpData,
     loginUser,
     checkUserToken,
-    userPost
+    saveUserPost
 }
