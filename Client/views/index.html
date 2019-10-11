@@ -1,156 +1,163 @@
 <html>
-	<head>
-		<meta charset="utf-8">
-			<meta name="viewport" content="width=device-width, initial-scale=1">
-				<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-						<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-						<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-						<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-					
-					<style>
-            *{
-              margin: 0px;
-            }
-            body{
-              background-image: url("image.png");
-              background-size: cover;
-              background-repeat: no-repeat;
-            }
-    .container1{
-      float: left;
-      margin-top: 70px;
-      margin-left: 150px;
-      -moz-box-shadow: 0 0 5px 5px #888;
-      -webkit-box-shadow: 0 0 5px 5px#888;
-      box-shadow: 0 0 5px 5px #888;
-      background-color: transparent;
-    }
-    .container2{
-      float: right;
-      margin-top: 70px;
-      margin-right: 150px;
-      -moz-box-shadow: 0 0 5px 5px #888;
-      -webkit-box-shadow: 0 0 5px 5px#888;
-      box-shadow: 0 0 5px 5px #888;
-      background-color: transparent;
-    }
-    .card{
-      background-color: transparent;
-      color: beige;
-      width: 450px;
-      height: 550px;
-    }
-</style>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <style>
+        * {
+            margin: 0px;
+        }
+        
+        body {
+            background-image: url("image.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        
+        .container1 {
+            float: left;
+            margin-top: 70px;
+            margin-left: 150px;
+            -moz-box-shadow: 0 0 5px 5px #888;
+            -webkit-box-shadow: 0 0 5px 5px#888;
+            box-shadow: 0 0 5px 5px #888;
+            background-color: transparent;
+        }
+        
+        .container2 {
+            float: right;
+            margin-top: 70px;
+            margin-right: 150px;
+            -moz-box-shadow: 0 0 5px 5px #888;
+            -webkit-box-shadow: 0 0 5px 5px#888;
+            box-shadow: 0 0 5px 5px #888;
+            background-color: transparent;
+        }
+        
+        .card {
+            background-color: transparent;
+            color: beige;
+            width: 450px;
+            height: 550px;
+        }
+    </style>
 </head>
-					<body>
-					
-							<div class="container1">
-                  <div class="card">
-                    <h5 class="card-header white-text text-center py-4">
-                      <strong><h3>Sign In</h3></strong>
-                    </h5>
-                    <div class="card-body px-lg-5 pt-0">
-                      <form class="text-center"  action="#">
-                        <div class="form-row">
-                          
-                            
-                            </div><br>
-                            <div class="md-form mt-0">
-                              <input type="email" id="FormEmail" class="form-control" placeholder="Email">
-                                <label for="FormEmail">E-mail</label>
-                              </div>
-                              <div class="md-form">
-                                <input type="password" id="FormPassword" class="form-control" placeholder="Password">
-                                  <label for="FormPassword">Password</label>
-                                  <small id="FormPasswordBlock" class="form-text text-muted mb-4">
+
+<body>
+
+    <div class="container1">
+        <div class="card">
+            <h5 class="card-header white-text text-center py-4">
+                <strong><h3>Sign In</h3></strong>
+            </h5>
+            <div class="card-body px-lg-5 pt-0">
+                <form class="text-center" action="#">
+                    <div class="form-row">
+
+
+                    </div><br>
+                    <div class="md-form mt-0">
+                        <input type="email" id="FormEmail" class="form-control" placeholder="Email">
+                        <label for="FormEmail">E-mail</label>
+                    </div>
+                    <div class="md-form">
+                        <input type="password" id="FormPassword" class="form-control" placeholder="Password">
+                        <label for="FormPassword">Password</label>
+                        <small id="FormPasswordBlock" class="form-text text-muted mb-4">
           At least 8 characters and 1 digit
         </small>
-                                </div>
-                                
-                                  <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Sign
+                    </div>
+
+                    <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Sign
         in</button>
-                                  <p> Sign In with:</p>
-                                  <a type="button" class="btn-floating btn-fb btn-sm">
-                                    <i class="fab fa-facebook-f"></i>
-                                  </a>
-                                  <a type="button" class="btn-floating btn-tw btn-sm">
-                                    <i class="fab fa-twitter"></i>
-                                  </a>
-                                  <a type="button" class="btn-floating btn-li btn-sm">
-                                    <i class="fab fa-linkedin-in"></i>
-                                  </a>
-                                  <a type="button" class="btn-floating btn-git btn-sm">
-                                    <i class="fab fa-github"></i>
-                                  </a>
-                                  <hr>
-                                    <p>By clicking
-        
-                                      <em>Sign In</em> you agree to our
-        
-                                      <a href="" target="_blank">terms of service</a>
-                                    </form>
-                                  </div>
-                                </div>
-                              </div>
+                    <p> Sign In with:</p>
+                    <a type="button" class="btn-floating btn-fb btn-sm">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a type="button" class="btn-floating btn-tw btn-sm">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a type="button" class="btn-floating btn-li btn-sm">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a type="button" class="btn-floating btn-git btn-sm">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <hr>
+                    <p>By clicking
+
+                        <em>Sign In</em> you agree to our
+
+                        <a href="" target="_blank">terms of service</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <div class="container2">
+        <div class="card">
+            <h5 class="card-header white-text text-center py-4">
+                <strong>Sign up</strong>
+            </h5>
+            <div class="card-body px-lg-5 pt-0">
+                <form class="text-center" action="#">
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="md-form">
+                                <input type="text" id="FirstName" class="form-control" placeholder="First Name">
+                                <label for="FirstName">First name</label>
                             </div>
-                          
-										
-											<div class="container2">
-												<div class="card">
-													<h5 class="card-header white-text text-center py-4">
-														<strong>Sign up</strong>
-													</h5>
-													<div class="card-body px-lg-5 pt-0">
-														<form class="text-center" action="#">
-															<div class="form-row">
-																<div class="col">
-																	<div class="md-form">
-																		<input type="text" id="FirstName" class="form-control" placeholder="First Name">
-																			<label for="FirstName">First name</label>
-																		</div>
-																	</div>
-																	<div class="col">
-																		<div class="md-form">
-																			<input type="email" id="LastName" class="form-control" placeholder="Last Name">
-																				<label for="LastName">Last name</label>
-																			</div>
-																		</div>
-																	</div>
-																	<div class="md-form mt-0">
-																		<input type="email" id="FormEmail" class="form-control" placeholder="Email">
-																			<label for="FormEmail">E-mail</label>
-																		</div>
-																		<div class="md-form">
-																			<input type="password" id="FormPassword" class="form-control" placeholder="Password">
-																				<label for="FormPassword">Password</label>
-																				
-																			</div>
-																			<div class="md-form">
-																				<input type="password" id="FormPhone" class="form-control" placeholder="Phone Number">
-																					<label for="FormPhone">Phone number</label>
-																				</div>
-																				<button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Sign
+                        </div>
+                        <div class="col">
+                            <div class="md-form">
+                                <input type="email" id="LastName" class="form-control" placeholder="Last Name">
+                                <label for="LastName">Last name</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md-form mt-0">
+                        <input type="email" id="FormEmail" class="form-control" placeholder="Email">
+                        <label for="FormEmail">E-mail</label>
+                    </div>
+                    <div class="md-form">
+                        <input type="password" id="FormPassword" class="form-control" placeholder="Password">
+                        <label for="FormPassword">Password</label>
+
+                    </div>
+                    <div class="md-form">
+                        <input type="password" id="FormPhone" class="form-control" placeholder="Phone Number">
+                        <label for="FormPhone">Phone number</label>
+                    </div>
+                    <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Sign
               in</button>
-																				<p>or sign up with:</p>
-																				<a type="button" class="btn-floating btn-fb btn-sm">
-																					<i class="fab fa-facebook-f"></i>
-																				</a>
-																				<a type="button" class="btn-floating btn-tw btn-sm">
-																					<i class="fab fa-twitter"></i>
-																				</a>
-																				<a type="button" class="btn-floating btn-li btn-sm">
-																					<i class="fab fa-linkedin-in"></i>
-																				</a>
-																				<a type="button" class="btn-floating btn-git btn-sm">
-																					<i class="fab fa-github"></i>
-																				</a>
-																				
-																					</form>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																
-															</body>
-														</html>
+                    <p>or sign up with:</p>
+                    <a type="button" class="btn-floating btn-fb btn-sm">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a type="button" class="btn-floating btn-tw btn-sm">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a type="button" class="btn-floating btn-li btn-sm">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a type="button" class="btn-floating btn-git btn-sm">
+                        <i class="fab fa-github"></i>
+                    </a>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+
+</body>
+
+</html>
