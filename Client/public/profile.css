@@ -1,8 +1,8 @@
-.card{
+/* .card{
     float: left;
     /* background-color: rgba(20, 230, 167, 0.651); */
     
-    float:left;
+    /* float:left;
 }
 h2.textcolor{
     color: azure;
@@ -15,9 +15,9 @@ h2.textcolor{
 .card-title{
     color: rgb(0, 0, 0);
     text-align: center;
-}
-.img{
-    border: 2px solid black;
+} */
+.bg-color{
+    background-color: grey;
 }
 
 
