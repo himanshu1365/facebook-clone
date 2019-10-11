@@ -20,4 +20,4 @@ const SignUpModel = new Schema({
     }
 })
 
-module.exports = mongoose.model('SIgnUpModel',SignUpModel)
+module.exports = mongoose.model('SignUpModel',SignUpModel)

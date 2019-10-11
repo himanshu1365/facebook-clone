@@ -1,9 +1,9 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const { PORT, HOST } =require('./config')
+const { PORT, HOST,SECRET } =require('./config')
 const mongooseConnection = require('../db').connection;
-
 const router = require('../routers/route')
+
 const cors = require('cors')
 
 const app = express()
