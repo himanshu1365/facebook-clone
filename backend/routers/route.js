@@ -1,12 +1,21 @@
-const app = require('../config/server')
+const express = require('express')
+
+const Users = require('../controller/Users')
 
 module.exports =()=> {
     const router = express.Router();
     
-    router.get('/',function(req,res) {
-        let reqPath = path.join(__dirname, '../../Client/views/index.html')
-        res.sendFile(reqPath)
+    router.post('/signup',(req,res)=>{
+        Users.saveSignUpData(req,res)
     })
-    
-    return router()
+
+    router.post('/login',(req,res)=>{
+        Users.checkLoginUser(req,res)
+    })
+
+    router.get('/login/loginAuthentication',(req,res)=>{
+        let status = Users.checkUserToken(req,res)
+    })
+        
+    return router
 }
