@@ -19,5 +19,8 @@ module.exports =()=> {
         console.log(req.body)
         Users.checkLoginUser(req,res)
     })
+    router.post('/home',(req, res)=>{
+        Users.userPost(req,res);
+    })
     return router
 }
