@@ -2,12 +2,12 @@ const { mongoose } = require('../db/connection')
 
 const Schema = mongoose.Schema
 
-const PostModel = new Schema({
+const LikeModel = new Schema({
     userid: {
         type: String,
     },
     posts:[{
-        postdate: {
+        postID: {
             type: Date,
         },
         postdata:{
@@ -16,4 +16,4 @@ const PostModel = new Schema({
     }]
 })
 
-module.exports = mongoose.model('PostModel',PostModel)
+module.exports = mongoose.model('LikeModel',LikeModel)
