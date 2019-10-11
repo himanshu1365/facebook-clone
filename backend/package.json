@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"nodemon index.js"
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -18,7 +18,18 @@
   },
   "homepage": "https://github.com/ashishchopra11/facebook-clone#readme",
   "dependencies": {
-    "express": "^4.17.1"
+<<<<<<< HEAD
+<<<<<<< HEAD
+    "bcryptjs": "^2.4.3",
+=======
+>>>>>>> 5c23cae6c1b50e38618fdf60ceef314337b7c0d5
+=======
+    "bcryptjs": "^2.4.3",
+>>>>>>> f1a390f712b4a95411fc20523384b4733c309c97
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.7.4"
   },
   "devDependencies": {
     "nodemon": "^1.19.3"
