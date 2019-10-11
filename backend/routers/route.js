@@ -1,5 +1,12 @@
 const express = require('express')
 const Users = require('../controller/Users')
+const bodyParser = require('body-parser')
+const app = express()
+
+
+app.use(bodyParser.urlencoded({
+    extended: true
+}))
 
 module.exports =()=> {
     const router = express.Router();
@@ -9,12 +16,8 @@ module.exports =()=> {
     })
 
     router.post('/login',(req,res)=>{
+        console.log(req.body)
         Users.checkLoginUser(req,res)
     })
-
-    router.get('/login/loginAuthentication',(req,res)=>{
-        let status = Users.checkUserToken(req,res)
-    })
-
     return router
 }

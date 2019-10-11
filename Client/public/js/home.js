@@ -1,5 +1,5 @@
 $(document).ready(function(){
-        $.ajax('http://localhost:9000/login/loginAuthentication',{
+        $.ajax('',{
             type: 'GET',
             dataType:"json",
             contentType:"application/json",
