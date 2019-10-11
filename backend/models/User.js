@@ -45,7 +45,7 @@ const checkUserToken = async(req,res)=>{
 const userPost = async( req, res )=>{
     try{
     let post = await PostModel.find({userid:req.body.userid});
-    console.log(post);
+    // console.log(post);
 
     if ( post.length != 0 ){
 
