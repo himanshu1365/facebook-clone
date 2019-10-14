@@ -31,19 +31,11 @@ const getAllPosts = async(req,res)=>{
    catch(error){}
 }
 const saveUserPost = async(req, res )=>{
-<<<<<<< HEAD
-    try{
-        let resp = await User.userPost(req, res);
-        res.send(resp);
-    }
-    catch( erre ){
-=======
     try
     {
     let resp = await User.saveUserPost(req, res);
      res.send(resp);
     }catch( erre ){
->>>>>>> c32ff222629bb3a3d1fa612c0a69d1e8c1fef445
         console.log(erre)
     }
 }

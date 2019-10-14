@@ -3,6 +3,7 @@ const Comment = require('./comment');
 const PostModel = require('./postModel')
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+//  const userData = require('./')
 const {SECRET} = require('../config/config')
 
 const saveSignUpData  = async(req,res,data)=>{
@@ -34,12 +35,30 @@ const loginUser = async(req,res)=>{
     }
 }
 
+const particularUserData  = async(req,res)=>{
+    try{
+        debugger
+        // console.log(req.query._id)
+        let fetchId = await PostModel.findOne({_id: req.query._id})
+        console.log(fetchId)
+            if(fetchId.length!=0){
+            return res.status(200).send(fetchId.data);
+    }
+    
+        }catch(error){
+            return res.status(200).send({message: 'No Posts exist for this user'})
+        }
+        
+}
+
+
 const getAllPosts = async(req,res)=>{
     try{
         const data = await PostModel.find()
         return data;
     }catch(error){}
 }
+
 
 const checkUserToken = async(req,res)=>{
     jwt.verify(req.headers.token,SECRET,(err,authData)=>{
@@ -90,6 +109,7 @@ const saveUserPost = async( req, res )=>{
         }
     }
 }
+ 
 const userComment = async( req , res ) =>{
 
     try{
