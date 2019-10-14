@@ -19,13 +19,19 @@ module.exports =()=> {
         Users.checkLoginUser(req,res)
     })
     router.post('/home',(req, res)=>{
-        Users.userPost(req,res);
+        Users.saveUserPost(req,res);
     })
+
     router.post('/home/comment',(req,res)=>{
         Users.userComment(req,res);
     })
-    router.get('/home/getComment',(req,res )=>{
-        Users.getComments();
+
+    router.get('/home/getComment',(req,res)=>{
+        Users.getComments(req,res);
+    })
+
+    router.get('/home/getPosts',(req,res)=>{
+        Users.getAllPosts(req,res);
     })
     return router
 }

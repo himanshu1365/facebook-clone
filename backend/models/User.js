@@ -1,6 +1,6 @@
 const SignUpModel = require('./signupdata')
 const Comment = require('./comment');
-const PostModel = require('./post')
+const PostModel = require('./postModel')
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const {SECRET} = require('../config/config')
@@ -15,8 +15,7 @@ const saveSignUpData  = async(req,res,data)=>{
     }
     else{
         return res.status(400).send({msg:'User already Existed'})
-    }
-    
+    }   
 }
 
 const loginUser = async(req,res)=>{
@@ -33,6 +32,11 @@ const loginUser = async(req,res)=>{
             return res.status(400).send({msg:'Incorrect Login Credentials'})
         }
     }
+}
+
+const getAllPosts = async(req,res)=>{
+    const response = await PostModel.find()
+    return response
 }
 
 const checkUserToken = async(req,res)=>{
@@ -113,5 +117,6 @@ module.exports = {
     checkUserToken,
     userPost,
     userComment,
-    getComments
+    getComments,
+    getAllPosts
 }
