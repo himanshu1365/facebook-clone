@@ -27,7 +27,11 @@ module.exports =()=> {
     })
 
     router.get('/home/getComment',(req,res)=>{
-        Users.getComments();
+        Users.getComments(req,res);
+    })
+
+    router.get('/home/getPosts',(req,res)=>{
+        Users.getAllPosts(req,res);
     })
     return router
 }
