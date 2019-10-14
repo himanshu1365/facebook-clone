@@ -18,6 +18,14 @@ module.exports =()=> {
     router.post('/login',(req,res)=>{
         Users.checkLoginUser(req,res)
     })
+
+    router.use(authMiddleware)
+
+    router.get('/home/getPosts',async (req,res)=>{
+       const response = await Users.getAllPosts(req,res);
+       return response
+    })
+
     router.post('/post',(req, res)=>{
         Users.saveUserPost(req,res);
     })
@@ -30,8 +38,5 @@ module.exports =()=> {
         Users.getComments(req,res);
     })
 
-    router.get('/home/getPosts',(req,res)=>{
-        Users.getAllPosts(req,res);
-    })
     return router
 }

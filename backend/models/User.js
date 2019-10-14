@@ -24,7 +24,7 @@ const loginUser = async(req,res)=>{
         let password = checkUser[0].Password
         let status = bcryptjs.compareSync(req.body.Password,password)
         if(status){
-            jwt.sign({userToken: checkUser[0]._id},SECRET, (err,token)=>{
+            jwt.sign({userToken: checkUser[0]._id},SECRET,{ expiresIn: 60},(err,token)=>{
                 return res.status(200).send({msg:'Login Successful',token: token})
             })
         }
@@ -35,11 +35,15 @@ const loginUser = async(req,res)=>{
 }
 
 const getAllPosts = async(req,res)=>{
-    try{
         const response = await PostModel.find()
-        return response
-    }catch(error){}
-}
+        // return res.status(200).send({data: response})
+        try{
+            const response = await PostModel.find()
+            return response
+        }catch(error){
+
+        }
+    }
 
 const checkUserToken = async(req,res)=>{
     jwt.verify(req.headers.token,SECRET,(err,authData)=>{
@@ -49,15 +53,14 @@ const checkUserToken = async(req,res)=>{
         return res.status(200).send({'msg':'Valid Token'})
     })
 }
-const saveUserPost = async( req, res )=>{
+const userPost = async( req, res )=>{
     try{
-    let post = await PostModel.find({userId:req.body.userId});
-    console.log(post);
+    let post = await PostModel.find({userid:req.body.userid});
 
     if ( post.length != 0 ){
 
         await PostModel.findOneAndUpdate({
-            userId:req.body.userId
+            userid:req.body.userid,
         },
         {
             $push:{
@@ -66,8 +69,8 @@ const saveUserPost = async( req, res )=>{
         });
 
         return {
-            status:200,
-            msg:'post added'
+            'status':200,
+            'msg':'post added'
         }
 
     }
@@ -76,16 +79,16 @@ const saveUserPost = async( req, res )=>{
         let postData = new PostModel(req.body);
         await postData.save();
         return {
-            status:200,
-            msg:'post added'
+            'status':200,
+            'msg':'post added'
             }
         }
     
     }catch(err){
         return {
-            status:404,
-            msg:'something went wrong',
-            error:err
+            'status':404,
+            'msg':'something went wrong',
+            'error':err
         }
     }
 }
@@ -100,7 +103,7 @@ const userComment = async( req , res ) =>{
             msg :'comments saved successfully'
         }
     }catch(err){
-        console.log(err)
+        //console.log(err)
     }
 
 }
@@ -110,14 +113,14 @@ const getComments = async(req , res )=>{
         return data;
     }
     catch( error ){
-        console.log(error)
+       // console.log(error)
     }
 }
 module.exports = {
     saveSignUpData,
     loginUser,
     checkUserToken,
-    saveUserPost,
+    userPost,
     userComment,
     getComments,
     getAllPosts

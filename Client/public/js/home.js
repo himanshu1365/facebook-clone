@@ -1,4 +1,18 @@
 $(document).ready( function(){
+    $.ajax("http://localhost:9000/home/getPosts",{
+            type:'GET',
+            dataType:'JSON',
+            headers:{
+                token: localStorage.getItem('userToken')
+            },
+            success: function(data){
+                console.log(data)
+            },
+            error: function(error){
+                $(location).attr('href','../index.html')
+            }
+        })
+
     $("#btn").click( function(){
         var d = new Date();
         var month = d.getMonth()+1;
@@ -6,7 +20,6 @@ $(document).ready( function(){
         var output = d.getFullYear() + '-' +
             (month<10 ? '0' : '') + month + '-' +
             (day<10 ? '0' : '') + day;
-            console.log('hello');
         $.ajax("http://localhost:9000/home",{
                 type:"POST",
                 dataType: "json",
