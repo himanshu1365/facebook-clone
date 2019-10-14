@@ -40,6 +40,7 @@ const saveUserPost = async(req, res )=>{
 =======
     try
     {
+        console.log(req.body);
     let resp = await User.saveUserPost(req, res);
      res.send(resp);
     }catch( erre ){
