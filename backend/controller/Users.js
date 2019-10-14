@@ -21,6 +21,15 @@ const checkUserToken = async(req,res)=>{
     const status = User.checkUserToken(req,res)
     return status
 }
+
+const getAllPosts = async(req,res)=>{
+   try{
+    const status = await User.getAllPosts(req,res)
+    console.log(status);
+    res.send(status);
+   }
+   catch(error){}
+}
 const saveUserPost = async(req, res )=>{
     try
     {
@@ -48,11 +57,13 @@ const getComments = async( req, res )=>{
         console.log(error)
     }
 }
+
 module.exports = {
     saveSignUpData,
     checkLoginUser,
     checkUserToken,
     saveUserPost,
     userComment,
-    getComments
+    getComments,
+    getAllPosts
 }

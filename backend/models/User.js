@@ -15,8 +15,7 @@ const saveSignUpData  = async(req,res,data)=>{
     }
     else{
         return res.status(400).send({msg:'User already Existed'})
-    }
-    
+    }   
 }
 
 const loginUser = async(req,res)=>{
@@ -35,6 +34,13 @@ const loginUser = async(req,res)=>{
     }
 }
 
+const getAllPosts = async(req,res)=>{
+    try{
+        const response = await PostModel.find()
+        return response
+    }catch(error){}
+}
+
 const checkUserToken = async(req,res)=>{
     jwt.verify(req.headers.token,SECRET,(err,authData)=>{
         if(err){
@@ -45,13 +51,13 @@ const checkUserToken = async(req,res)=>{
 }
 const saveUserPost = async( req, res )=>{
     try{
-    let post = await PostModel.find({userid:req.body.userid});
+    let post = await PostModel.find({userId:req.body.userId});
     console.log(post);
 
     if ( post.length != 0 ){
 
         await PostModel.findOneAndUpdate({
-            userid:req.body.userid,
+            userId:req.body.userId
         },
         {
             $push:{
@@ -60,8 +66,8 @@ const saveUserPost = async( req, res )=>{
         });
 
         return {
-            'status':200,
-            'msg':'post added'
+            status:200,
+            msg:'post added'
         }
 
     }
@@ -70,16 +76,16 @@ const saveUserPost = async( req, res )=>{
         let postData = new PostModel(req.body);
         await postData.save();
         return {
-            'status':200,
-            'msg':'post added'
+            status:200,
+            msg:'post added'
             }
         }
     
     }catch(err){
         return {
-            'status':404,
-            'msg':'something went wrong',
-            'error':err
+            status:404,
+            msg:'something went wrong',
+            error:err
         }
     }
 }
@@ -113,5 +119,6 @@ module.exports = {
     checkUserToken,
     saveUserPost,
     userComment,
-    getComments
+    getComments,
+    getAllPosts
 }
