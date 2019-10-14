@@ -1,6 +1,6 @@
 const SignUpModel = require('./signupdata')
 const Comment = require('./comment');
-const PostModel = require('./post')
+const PostModel = require('./postModel')
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const {SECRET} = require('../config/config')
@@ -43,7 +43,7 @@ const checkUserToken = async(req,res)=>{
         return res.status(200).send({'msg':'Valid Token'})
     })
 }
-const userPost = async( req, res )=>{
+const saveUserPost = async( req, res )=>{
     try{
     let post = await PostModel.find({userid:req.body.userid});
     console.log(post);
@@ -111,7 +111,7 @@ module.exports = {
     saveSignUpData,
     loginUser,
     checkUserToken,
-    userPost,
+    saveUserPost,
     userComment,
     getComments
 }
