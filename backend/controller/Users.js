@@ -21,12 +21,20 @@ const checkUserToken = async(req,res)=>{
     const status = User.checkUserToken(req,res)
     return status
 }
-const userPost = async(req, res )=>{
-    try
-    {
-    let resp = await User.userPost(req, res);
-     res.send(resp);
-    }catch( erre ){
+
+const getAllPosts = async(req,res)=>{
+   try{
+        const status = await User.getAllPosts(req,res)
+        res.send(status);
+    }
+    catch(error){}
+}
+const saveUserPost = async(req, res )=>{
+    try{
+        let resp = await User.saveUserPost(req, res);
+        res.send(resp);
+    }
+    catch( erre ){
         console.log(erre)
     }
 }
@@ -57,12 +65,17 @@ const getComments = async( req, res )=>{
         console.log(error)
     }
 }
+
 module.exports = {
     saveSignUpData,
     checkLoginUser,
     checkUserToken,
+
     particularUserData,
     userPost,
+
+    saveUserPost,
     userComment,
-    getComments
+    getComments,
+    getAllPosts
 }

@@ -1,6 +1,6 @@
 const SignUpModel = require('./signupdata')
 const Comment = require('./comment');
-const PostModel = require('./post')
+const PostModel = require('./postModel')
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 //  const userData = require('./')
@@ -16,8 +16,7 @@ const saveSignUpData  = async(req,res,data)=>{
     }
     else{
         return res.status(400).send({msg:'User already Existed'})
-    }
-    
+    }   
 }
 
 const loginUser = async(req,res)=>{
@@ -26,7 +25,7 @@ const loginUser = async(req,res)=>{
         let password = checkUser[0].Password
         let status = bcryptjs.compareSync(req.body.Password,password)
         if(status){
-            jwt.sign({userToken: checkUser[0]._id},SECRET, (err,token)=>{
+            jwt.sign({userToken: checkUser[0]._id},SECRET,{ expiresIn: 60},(err,token)=>{
                 return res.status(200).send({msg:'Login Successful',token: token})
             })
         }
@@ -35,6 +34,7 @@ const loginUser = async(req,res)=>{
         }
     }
 }
+
 const particularUserData  = async(req,res)=>{
     try{
         debugger
@@ -50,7 +50,20 @@ const particularUserData  = async(req,res)=>{
         }
         
 }
-    
+
+
+const getAllPosts = async(req,res)=>{
+        const response = await PostModel.find()
+        // return res.status(200).send({data: response})
+        try{
+            const response = await PostModel.find()
+            return response
+        }catch(error){
+
+        }
+    }
+
+
 const checkUserToken = async(req,res)=>{
     jwt.verify(req.headers.token,SECRET,(err,authData)=>{
         if(err){
@@ -61,13 +74,12 @@ const checkUserToken = async(req,res)=>{
 }
 const userPost = async( req, res )=>{
     try{
-    let post = await PostModel.find({userid:req.body.userid});
-    console.log(post);
+        let post = await PostModel.find({userid:req.body.userid});
 
     if ( post.length != 0 ){
 
         await PostModel.findOneAndUpdate({
-            userid:req.body.userid,
+            userid: req.headers.tokenValue
         },
         {
             $push:{
@@ -111,7 +123,7 @@ const userComment = async( req , res ) =>{
             msg :'comments saved successfully'
         }
     }catch(err){
-        console.log(err)
+        //console.log(err)
     }
 
 }
@@ -121,7 +133,7 @@ const getComments = async(req , res )=>{
         return data;
     }
     catch( error ){
-        console.log(error)
+       // console.log(error)
     }
 }
 module.exports = {
@@ -131,5 +143,6 @@ module.exports = {
     particularUserData,
     userPost,
     userComment,
-    getComments
+    getComments,
+    getAllPosts
 }

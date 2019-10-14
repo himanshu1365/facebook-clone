@@ -1,13 +1,18 @@
-
+const {SECRET} = require('../config/config')
 const jwt = require('jsonwebtoken')
 
 function authMiddleware(req,res,next){
-    jwt.verify(req.headers.token,SECRET,(err,authData)=>{
-        if(err){
-            return res.status(403).send({'msg':'Invalid Token'})
-        }
-    })
-    next()
+    console.log('middleware working')
+    const token = req.headers.token
+    try{
+        const status = jwt.verify(token,SECRET)
+        req.headers.tokenValue = status.userToken
+        next()
+    }
+    catch(error){
+        return res.status(403).send({'msg':'Invalid Token'})
+    }
+    
 }
 
 module.exports = {
