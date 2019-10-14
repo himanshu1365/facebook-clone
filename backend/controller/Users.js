@@ -21,9 +21,15 @@ const checkUserToken = async(req,res)=>{
     const status = User.checkUserToken(req,res)
     return status
 }
+const particularUserData = async(req,res)=>{
+    let response
+    resonse = await User.particularUserData(req,res)
+    return status
+}
 
 module.exports = {
     saveSignUpData,
     checkLoginUser,
-    checkUserToken
+    checkUserToken,
+    particularUserData
 }

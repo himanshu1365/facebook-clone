@@ -18,6 +18,9 @@ module.exports =()=> {
     router.post('/login',(req,res)=>{
         Users.checkLoginUser(req,res)
     })
+    router.post('/profilePage',(req,res)=>{
+        Users.particularUserData(req,res)
+    })
     
     return router
 }

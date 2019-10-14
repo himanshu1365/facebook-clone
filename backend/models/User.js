@@ -1,6 +1,7 @@
 const SignUpModel = require('./signupdata')
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const 
 const {SECRET} = require('../config/config')
 
 const saveSignUpData  = async(req,res,data)=>{
@@ -41,9 +42,13 @@ const checkUserToken = async(req,res)=>{
         return res.status(200).send({'msg':'Valid Token'})
     })
 }
+const particularUserData = async(req,req)=>{
+     
+}
 
 module.exports = {
     saveSignUpData,
     loginUser,
-    checkUserToken
+    checkUserToken,
+    particularUserData
 }
