@@ -1,0 +1,24 @@
+{
+  "name": "facebookproject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/garima1714/facebook-clone.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/garima1714/facebook-clone/issues"
+  },
+  "homepage": "https://github.com/garima1714/facebook-clone#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^8.5.1",
+    "jwt-simple": "^0.5.6"
+  }
+}

@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken')
 const saveSignUpData = async (req,res)=>{
     let body,response
     body = req.body
+
     var hash = bcryptjs.hashSync(body.Password, 8)
     body.Password = hash
     response = await User.saveSignUpData(req,res,body)
@@ -22,8 +23,16 @@ const checkUserToken = async(req,res)=>{
     return status
 }
 
+const savecomments = async (req,res)=>{
+    let body,response
+    body = req.body
+    response = await User.savecomments(req,res,body)
+    return response
+}
+
 module.exports = {
     saveSignUpData,
     checkLoginUser,
-    checkUserToken
+    checkUserToken,
+    savecomments
 }

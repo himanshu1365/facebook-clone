@@ -2,7 +2,7 @@ const SignUpModel = require('./signupdata')
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const {SECRET} = require('../config/config')
-
+const commentSchema = require('./commentschema')
 const saveSignUpData  = async(req,res,data)=>{
     let existingUser
     let modeldata = new SignUpModel(data)
@@ -42,8 +42,42 @@ const checkUserToken = async(req,res)=>{
     })
 }
 
+const savecomments  = async(req,res)=>{
+    let response,body,details
+  body =req.body
+  details = new commentSchema(body)
+  console.log(details)
+//   const comment = new Comment(req.body);
+  try{
+  
+  details
+    
+    .then(details => {
+      return commentSchema.findById(req.params.userid);
+    })
+    .then(commentSchema => {
+    commentSchema.details.$push(details);
+      return commentSchema.save();
+    })
+   
+    .catch(err => {
+      console.log(err);
+    });
+  
+    response =await details.save()
+    return response
+  }
+  catch(err)
+  {
+    response = {error:err}
+    return response
+  }
+    
+}
+
 module.exports = {
     saveSignUpData,
     loginUser,
-    checkUserToken
+    checkUserToken,
+    savecomments
 }
