@@ -1,4 +1,5 @@
 const SignUpModel = require('./signupdata')
+const Comment = require('./comment');
 const PostModel = require('./post')
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
@@ -52,13 +53,57 @@ const saveUserPost = async( req, res )=>{
         }
         else
         {
-            let postData = new PostModel(req.body);
-            await postData.save();
-            return res.status(200).send({msg:"user post saved"});
+            $push:{
+                posts:req.body.posts
+            }
+        });
+
+        return {
+            'status':200,
+            'msg':'post added'
+        }
+
+    }
+    else
+    {
+        let postData = new PostModel(req.body);
+        await postData.save();
+        return {
+            'status':200,
+            'msg':'post added'
+            }
+        }
+    
+    }catch(err){
+        return {
+            'status':404,
+            'msg':'something went wrong',
+            'error':err
         }
     }
-    catch(err){
-        return res.status(404).send({err : "could not find"});
+}
+const userComment = async( req , res ) =>{
+
+    try{
+        let comment = new Comment(req.body);
+        await comment.save();
+        return {
+            status:200,
+            statusText:'OK',
+            msg :'comments saved successfully'
+        }
+    }catch(err){
+        console.log(err)
+    }
+
+}
+const getComments = async(req , res )=>{
+    try{
+        let data = await Comment.find();
+        return data;
+    }
+    catch( error ){
+        console.log(error)
     }
 }
 
@@ -67,5 +112,7 @@ module.exports = {
     saveSignUpData,
     loginUser,
     checkUserToken,
-    saveUserPost
+    userPost,
+    userComment,
+    getComments
 }

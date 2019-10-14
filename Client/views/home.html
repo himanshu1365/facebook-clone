@@ -11,9 +11,8 @@
     <script src="https://use.fontawesome.com/7bfc1da72e.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="../public/js/home.js"></script>
-    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="../public/css/home.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="../public/js/home.js"></script>
     <title>Home</title>
 </head>
 <body>
@@ -27,13 +26,11 @@
         <div class="row">
             <div class="col-sm-3" ></div>
             <div class="col-sm-6 main" >
-                <form class="post" action="#" method="POST" class="post-form">
-                    <div class="form-group">
-                        <h5>Create Your Post:</h5>
-                        <textarea id="myTextarea" rows="3" cols="60" ></textarea><br>
-                        <button type="button" class="btn btn-primary">Post</button>
-                        <hr>
-                    </div>
+                <form class="post">
+                    <h5>Create Your Post:</h5>
+                    <textarea id="myTextarea" rows="3" placeholder="Write something..."></textarea><br>
+                    <button type="button" class="btn btn-primary" id="btn">Post</button>
+                    <hr>
                 </form>
                 <div class="display-post">
                     <div class="post-author">
@@ -49,12 +46,20 @@
                         </div>
                         <div class="image-div">
                             <img src="..//assets/post.jpg" class="rounded" alt="Cinque Terre" width="304" height="236"> 
-                        </div>
+                        </div><br>
                         <div class="like-comment-share">
-                            <button type="button" class="btn btn-primary"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>
-                            <button type="button" class="btn btn-info"><i class="fa fa-comment" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-primary"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button type="button" class="btn btn-info" id="show-comments"><i class="fa fa-comment" aria-hidden="true"></i></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <button type="button" class="btn btn-success"><i class="fa fa-share-alt-square" aria-hidden="true"></i>
                             </button>
+                        </div><br>
+                        <div class="display-comment">
+                            <p>you are great</p>
+                        </div>
+                        <br>
+                        <div class="comment-box">
+                            <input type="text" class="comment" placeholder="Write your comments..." id="comment-id">
+                            <button type="button" class="btn btn-dark" id="comment-btn">Comment</button>                            
                         </div>
                     </div>
                 </div>
@@ -62,5 +67,6 @@
             <div class="col-sm-3" ></div>
         </div>
     </div>
+    <script src="../public/js/home.js"></script>
 </body>
 </html>

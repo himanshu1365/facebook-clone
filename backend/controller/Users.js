@@ -21,13 +21,38 @@ const checkUserToken = async(req,res)=>{
     const status = User.checkUserToken(req,res)
     return status
 }
-const saveUserPost = async(req, res )=>{
-    let response = await User.userPost(req, res);
-    return response;
+const userPost = async(req, res )=>{
+    try
+    {
+    let resp = await User.userPost(req, res);
+     res.send(resp);
+    }catch( erre ){
+        console.log(erre)
+    }
+}
+const userComment = async(req,res)=>{
+    try{
+        let comm = await User.userComment( req , res );
+        res.send(comm);
+    }catch( error ){
+        console.log(error)
+    }
+}
+const getComments = async( req, res )=>{
+    try{
+        let data = await User.getComments(req , res );
+        // console.log(data)
+       res.send(data);
+    }
+    catch(error ){
+        console.log(error)
+    }
 }
 module.exports = {
     saveSignUpData,
     checkLoginUser,
     checkUserToken,
-    saveUserPost
+    userPost,
+    userComment,
+    getComments
 }
