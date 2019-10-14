@@ -43,25 +43,39 @@ const checkUserToken = async(req,res)=>{
         return res.status(200).send({'msg':'Valid Token'})
     })
 }
-
 const userPost = async( req, res )=>{
     try{
-        let post = await PostModel.find({userid:req.body.userid});
-        if (post.length != 0){
-            await PostModel.findOneAndUpdate({ userid:req.body.userid }, { $push:{ posts:req.body.posts } });
-            return res.status(200).send({msg:"user post added"});
-        }
-        else
+    let post = await PostModel.find({userid:req.body.userid});
+    console.log(post);
+
+    if ( post.length != 0 ){
+
+        await PostModel.findOneAndUpdate({
+            userid:req.body.userid,
+        },
         {
-            let postData = new PostModel(req.body);
-            await postData.save();
-            return {
-                'status':200,
-                'msg':'post added'
+            $push:{
+                posts:req.body.posts
+            }
+        });
+
+        return {
+            'status':200,
+            'msg':'post added'
+        }
+
+    }
+    else
+    {
+        let postData = new PostModel(req.body);
+        await postData.save();
+        return {
+            'status':200,
+            'msg':'post added'
             }
         }
-    }
-    catch(err){
+    
+    }catch(err){
         return {
             'status':404,
             'msg':'something went wrong',
@@ -69,7 +83,6 @@ const userPost = async( req, res )=>{
         }
     }
 }
-
 const userComment = async( req , res ) =>{
 
     try{
@@ -94,8 +107,6 @@ const getComments = async(req , res )=>{
         console.log(error)
     }
 }
-
-
 module.exports = {
     saveSignUpData,
     loginUser,
