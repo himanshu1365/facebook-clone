@@ -24,8 +24,10 @@ $(document).ready( function(){
                 type:"POST",
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
+                headers:{
+                    token: localStorage.getItem('userToken')
+                },
                 data:JSON.stringify({
-                    "userid":"user@gmail.com",
                     "posts":[{
                         "postdate":output,
                         "postdata":$.trim($("#myTextarea").val())

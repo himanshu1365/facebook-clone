@@ -30,11 +30,11 @@ const getAllPosts = async(req,res)=>{
     catch(error){}
 }
 const saveUserPost = async(req, res )=>{
-    try
-    {
-    let resp = await User.saveUserPost(req, res);
-     res.send(resp);
-    }catch( erre ){
+    try{
+        let resp = await User.saveUserPost(req, res);
+        res.send(resp);
+    }
+    catch( erre ){
         console.log(erre)
     }
 }

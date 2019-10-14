@@ -55,12 +55,12 @@ const checkUserToken = async(req,res)=>{
 }
 const userPost = async( req, res )=>{
     try{
-    let post = await PostModel.find({userid:req.body.userid});
+        let post = await PostModel.find({userid:req.body.userid});
 
     if ( post.length != 0 ){
 
         await PostModel.findOneAndUpdate({
-            userid:req.body.userid,
+            userid: req.headers.tokenValue
         },
         {
             $push:{
