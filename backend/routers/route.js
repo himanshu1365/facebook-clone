@@ -18,12 +18,10 @@ module.exports =()=> {
     router.post('/login',(req,res)=>{
         Users.checkLoginUser(req,res)
     })
-<<<<<<< HEAD
-    router.post('/profilePage',(req,res)=>{
+    router.get('/home/profilePage',(req,res)=>{
         Users.particularUserData(req,res)
     })
     
-=======
     router.post('/home',(req, res)=>{
         Users.userPost(req,res);
     })
@@ -33,6 +31,5 @@ module.exports =()=> {
     router.get('/home/getComment',(req,res )=>{
         Users.getComments();
     })
->>>>>>> 1cb90842af7c839117fbc4bdbac0bfc634ad3aeb
     return router
 }
