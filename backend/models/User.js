@@ -55,12 +55,14 @@ const checkUserToken = async(req,res)=>{
 }
 const userPost = async( req, res )=>{
     try{
-        let post = await PostModel.find({userid:req.body.userid});
+        req.body.userId = req.headers.tokenValue;
+        let post = await PostModel.find({userId:req.body.userId});
+        console.log(post);
 
     if ( post.length != 0 ){
 
         await PostModel.findOneAndUpdate({
-            userid: req.headers.tokenValue
+            userId: req.headers.tokenValue
         },
         {
             $push:{
@@ -69,8 +71,8 @@ const userPost = async( req, res )=>{
         });
 
         return {
-            'status':200,
-            'msg':'post added'
+            status:200,
+            msg:'post added'
         }
 
     }
@@ -79,8 +81,8 @@ const userPost = async( req, res )=>{
         let postData = new PostModel(req.body);
         await postData.save();
         return {
-            'status':200,
-            'msg':'post added'
+            status:200,
+            msg:'new user post added'
             }
         }
     

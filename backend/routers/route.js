@@ -27,6 +27,7 @@ module.exports =()=> {
     })
 
     router.post('/post',(req, res)=>{
+        console.log(req.body)
         Users.saveUserPost(req,res);
     })
 
