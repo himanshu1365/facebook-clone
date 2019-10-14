@@ -44,7 +44,7 @@ const checkUserToken = async(req,res)=>{
     })
 }
 
-const saveUserPost = async( req, res )=>{
+const userPost = async( req, res )=>{
     try{
         let post = await PostModel.find({userid:req.body.userid});
         if (post.length != 0){
@@ -53,28 +53,15 @@ const saveUserPost = async( req, res )=>{
         }
         else
         {
-            $push:{
-                posts:req.body.posts
+            let postData = new PostModel(req.body);
+            await postData.save();
+            return {
+                'status':200,
+                'msg':'post added'
             }
-        });
-
-        return {
-            'status':200,
-            'msg':'post added'
         }
-
     }
-    else
-    {
-        let postData = new PostModel(req.body);
-        await postData.save();
-        return {
-            'status':200,
-            'msg':'post added'
-            }
-        }
-    
-    }catch(err){
+    catch(err){
         return {
             'status':404,
             'msg':'something went wrong',
@@ -82,6 +69,7 @@ const saveUserPost = async( req, res )=>{
         }
     }
 }
+
 const userComment = async( req , res ) =>{
 
     try{
