@@ -18,7 +18,7 @@ module.exports =()=> {
     router.post('/login',(req,res)=>{
         Users.checkLoginUser(req,res)
     })
-    router.post('/home',(req, res)=>{
+    router.post('/post',(req, res)=>{
         Users.saveUserPost(req,res);
     })
 
