@@ -52,9 +52,10 @@ const checkUserToken = async(req,res)=>{
 const saveUserPost = async( req, res )=>{
     try{
         req.body.userId = req.headers.tokenValue;
-        console.log('userid from '+req.body);
+        console.log(req.body.userId);
     let post = await PostModel.find({userId:req.body.userId});
-    // console.log(post);
+    console.log(post);
+
     if ( post.length != 0 ){
 
         await PostModel.findOneAndUpdate({

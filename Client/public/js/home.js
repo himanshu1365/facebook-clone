@@ -1,36 +1,15 @@
 $(document).ready( function(){
-    $.ajax("http://localhost:9000/home/getPosts",{
-            type:'GET',
-            dataType:'JSON',
-            headers:{
-                token: localStorage.getItem('userToken')
-            },
-            success: function(data){
-                console.log(data)
-            },
-            error: function(error){
-                $(location).attr('href','../index.html')
-            }
-        })
-
     $("#btn").click( function(){
-        var d = new Date();
-        var month = d.getMonth()+1;
-        var day = d.getDate();
-        var output = d.getFullYear() + '-' +
-            (month<10 ? '0' : '') + month + '-' +
-            (day<10 ? '0' : '') + day;
-        $.ajax("http://localhost:9000/home",{
+            console.log('hello');
+        $.ajax("http://localhost:9000/post",{
                 type:"POST",
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
-                headers:{
-                    token: localStorage.getItem('userToken')
-                },
                 data:JSON.stringify({
+                    "userId":"",
                     "posts":[{
-                        "postdate":output,
-                        "postdata":$.trim($("#myTextarea").val())
+                        "postDate":"",
+                        "postData":$.trim($("#myTextarea").val())
                     }]
                 }),
                 success:function(data, status){

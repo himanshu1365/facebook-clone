@@ -24,17 +24,18 @@ const checkUserToken = async(req,res)=>{
 
 const getAllPosts = async(req,res)=>{
    try{
-        const status = await User.getAllPosts(req,res)
-        res.send(status);
-    }
-    catch(error){}
+    const status = await User.getAllPosts(req,res)
+    // console.log(status);
+    res.send(status);
+   }
+   catch(error){}
 }
 const saveUserPost = async(req, res )=>{
-    try{
-        let resp = await User.saveUserPost(req, res);
-        res.send(resp);
-    }
-    catch( erre ){
+    try
+    {
+    let resp = await User.saveUserPost(req, res);
+     res.send(resp);
+    }catch( erre ){
         console.log(erre)
     }
 }
