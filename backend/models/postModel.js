@@ -3,14 +3,15 @@ const {mongoose} = require('../db/connection');
 const Schema = mongoose.Schema;
 
 const PostModel = new Schema({
-    userid:{
+    userId:{
         type: String
     },
     posts:[{
-        postdate:{
-            type:Date
+        postDate:{
+            type:Date,
+            default:Date.now()
         },
-        postdata:{
+        postData:{
             type:String
         }
     }]

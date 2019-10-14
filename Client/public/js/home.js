@@ -5,11 +5,11 @@ $(document).ready( function(){
             headers:{
                 token: localStorage.getItem('userToken')
             },
-            success: function(data,success){
+            success: function(data){
                 console.log(data)
             },
             error: function(error){
-                console.log(error)
+                $(location).attr('href','../index.html')
             }
         })
 
@@ -20,7 +20,6 @@ $(document).ready( function(){
         var output = d.getFullYear() + '-' +
             (month<10 ? '0' : '') + month + '-' +
             (day<10 ? '0' : '') + day;
-            console.log('hello');
         $.ajax("http://localhost:9000/home",{
                 type:"POST",
                 dataType: "json",

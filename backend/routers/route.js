@@ -19,6 +19,13 @@ module.exports =()=> {
         Users.checkLoginUser(req,res)
     })
 
+    router.use(authMiddleware)
+
+    router.get('/home/getPosts',async (req,res)=>{
+       const response = await Users.getAllPosts(req,res);
+       return response
+    })
+
     router.post('/post',(req, res)=>{
         Users.saveUserPost(req,res);
     })
@@ -31,10 +38,5 @@ module.exports =()=> {
         Users.getComments(req,res);
     })
 
-    router.get('/home/getPosts',async (req,res)=>{
-        console.log('heom')
-       const response = await Users.getAllPosts(req,res);
-       return response
-    })
     return router
 }
