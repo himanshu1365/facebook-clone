@@ -36,7 +36,7 @@ const loginUser = async(req,res)=>{
 
 const getAllPosts = async(req,res)=>{
     const response = await PostModel.find()
-    return response
+    return res.status(200).send({data: response})
 }
 
 const checkUserToken = async(req,res)=>{

@@ -1,4 +1,18 @@
 $(document).ready( function(){
+    $.ajax("http://localhost:9000/home/getPosts",{
+            type:'GET',
+            dataType:'JSON',
+            headers:{
+                token: localStorage.getItem('userToken')
+            },
+            success: function(data,success){
+                console.log(data)
+            },
+            error: function(error){
+                console.log(error)
+            }
+        })
+
     $("#btn").click( function(){
         var d = new Date();
         var month = d.getMonth()+1;

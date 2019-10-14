@@ -18,7 +18,8 @@ module.exports =()=> {
     router.post('/login',(req,res)=>{
         Users.checkLoginUser(req,res)
     })
-    router.post('/home',(req, res)=>{
+
+    router.post('/post',(req, res)=>{
         Users.saveUserPost(req,res);
     })
 
@@ -30,8 +31,10 @@ module.exports =()=> {
         Users.getComments(req,res);
     })
 
-    router.get('/home/getPosts',(req,res)=>{
-        Users.getAllPosts(req,res);
+    router.get('/home/getPosts',async (req,res)=>{
+        console.log('heom')
+       const response = await Users.getAllPosts(req,res);
+       return response
     })
     return router
 }

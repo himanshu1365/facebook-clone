@@ -23,7 +23,7 @@ const checkUserToken = async(req,res)=>{
 }
 
 const getAllPosts = async(req,res)=>{
-    const status = User.getAllPosts(req,res)
+    const status = await User.getAllPosts(req,res)
     return status
 }
 const userPost = async(req, res )=>{
