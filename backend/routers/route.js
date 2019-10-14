@@ -18,9 +18,21 @@ module.exports =()=> {
     router.post('/login',(req,res)=>{
         Users.checkLoginUser(req,res)
     })
+<<<<<<< HEAD
     router.post('/profilePage',(req,res)=>{
         Users.particularUserData(req,res)
     })
     
+=======
+    router.post('/home',(req, res)=>{
+        Users.userPost(req,res);
+    })
+    router.post('/home/comment',(req,res)=>{
+        Users.userComment(req,res);
+    })
+    router.get('/home/getComment',(req,res )=>{
+        Users.getComments();
+    })
+>>>>>>> 1cb90842af7c839117fbc4bdbac0bfc634ad3aeb
     return router
 }

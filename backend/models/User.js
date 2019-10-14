@@ -1,4 +1,6 @@
 const SignUpModel = require('./signupdata')
+const Comment = require('./comment');
+const PostModel = require('./post')
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const 
@@ -42,13 +44,75 @@ const checkUserToken = async(req,res)=>{
         return res.status(200).send({'msg':'Valid Token'})
     })
 }
-const particularUserData = async(req,req)=>{
-     
-}
+const userPost = async( req, res )=>{
+    try{
+    let post = await PostModel.find({userid:req.body.userid});
+    console.log(post);
 
+    if ( post.length != 0 ){
+
+        await PostModel.findOneAndUpdate({
+            userid:req.body.userid,
+        },
+        {
+            $push:{
+                posts:req.body.posts
+            }
+        });
+
+        return {
+            'status':200,
+            'msg':'post added'
+        }
+
+    }
+    else
+    {
+        let postData = new PostModel(req.body);
+        await postData.save();
+        return {
+            'status':200,
+            'msg':'post added'
+            }
+        }
+    
+    }catch(err){
+        return {
+            'status':404,
+            'msg':'something went wrong',
+            'error':err
+        }
+    }
+}
+const userComment = async( req , res ) =>{
+
+    try{
+        let comment = new Comment(req.body);
+        await comment.save();
+        return {
+            status:200,
+            statusText:'OK',
+            msg :'comments saved successfully'
+        }
+    }catch(err){
+        console.log(err)
+    }
+
+}
+const getComments = async(req , res )=>{
+    try{
+        let data = await Comment.find();
+        return data;
+    }
+    catch( error ){
+        console.log(error)
+    }
+}
 module.exports = {
     saveSignUpData,
     loginUser,
     checkUserToken,
-    particularUserData
+    userPost,
+    userComment,
+    getComments
 }

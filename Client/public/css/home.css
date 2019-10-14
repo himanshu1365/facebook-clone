@@ -8,7 +8,7 @@
     align-content: center;
 }
 textarea{
-    width: 50%;
+    width: 80%;
 }
 .post-author{
     display: flex;
@@ -26,4 +26,18 @@ textarea{
 }
 .post-description{
     color: white;
+}
+.like-comment-share i{
+    font-size: 25px;
+}
+.comment{
+    outline: none;
+    height: 50px;
+    border-radius: 15px;
+    width: 60%;
+}
+.display-comment{
+    border-radius: 5px;
+    background: white;
+    display: none;
 }
