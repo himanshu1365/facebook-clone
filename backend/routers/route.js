@@ -1,5 +1,6 @@
 const express = require('express')
 const Users = require('../controller/Users')
+const postData= require('../models/arrange-post')
 const bodyParser = require('body-parser')
 const app = express()
 const { authMiddleware } = require('../middleware/middleware')
@@ -12,6 +13,10 @@ app.use(bodyParser.urlencoded({
 module.exports =()=> {
     const router = express.Router();
     
+    // router.get('/postdata',(req,res)=>{
+    //     postData.postData();
+    // })
+
     router.post('/signup',(req,res)=>{
         Users.saveSignUpData(req,res)
     })
@@ -32,9 +37,7 @@ module.exports =()=> {
     })
 
     router.post('/post',(req, res)=>{
-        console.log("post called"+ req.body)
         Users.saveUserPost(req,res);
-
     })
 
     router.post('/home/comment',(req,res)=>{

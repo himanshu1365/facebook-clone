@@ -28,21 +28,22 @@ const checkUserToken = async(req,res)=>{
 const getAllPosts = async(req,res)=>{
    try{
     const status = await User.getAllPosts(req,res)
-    // console.log(status);
+    console.log('get post name '+ status[0].name);
     res.send(status);
    }
    catch(error){}
 }
-const saveUserPost = async(req, res )=>{
+
+const saveUserPost = async(req, res )=>{ 
     try{
+        console.log(req.body);
         let resp = await User.saveUserPost(req, res);
         res.send(resp);
     }
     catch( erre ){
-        console.log(erre)
+    
     }
 }
-
 const userComment = async(req,res)=>{
     try{
         let comm = await User.userComment( req , res );
