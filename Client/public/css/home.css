@@ -56,37 +56,7 @@ body {
 textarea{
     width: 100%;
 }
-/* .post-author{
-    display: flex;
-}
-.author-img{
-    padding: 5px;
-}
-.author-img i{
-    font-size: 50px;
-}
-.author-details{
-    padding: 5px;
-    font-size: 18px;
-    font-weight: bold;
-}
-.post-description{
-    color: white;
-}
-.like-comment-share i{
-    font-size: 25px;
-}
-.comment{
-    outline: none;
-    height: 50px;
-    border-radius: 15px;
-    width: 60%;
-}
-.display-comment{
-    border-radius: 5px;
-    background: white;
-    display: none;
-} */
+
 .postcard{
     /* width: 50%; */
     margin: 0 auto;
@@ -131,11 +101,6 @@ textarea{
 .like-share-contents i{
     font-size: 20px;
 }
-/* .row .like-share-contents:hover{
-    background-color: blue;
-    border-radius: 30px;
-    color: white;
-} */
 
 .send-comment{
     border: none;

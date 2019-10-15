@@ -15,10 +15,12 @@ $(document).ready( function(){
         })
 
     $("#btn").click( function(){
-        
         $.ajax("http://localhost:9000/post",{
                 type:"POST",
                 dataType: "json",
+                headers:{
+                    token:localStorage.getItem('userToken')
+                },
                 contentType: "application/json; charset=utf-8",
                 data:JSON.stringify({
                     "posts":[{
