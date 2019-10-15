@@ -25,7 +25,7 @@ const loginUser = async(req,res)=>{
         let password = checkUser[0].Password
         let status = bcryptjs.compareSync(req.body.Password,password)
         if(status){
-            jwt.sign({userToken: checkUser[0]._id},SECRET, {expiresIn: 120},(err,token)=>{
+            jwt.sign({userToken: checkUser[0]._id},SECRET,{ expiresIn: 30},(err,token)=>{
                 return res.status(200).send({msg:'Login Successful',token: token})
             })
         }
@@ -53,11 +53,13 @@ const particularUserData  = async(req,res)=>{
 
 
 const getAllPosts = async(req,res)=>{
-    try{
-        const data = await PostModel.find()
-        return data;
-    }catch(error){}
-}
+        try{
+            const response = await PostModel.find()
+            return response
+        }catch(error){
+
+        }
+    }
 
 
 const checkUserToken = async(req,res)=>{

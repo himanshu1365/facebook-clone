@@ -2,9 +2,7 @@ const {SECRET} = require('../config/config')
 const jwt = require('jsonwebtoken')
 
 function authMiddleware(req,res,next){
-    console.log('middleware working')
-    const token = req.headers.userToken
-    console.log(token)
+    const token = req.headers.token
     try{
         const status = jwt.verify(token,SECRET)
         console.log(status)
