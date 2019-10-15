@@ -27,12 +27,14 @@ $(document).ready( function(){
             Email: $('#LoginFormEmail').val(),
             Password: $("#LoginFormPassword").val()
         }
-        console.log(logindata)
         $.ajax("http://localhost:9000/login",{
             type:"POST",
             dataType:"json",
             contentType:"application/json",
             data:JSON.stringify(logindata),
+            headers:{
+                token: localStorage.getItem("userToken")
+            },
             success: function(data,status){
                 localStorage.setItem('userToken',data.token)
                 $(location).attr('href','./views/home.html')

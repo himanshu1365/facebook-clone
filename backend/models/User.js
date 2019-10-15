@@ -25,7 +25,7 @@ const loginUser = async(req,res)=>{
         let password = checkUser[0].Password
         let status = bcryptjs.compareSync(req.body.Password,password)
         if(status){
-            jwt.sign({userToken: checkUser[0]._id},SECRET, (err,token)=>{
+            jwt.sign({userToken: checkUser[0]._id},SECRET, {expiresIn: 120},(err,token)=>{
                 return res.status(200).send({msg:'Login Successful',token: token})
             })
         }
