@@ -8,6 +8,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }))
 
+
 module.exports =()=> {
     const router = express.Router();
     
@@ -16,7 +17,6 @@ module.exports =()=> {
     })
     
     router.post('/login',(req,res)=>{
-        console.log('heool')
         Users.checkLoginUser(req,res)
     })
 

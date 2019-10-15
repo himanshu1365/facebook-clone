@@ -22,6 +22,9 @@ const checkUserToken = async(req,res)=>{
     return status
 }
 
+
+
+
 const getAllPosts = async(req,res)=>{
    try{
     const status = await User.getAllPosts(req,res)
@@ -31,14 +34,13 @@ const getAllPosts = async(req,res)=>{
    catch(error){}
 }
 const saveUserPost = async(req, res )=>{
-   
+ 
     try
     {
         console.log(req.body);
     let resp = await User.saveUserPost(req, res);
      res.send(resp);
     }catch( erre ){
-        console.log(erre)
      }
     }
 
