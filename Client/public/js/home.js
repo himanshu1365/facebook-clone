@@ -9,6 +9,7 @@ $(document).ready( function(){
                 console.log(data)
             },
             error: function(error){
+                localStorage.removeItem("userToken")
                 $(location).attr('href','../index.html')
             }
         })
