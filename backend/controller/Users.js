@@ -33,16 +33,16 @@ const getAllPosts = async(req,res)=>{
    }
    catch(error){}
 }
-const saveUserPost = async(req, res )=>{
- 
-    try
-    {
+const saveUserPost = async(req, res )=>{ 
+    try{
         console.log(req.body);
-    let resp = await User.saveUserPost(req, res);
-     res.send(resp);
-    }catch( erre ){
-     }
+        let resp = await User.saveUserPost(req, res);
+        res.send(resp);
     }
+    catch( erre ){
+    
+    }
+}
 
 
 const userComment = async(req,res)=>{

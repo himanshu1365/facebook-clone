@@ -1,7 +1,7 @@
 const SignUpModel = require('./signupdata')
 const Comment = require('./comment');
 
-const commentModel = require('./commentschema')
+const commentModel = require('./commentModel')
 
 const PostModel = require('./postModel')
 
@@ -118,25 +118,6 @@ const saveUserPost = async( req, res )=>{
 }
  
 const userComment = async( req , res ) =>{
-
-
-//         const comment = new commentModel(req.body);
-
-//   comment
-//     .save()
-//     .then(comment => {
-//       return commentModel.findById(req.params.postId);
-//     })
-//     .then(comment => {
-//        commentModel.commentschemas.unshift(commentModel);
-//       return commentschemas.save();
-//     })
-//     .then(comment => {
-//       res.redirect(`/`);
-//     })
-//     .catch(err => {
-//       console.log(err);
-//     });
 try{
     let comment = await commentModel.find({userid:req.body.userid});
     //console.log(comment);
