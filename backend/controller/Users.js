@@ -42,6 +42,7 @@ const saveUserPost = async(req, res )=>{
         console.log(erre)
     }
 }
+
 const userComment = async(req,res)=>{
     try{
         let comm = await User.userComment( req , res );

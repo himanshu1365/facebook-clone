@@ -17,15 +17,14 @@ module.exports =()=> {
     })
     
     router.post('/login',(req,res)=>{
-        console.log('login')
         Users.checkLoginUser(req,res)
     })
 
     router.get('/home/profilePage',(req,res)=>{
         Users.particularUserData(req,res)
     })
-    
-    router.use(authMiddleware);
+
+    router.use(authMiddleware)
 
     router.get('/home/getPosts',async (req,res)=>{
         const response = await Users.getAllPosts(req,res);
