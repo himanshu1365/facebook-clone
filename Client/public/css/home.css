@@ -40,7 +40,10 @@ body {
     height: 15px;
     width:15px;
   }
-  
+  .right-side{
+      text-align: left;
+      float: right;
+  }
 .main{
     background: white;
     padding: 30px;
@@ -61,6 +64,15 @@ textarea{
 .postcard{
     /* width: 50%; */
     margin: 0 auto;
+}
+.user img{
+    height: 25px;
+    width: 25px;
+}
+.user p{
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
 }
 .post-img{
     margin: auto;
