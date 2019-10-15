@@ -1,5 +1,47 @@
+body {
+    margin: 0px;
+    background-color:#e9ebee;
+    font-family: arial;
+  }
+  nav{
+        background-color: #3b5998;
+        padding: 7px 0px 4px 10%;
+        height: 40px;
+  }
+  nav *{
+    display:inline-block;
+  }
+  .logo img {
+      height:22px;
+      width: 25px;
+      position: relative;
+  }
+  
+  #inputText {
+      width: 300px;
+      height: 22px;
+      position: relative;
+      top: 0px;
+      padding-left: 5px;
+      font-size: 14px;
+      border: 0px;
+      outline: none;
+  }
+  .search-icon {
+    background-color: #f6f7f9;
+    height:22px;
+    width: 50px;
+    text-align: center;
+    margin-top: 1px;
+    float: right;
+  }
+  .search-icon img {
+    height: 15px;
+    width:15px;
+  }
+  
 .main{
-    background: lightgrey;
+    background: white;
     padding: 30px;
 }
 .post-form{
@@ -7,10 +49,14 @@
     margin: auto;
     align-content: center;
 }
-textarea{
-    width: 80%;
+#postAuthor{
+    color: blue;
+    font-weight: bold;
 }
-.post-author{
+textarea{
+    width: 100%;
+}
+/* .post-author{
     display: flex;
 }
 .author-img{
@@ -40,4 +86,66 @@ textarea{
     border-radius: 5px;
     background: white;
     display: none;
+} */
+.postcard{
+    /* width: 50%; */
+    margin: 0 auto;
+}
+.post-img{
+    margin: auto;
+    width: 80%;
+    height: 200px;
+}
+.post-img img{
+    width: 100%;
+    height: 200px;
+}
+.card-header{
+    display: flex;
+
+}
+.card-header img{
+    width: 70px;
+    height: 70px;
+}
+
+.card-header p{
+    margin: 10px 5px;
+}
+.post-date{
+    position: relative;
+    top: 20px;
+    left: -70px;
+    font-size: 12px;
+}
+
+.like-share-contents{
+    margin: 0 auto;
+    text-align: center;
+    cursor: pointer!important;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 0px;
+    color: grey;
+}
+.like-share-contents i{
+    font-size: 20px;
+}
+/* .row .like-share-contents:hover{
+    background-color: blue;
+    border-radius: 30px;
+    color: white;
+} */
+
+.send-comment{
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    width:100%;
+    padding:10px 15px;
+    font-size: 14px;
+}
+
+.send-comment:focus{
+    border: 1px solid lightblue;
 }
