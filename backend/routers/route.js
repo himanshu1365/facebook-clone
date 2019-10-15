@@ -17,16 +17,12 @@ module.exports =()=> {
     })
     
     router.post('/login',(req,res)=>{
-        console.log('login')
         Users.checkLoginUser(req,res)
     })
 
     router.get('/home/profilePage',(req,res)=>{
         Users.particularUserData(req,res)
     })
-    
-    router.post('/home',(req, res)=>{
-        Users.userPost(req,res);
 
 
     router.use(authMiddleware)
