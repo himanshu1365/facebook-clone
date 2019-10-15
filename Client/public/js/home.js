@@ -9,28 +9,20 @@ $(document).ready( function(){
                 console.log(data)
             },
             error: function(error){
+                localStorage.removeItem("userToken")
                 $(location).attr('href','../index.html')
             }
         })
 
     $("#btn").click( function(){
-        var d = new Date();
-        var month = d.getMonth()+1;
-        var day = d.getDate();
-        var output = d.getFullYear() + '-' +
-            (month<10 ? '0' : '') + month + '-' +
-            (day<10 ? '0' : '') + day;
-        $.ajax("http://localhost:9000/home",{
+        
+        $.ajax("http://localhost:9000/post",{
                 type:"POST",
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
-                headers:{
-                    token: localStorage.getItem('userToken')
-                },
                 data:JSON.stringify({
                     "posts":[{
-                        "postdate":output,
-                        "postdata":$.trim($("#myTextarea").val())
+                        "postData":$.trim($("#myTextarea").val())
                     }]
                 }),
                 success:function(data, status){

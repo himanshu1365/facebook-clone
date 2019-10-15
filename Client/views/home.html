@@ -15,15 +15,21 @@
     <title>Home</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <nav>
+        <a href="#" class="logo"><img src="/assets/fblogo.jpg" alt=""></a>
+        <div class="search">
+          <input type="text" id="inputText" placeholder="Search">
+          <div class="search-icon">
+          <img src="http://icons.iconarchive.com/icons/icons8/ios7/256/Very-Basic-Search-icon.png" ></img>
+          </div>
+        </div>
+        <div class="right-side">
+
+        </div>
     </nav>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-3" ></div>
+            <div class="col-sm-3 left" ></div>
             <div class="col-sm-6 main" >
                 <form class="post">
                     <h5>Create Your Post:</h5>
@@ -31,7 +37,7 @@
                     <button type="button" class="btn btn-primary" id="btn">Post</button>
                     <hr>
                 </form>
-                <div class="display-post">
+                <!-- <div class="display-post">
                     <div class="post-author">
                        <div class="author-img"><img src="..//assets/post.jpg" class="rounded-circle" alt="Cinque Terre" width="80" height="80"> </div>
                        <div class="author-details"><br>
@@ -61,9 +67,43 @@
                             <button type="button" class="btn btn-dark" id="comment-btn">Comment</button>                            
                         </div>
                     </div>
+                </div> -->
+                <div class="card postcard">
+                    <div class="card-header">
+                        <div class="d-flex">
+                            <img class="rounded-circle postUserPhoto" src="../assets/post.jpg">
+                            <p id="postAuthor">Birendra</p>
+                        </div>
+                        <p class="post-date" id="postDate">13 Oct 2019</p>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-justify" id="postContent">Facebook, Inc. is an American online social media and social networking service company based in Menlo Park, California. It was founded by Mark Zuckerberg, along with fellow Harvard College students and roommates Eduardo Saverin, Andrew McCollum, Dustin Moskovitz and Chris Hughes. It is considered one of the Big Four technology companies along with Amazon, Apple, and Google.
+                            The founders initially limited the website's membership to Harvard students and subsequently Columbia, Stanford, and Yale students. Membership was eventually expanded to the remaining Ivy League schools, MIT, and higher education institutions in the Boston area, then various other universities, and lastly high school students. Since 2006, anyone who claims to be at least 13 years old has been allowed to become a registered user of Facebook, though this may vary depending on local laws.
+                        </p>
+                        <div class="post-img">
+                            <img src="../assets/post.jpg" alt="">
+                        </div>
+                        <hr>
+                        <div class="like-share-box">
+                            <div class="row">
+                                <div class="like-share-contents col-md-3 ">
+                                    <span><i class="fa fa-thumbs-o-up" aria-hidden="true"></i>&nbsp;Like</span>
+                                </div>
+                                <div class="col-md-3 like-share-contents">
+                                    <span><i class="fa fa-comment-o" aria-hidden="true"></i>&nbsp;Comments</span>
+                                </div>
+                                <div class="col-md-3 like-share-contents">
+                                    <span><i class="fa fa-share-square-o" aria-hidden="true"></i>&nbsp;&nbsp;Share</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <input type="text" class="send-comment" placeholder="Share your comments">
+                    </div>
                 </div>
             </div>
-            <div class="col-sm-3" ></div>
+            <div class="col-sm-3 right" ></div>
         </div>
     </div>
     <script src="../public/js/home.js"></script>

@@ -24,17 +24,27 @@ const checkUserToken = async(req,res)=>{
 
 const getAllPosts = async(req,res)=>{
    try{
-        const status = await User.getAllPosts(req,res)
-        res.send(status);
-    }
-    catch(error){}
+    const status = await User.getAllPosts(req,res)
+    // console.log(status);
+    res.send(status);
+   }
+   catch(error){}
 }
 const saveUserPost = async(req, res )=>{
+<<<<<<< HEAD
     try{
-        let resp = await User.saveUserPost(req, res);
+        let resp = await User.userPost(req, res);
         res.send(resp);
     }
     catch( erre ){
+=======
+    try
+    {
+        console.log(req.body);
+    let resp = await User.saveUserPost(req, res);
+     res.send(resp);
+    }catch( erre ){
+>>>>>>> c32ff222629bb3a3d1fa612c0a69d1e8c1fef445
         console.log(erre)
     }
 }

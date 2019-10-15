@@ -3,7 +3,6 @@ const Comment = require('./comment');
 const PostModel = require('./postModel')
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-//  const userData = require('./')
 const {SECRET} = require('../config/config')
 
 const saveSignUpData  = async(req,res,data)=>{
@@ -25,7 +24,7 @@ const loginUser = async(req,res)=>{
         let password = checkUser[0].Password
         let status = bcryptjs.compareSync(req.body.Password,password)
         if(status){
-            jwt.sign({userToken: checkUser[0]._id},SECRET,{ expiresIn: 30},(err,token)=>{
+            jwt.sign({userToken: checkUser[0]._id},SECRET, (err,token)=>{
                 return res.status(200).send({msg:'Login Successful',token: token})
             })
         }
@@ -35,32 +34,12 @@ const loginUser = async(req,res)=>{
     }
 }
 
-const particularUserData  = async(req,res)=>{
-    try{
-        debugger
-        // console.log(req.query._id)
-        let fetchId = await PostModel.findOne({_id: req.query._id})
-        console.log(fetchId)
-            if(fetchId.length!=0){
-            return res.status(200).send(fetchId.data);
-    }
-    
-        }catch(error){
-            return res.status(200).send({message: 'No Posts exist for this user'})
-        }
-        
-}
-
-
 const getAllPosts = async(req,res)=>{
-        try{
-            const response = await PostModel.find()
-            return response
-        }catch(error){
-
-        }
-    }
-
+    try{
+        const data = await PostModel.find()
+        return data;
+    }catch(error){}
+}
 
 const checkUserToken = async(req,res)=>{
     jwt.verify(req.headers.token,SECRET,(err,authData)=>{
@@ -73,13 +52,14 @@ const checkUserToken = async(req,res)=>{
 const saveUserPost = async( req, res )=>{
     try{
         req.body.userId = req.headers.tokenValue;
-        let post = await PostModel.find({userId:req.body.userId});
-        console.log(post);
+        console.log(req.body.userId);
+    let post = await PostModel.find({userId:req.body.userId});
+    console.log(post);
 
     if ( post.length != 0 ){
 
         await PostModel.findOneAndUpdate({
-            userId: req.headers.tokenValue
+            userId:req.body.userId
         },
         {
             $push:{
@@ -99,7 +79,7 @@ const saveUserPost = async( req, res )=>{
         await postData.save();
         return {
             status:200,
-            msg:'new user post added'
+            msg:'post added'
             }
         }
     
@@ -111,7 +91,6 @@ const saveUserPost = async( req, res )=>{
         }
     }
 }
- 
 const userComment = async( req , res ) =>{
 
     try{
@@ -139,11 +118,9 @@ const getComments = async(req , res )=>{
 module.exports = {
     saveSignUpData,
     loginUser,
-    particularUserData,
-    getAllPosts,
     checkUserToken,
     saveUserPost,
     userComment,
     getComments,
-    
+    getAllPosts
 }
