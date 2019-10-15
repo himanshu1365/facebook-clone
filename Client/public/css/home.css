@@ -7,6 +7,7 @@ body {
         background-color: #3b5998;
         padding: 7px 0px 4px 10%;
         height: 40px;
+        width: 100%;
   }
   nav *{
     display:inline-block;
