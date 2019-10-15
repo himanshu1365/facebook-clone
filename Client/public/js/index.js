@@ -1,3 +1,22 @@
+function checkPassword(form) { 
+    pwd = form.pwd.value; 
+    confirmpwd = form.confirmpwd.value;  
+    if (pwd == '') 
+        alert ("Please enter Password"); 
+    else if (confirmpwd == '') 
+        alert ("Please enter confirm password"); 
+     
+    else if (pwd != confirmpwd) { 
+        alert ("\nPassword did not match: Please try again...") 
+        return false; 
+    } 
+ 
+    else{ 
+        
+        return true; 
+    } 
+} 
+
 $(document).ready( function(){
     $('#btnSave').click( function(event){
         event.preventDefault()
@@ -5,18 +24,22 @@ $(document).ready( function(){
             FirstName: $('#SignUpFirstName').val(),
             LastName: $('#SignUpLastName').val(),
             Email: $('#SignUpFormEmail').val(),
-            Password: $('#SignUpFormPassword').val()
+            Password: $('#SignUpFormPassword').val(),
+            Phone: $('#SignUpFormPhone').val()
         }
         $.ajax("http://localhost:9000/signup",{
             type:"POST",
             dataType: "json",
+
+            contentType: "application/json;charset=utf-8",
+
             data:JSON.stringify(signUpData),
             contentType: "application/json; charset=utf-8",
             success:function(data, status){
                 //console.log(data.msg)
             },
             error: function(error){
-                console.log('User already Existed')
+                console.log("error : "+error)
             }
         });
     });

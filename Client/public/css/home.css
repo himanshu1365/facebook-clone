@@ -72,6 +72,7 @@ textarea{
     height: 200px;
 }
 .card-header{
+.post-author{
     display: flex;
 
 }
@@ -111,6 +112,65 @@ textarea{
     padding:10px 15px;
     font-size: 14px;
 }
+.postcard{
+    /* width: 50%; */
+    margin: 0 auto;
+}
+.post-img{
+   margin: auto;
+    width: 80%;
+    height: 200px;
+}
+.post-img img{
+    width: 100%;
+    height: 200px;
+}
+.card-header{
+    display: flex;
+
+}
+.card-header img{
+    width: 70px;
+    height: 70px;
+}
+
+.card-header p{
+    margin: 10px 5px;
+}
+.post-date{
+    position: relative;
+    top: 20px;
+    left: -70px;
+    font-size: 12px;
+}
+
+.like-share-contents{
+    margin: 0 auto;
+    text-align: center;
+    cursor: pointer!important;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 0px;
+    color: grey;
+}
+.like-share-contents i{
+    font-size: 20px;
+}
+/* .row .like-share-contents:hover{
+    background-color: blue;
+    border-radius: 30px;
+    color: white;
+} */
+
+.send-comment{
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    width:100%;
+    padding:10px 15px;
+    font-size: 14px;
+}
+>>>>>>> f74930270246c5150568ea84a3b887665badccf1
 
 .send-comment:focus{
     border: 1px solid lightblue;
