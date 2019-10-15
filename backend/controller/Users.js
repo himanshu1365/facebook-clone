@@ -31,11 +31,7 @@ const getAllPosts = async(req,res)=>{
    catch(error){}
 }
 const saveUserPost = async(req, res )=>{
-    try{
-        let resp = await User.userPost(req, res);
-        res.send(resp);
-    }
-    catch( erre ){
+   
     try
     {
         console.log(req.body);
@@ -45,7 +41,7 @@ const saveUserPost = async(req, res )=>{
         console.log(erre)
      }
     }
-}
+
 
 const userComment = async(req,res)=>{
     try{
@@ -79,10 +75,7 @@ module.exports = {
     saveSignUpData,
     checkLoginUser,
     checkUserToken,
-
     particularUserData,
-    userPost,
-
     saveUserPost,
     userComment,
     getComments,
