@@ -1,4 +1,19 @@
 $(document).ready( function(){
+    $.ajax("http://localhost:9000/home/getPosts",{
+            type:'GET',
+            dataType:'JSON',
+            headers:{
+                token: localStorage.getItem('userToken')
+            },
+            success: function(data){
+                console.log(data)
+            },
+            error: function(error){
+                localStorage.removeItem("userToken")
+                $(location).attr('href','../index.html')
+            }
+        })
+
     $("#btn").click( function(){
         
         $.ajax("http://localhost:9000/post",{

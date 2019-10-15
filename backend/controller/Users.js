@@ -56,6 +56,15 @@ const userComment = async(req,res)=>{
         console.log(error)
     }
 }
+const particularUserData  = async(req,res)=>{
+    try{
+        let postData = await User.particularUserData(req,res);
+        res.send(postData);
+    }catch(error){
+        console.log(error)
+    }
+
+}
 const getComments = async( req, res )=>{
     try{
         let data = await User.getComments(req , res );
@@ -71,6 +80,10 @@ module.exports = {
     saveSignUpData,
     checkLoginUser,
     checkUserToken,
+
+    particularUserData,
+    userPost,
+
     saveUserPost,
     userComment,
     getComments,

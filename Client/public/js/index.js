@@ -34,6 +34,7 @@ $(document).ready( function(){
             contentType:"application/json",
             data:JSON.stringify(logindata),
             success: function(data,status){
+                console.log("data: "+data)
                 localStorage.setItem('userToken',data.token)
                 $(location).attr('href','./views/home.html')
             },

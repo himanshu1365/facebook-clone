@@ -19,6 +19,14 @@ module.exports =()=> {
         Users.checkLoginUser(req,res)
     })
 
+    router.get('/home/profilePage',(req,res)=>{
+        Users.particularUserData(req,res)
+    })
+    
+    router.post('/home',(req, res)=>{
+        Users.userPost(req,res);
+
+
     router.use(authMiddleware)
 
     router.get('/home/getPosts',async (req,res)=>{
@@ -29,6 +37,7 @@ module.exports =()=> {
     router.post('/post',(req, res)=>{
         console.log(req.body)
         Users.saveUserPost(req,res);
+
     })
 
     router.post('/home/comment',(req,res)=>{
