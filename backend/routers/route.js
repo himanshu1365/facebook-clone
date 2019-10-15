@@ -25,7 +25,7 @@ module.exports =()=> {
     
     router.post('/home',(req, res)=>{
         Users.userPost(req,res);
-
+    })
 
     router.use(authMiddleware)
 
