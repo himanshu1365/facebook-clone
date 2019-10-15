@@ -66,7 +66,7 @@ module.exports = {
     saveSignUpData,
     checkLoginUser,
     checkUserToken,
-    particularUserData,
+    // particularUserData,
     saveUserPost,
     userComment,
     getComments,
