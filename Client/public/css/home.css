@@ -1,0 +1,43 @@
+.main{
+    background: lightgrey;
+    padding: 30px;
+}
+.post-form{
+    width: 80%;
+    margin: auto;
+    align-content: center;
+}
+textarea{
+    width: 80%;
+}
+.post-author{
+    display: flex;
+}
+.author-img{
+    padding: 5px;
+}
+.author-img i{
+    font-size: 50px;
+}
+.author-details{
+    padding: 5px;
+    font-size: 18px;
+    font-weight: bold;
+}
+.post-description{
+    color: white;
+}
+.like-comment-share i{
+    font-size: 25px;
+}
+.comment{
+    outline: none;
+    height: 50px;
+    border-radius: 15px;
+    width: 60%;
+}
+.display-comment{
+    border-radius: 5px;
+    background: white;
+    display: none;
+}

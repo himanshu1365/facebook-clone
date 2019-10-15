@@ -24,18 +24,22 @@ $(document).ready( function(){
             FirstName: $('#SignUpFirstName').val(),
             LastName: $('#SignUpLastName').val(),
             Email: $('#SignUpFormEmail').val(),
-            Password: $('#SignUpFormPassword').val()
+            Password: $('#SignUpFormPassword').val(),
+            Phone: $('#SignUpFormPhone').val()
         }
         $.ajax("http://localhost:9000/signup",{
             type:"POST",
             dataType: "json",
+
             contentType: "application/json;charset=utf-8",
+
             data:JSON.stringify(signUpData),
+            contentType: "application/json; charset=utf-8",
             success:function(data, status){
                 console.log(data.msg)
             },
             error: function(error){
-                console.log(error)
+                console.log("error : "+error)
             }
         });
     });
@@ -46,6 +50,7 @@ $(document).ready( function(){
             Email: $('#LoginFormEmail').val(),
             Password: $("#LoginFormPassword").val()
         }
+        console.log(logindata)
         $.ajax("http://localhost:9000/login",{
             type:"POST",
             dataType:"json",

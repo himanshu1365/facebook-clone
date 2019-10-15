@@ -1,8 +1,11 @@
 const SignUpModel = require('./signupdata')
+const Comment = require('./comment');
+const PostModel = require('./post')
+const commentModel = require('./commentschema')
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const {SECRET} = require('../config/config')
-const commentSchema = require('./commentschema')
+// const commentSchema = require('./commentschema')
 const saveSignUpData  = async(req,res,data)=>{
     let existingUser
     let modeldata = new SignUpModel(data)
@@ -41,43 +44,121 @@ const checkUserToken = async(req,res)=>{
         return res.status(200).send({'msg':'Valid Token'})
     })
 }
+const userPost = async( req, res )=>{
+    try{
+    let post = await PostModel.find({userid:req.body.userid});
+    console.log(post);
 
-const savecomments  = async(req,res)=>{
-    let response,body,details
-  body =req.body
-  details = new commentSchema(body)
-  console.log(details)
-//   const comment = new Comment(req.body);
-  try{
-  
-  details
+
+    if ( post.length != 0 ){
+
+        await PostModel.findOneAndUpdate({
+            userid:req.body.userid,
+        },
+        {
+            $push:{
+                posts:req.body.posts
+            }
+        });
+
+        return {
+            'status':200,
+            'msg':'post added'
+        }
+
+    }
+    else
+    {
+        let postData = new PostModel(req.body);
+        await postData.save();
+        return {
+            'status':200,
+            'msg':'post added'
+            }
+        }
     
-    .then(details => {
-      return commentSchema.findById(req.params.userid);
-    })
-    .then(commentSchema => {
-    commentSchema.details.$push(details);
-      return commentSchema.save();
-    })
-   
-    .catch(err => {
-      console.log(err);
-    });
-  
-    response =await details.save()
-    return response
-  }
-  catch(err)
-  {
-    response = {error:err}
-    return response
-  }
+    }catch(err){
+        return {
+            'status':404,
+            'msg':'something went wrong',
+            'error':err
+        }
+    }
+}
+const userComment = async( req , res ) =>{
+
+
+//         const comment = new commentModel(req.body);
+
+//   comment
+//     .save()
+//     .then(comment => {
+//       return commentModel.findById(req.params.postId);
+//     })
+//     .then(comment => {
+//        commentModel.commentschemas.unshift(commentModel);
+//       return commentschemas.save();
+//     })
+//     .then(comment => {
+//       res.redirect(`/`);
+//     })
+//     .catch(err => {
+//       console.log(err);
+//     });
+try{
+    let comment = await commentModel.find({userid:req.body.userid});
+    //console.log(comment);
+    if ( comment.length != 0 ){
+        console.log(req.body)
+        const status = await commentModel.findOneAndUpdate({
+            userid:req.body.userid,
+        },
+        {
+            $push:{
+                comments:req.body.comments
+            }
+        });
+        return {
+            'status':200,
+            'msg':'multiple comments added'
+        }
+
+    }
+    else
+    {
+        let commentData = new commentModel(req.body);
+        await commentData.save();
+        return {
+            'status':200,
+            'msg':'new comment added'
+            }
+        }
     
+    }catch(err){
+        return {
+            'status':404,
+            'msg':'something went wrong',
+            'error':err
+        }
+    }
+}
+const getComments = async(req , res )=>{
+    try{
+        let data = await Comment.find();
+        return data;
+    }
+    catch( error ){
+        console.log(error)
+    }
 }
 
 module.exports = {
     saveSignUpData,
     loginUser,
     checkUserToken,
-    savecomments
+
+    userPost,
+    userComment,
+    getComments
+
 }
