@@ -36,7 +36,7 @@ $(document).ready( function(){
             data:JSON.stringify(signUpData),
             contentType: "application/json; charset=utf-8",
             success:function(data, status){
-                console.log(data.msg)
+                //console.log(data.msg)
             },
             error: function(error){
                 console.log("error : "+error)
@@ -57,8 +57,8 @@ $(document).ready( function(){
             contentType:"application/json",
             data:JSON.stringify(logindata),
             success: function(data,status){
+                console.log("data: "+data)
                 localStorage.setItem('userToken',data.token)
-                console.log('hello')
                 $(location).attr('href','./views/home.html')
             },
             error: function(data,error){

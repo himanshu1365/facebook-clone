@@ -1,5 +1,9 @@
 {
+
   "name": "facebookproject",
+
+  "name": "facebook-clone",
+
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,11 +12,16 @@
   },
   "repository": {
     "type": "git",
+
     "url": "git+https://github.com/garima1714/facebook-clone.git"
+
+    "url": "git+https://github.com/ashishchopra11/facebook-clone.git"
+
   },
   "author": "",
   "license": "ISC",
   "bugs": {
+
     "url": "https://github.com/garima1714/facebook-clone/issues"
   },
   "homepage": "https://github.com/garima1714/facebook-clone#readme",
@@ -20,5 +29,12 @@
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^8.5.1",
     "jwt-simple": "^0.5.6"
+
+    "url": "https://github.com/ashishchopra11/facebook-clone/issues"
+  },
+  "homepage": "https://github.com/ashishchopra11/facebook-clone#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3"
+
   }
 }
