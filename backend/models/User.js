@@ -1,11 +1,15 @@
 const SignUpModel = require('./signupdata')
 const Comment = require('./comment');
+
+const commentModel = require('./commentModel')
+
 const PostModel = require('./postModel')
+
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 //  const userData = require('./')
 const {SECRET} = require('../config/config')
-
+// const commentSchema = require('./commentschema')
 const saveSignUpData  = async(req,res,data)=>{
     let existingUser
     let modeldata = new SignUpModel(data)
@@ -76,6 +80,7 @@ const saveUserPost = async( req, res )=>{
         let post = await PostModel.find({userId:req.body.userId});
         console.log(post);
 
+
     if ( post.length != 0 ){
 
         await PostModel.findOneAndUpdate({
@@ -113,19 +118,42 @@ const saveUserPost = async( req, res )=>{
 }
  
 const userComment = async( req , res ) =>{
-
-    try{
-        let comment = new Comment(req.body);
-        await comment.save();
+try{
+    let comment = await commentModel.find({userid:req.body.userid});
+    //console.log(comment);
+    if ( comment.length != 0 ){
+        console.log(req.body)
+        const status = await commentModel.findOneAndUpdate({
+            userid:req.body.userid,
+        },
+        {
+            $push:{
+                comments:req.body.comments
+            }
+        });
         return {
-            status:200,
-            statusText:'OK',
-            msg :'comments saved successfully'
+            'status':200,
+            'msg':'multiple comments added'
         }
-    }catch(err){
-        console.log(err)
-    }
 
+    }
+    else
+    {
+        let commentData = new commentModel(req.body);
+        await commentData.save();
+        return {
+            'status':200,
+            'msg':'new comment added'
+            }
+        }
+    
+    }catch(err){
+        return {
+            'status':404,
+            'msg':'something went wrong',
+            'error':err
+        }
+    }
 }
 const getComments = async(req , res )=>{
     try{
@@ -136,6 +164,7 @@ const getComments = async(req , res )=>{
         console.log(error)
     }
 }
+
 module.exports = {
     saveSignUpData,
     loginUser,
@@ -145,5 +174,4 @@ module.exports = {
     saveUserPost,
     userComment,
     getComments,
-    
 }

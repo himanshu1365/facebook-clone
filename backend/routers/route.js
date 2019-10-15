@@ -8,6 +8,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }))
 
+
 module.exports =()=> {
     const router = express.Router();
     
@@ -22,10 +23,6 @@ module.exports =()=> {
     router.get('/home/profilePage',(req,res)=>{
         Users.particularUserData(req,res)
     })
-    
-    router.post('/home',(req, res)=>{
-        Users.userPost(req,res);
-    })
 
     router.use(authMiddleware)
 
@@ -35,9 +32,7 @@ module.exports =()=> {
     })
 
     router.post('/post',(req, res)=>{
-        console.log(req.body)
         Users.saveUserPost(req,res);
-
     })
 
     router.post('/home/comment',(req,res)=>{

@@ -1,104 +1,62 @@
+<!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-		<link rel="stylesheet" href="./public/css/index.css">
-		<script src="./public/js/index.js"></script>
-	</head>
-	<body>
-		<div class="container1">
-            <div class="card">
-                <h5 class="card-header white-text text-center py-4">
-                	<strong><h3>Login</h3></strong>
-                </h5>
-				<div class="card-body px-lg-5 pt-0">
-					<form class="text-center"  action="#">
-						<div class="form-row"></div><br>
-						<div class="md-form mt-0">
-							<input type="email" id="LoginFormEmail" name="LoginFormEmail" class="form-control" placeholder="Email">
-							<label for="FormEmail">E-mail</label>
-						</div>
-						<div class="md-form">
-							<input type="password" id="LoginFormPassword" name="LoginFormPassword" class="form-control" placeholder="Password">
-							<label for="FormPassword">Password</label>
-							<small id="FormPasswordBlock" class="form-text text-muted mb-4">At least 8 characters and 1 digit</small>
-						</div>
-						<button id="loginbtn" class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Login</button>
-						<p> Sign In with:</p>
-						<a type="button" class="btn-floating btn-fb btn-sm">
-							<i class="fab fa-facebook-f"></i>
-						</a>
-						<a type="button" class="btn-floating btn-tw btn-sm">
-							<i class="fab fa-twitter"></i>
-						</a>
-						<a type="button" class="btn-floating btn-li btn-sm">
-							<i class="fab fa-linkedin-in"></i>
-						</a>
-						<a type="button" class="btn-floating btn-git btn-sm">
-							<i class="fab fa-github"></i>
-						</a>
-						<hr>
-						<p>By clicking<em>Sign In</em> you agree to our</p>
-						<a href="" target="_blank">terms of service</a>
-					</form>
-				</div>
-			</div>
-		</div>
-		<div class="container2">
-			<div class="card">
-				<h5 class="card-header white-text text-center py-4">
-					<strong>Sign up</strong>
-				</h5>
-				<div class="card-body px-lg-5 pt-0">
-					<form class="text-center" action="#">
-						<div class="form-row">
-							<div class="col">
-								<div class="md-form">
-									<input type="text" id="SignUpFirstName" class="form-control" placeholder="First Name">
-										<label for="SignUpFirstName">First name</label>
-								</div>
-							</div>
-							<div class="col">
-								<div class="md-form">
-									<input type="text" id="SignUpLastName" class="form-control" placeholder="Last Name">
-									<label for="SignUpLastName">Last name</label>
-								</div>
-							</div>
-						</div>
-						<div class="md-form mt-0">
-							<input type="email" id="SignUpFormEmail" class="form-control" placeholder="Email">
-							<label for="SignUpFormEmail">E-mail</label>
-						</div>
-						<div class="md-form">
-							<input type="password" id="SignUpFormPassword" class="form-control" placeholder="Password">
-							<label for="SignUpFormPassword">Password</label>
-						</div>
-						<div class="md-form">
-							<input type="password" id="SignUpFormConfirmPassword" class="form-control" placeholder="Confirm Password">
-							<label for="SignUpFormConfirmPassword">Confirm Password</label>
-						</div>
-						<button id="btnSave" class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Signin</button>
-						<p>or sign up with:</p>
-						<a type="button" class="btn-floating btn-fb btn-sm">
-							<i class="fab fa-facebook-f"></i>
-						</a>
-						<a type="button" class="btn-floating btn-tw btn-sm">
-							<i class="fab fa-twitter"></i>
-						</a>
-						<a type="button" class="btn-floating btn-li btn-sm">
-							<i class="fab fa-linkedin-in"></i>
-						</a>
-						<a type="button" class="btn-floating btn-git btn-sm">
-							<i class="fab fa-github"></i>
-						</a>
-					</form>
-				</div>
-			</div>
-		</div>
-	</body>
+<head>
+  <title>Facebook</title>
+  <link href="./public/css/index.css" type="text/css" rel="stylesheet"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="./public/js/index.js"></script>
+</head>
+<body>
+
+<div id="header_main">
+ <div id="header">
+ <li id="sitename"><a href="#">Facebook</a></li>
+ <form action="">
+ <li>Email or Phone<br><input type="text" name="email" id="LoginFormEmail"></li>
+ <li>Password<br><input type="password" name="password" id="LoginFormPassword"><br></li>
+ <li><input type="submit" name="login" value="Log In" id="loginbtn"></li>
+ </form>
+ </div>
+</div>
+<div id="content">
+
+<div id="div1">
+<p>Facebook helps you connect and share with the <br>people in your life.</p>
+<img src="./assets/facebook.png"style="height: 200px; width: 500px">
+</div>
+
+<div id="div2">
+<h1>Create an account</h1>
+<p>It's free and always will be.</p>
+<form name="contactForm" onsubmit="return validateForm()" action="" method="">
+<li><input type="text" placeholder="First Name" id="SignUpFirstName" name="fname">
+  <input type="text" placeholder="Surname" id="SignUpLastName" name="lname"></li>
+<li><input type="email" placeholder="Email address" id="SignUpFormEmail" name="email"></li>
+<li><input type="text" placeholder="Mobile Number" id="SignUpFormPhone" name="phone"></li>
+<li><input type="password" placeholder="Password" id="SignUpFormPassword"  name="pwd"></li>
+<li><input type="password" placeholder="Confirm Password" id="SignUpFormConfirmPassword name="confirmpwd"></li>
+<li><input type="submit" value="Create an account" id="btnSave"></li>
+
+</div>
+</form>
+</div>
+<div id="footer_wrapper">
+<br><br>
+<div id="footer1">
+
+<a href="">English (UK)</a> <a href="">हिन्दी</a><a href="">ਪੰਜਾਬੀ</a><a href=""> اردو</a><a href="">தமிழ்</a><a href="">বাংলা</a><a href="">मराठी</a><a href="">తెలుగు</a><a href="">ગુજરાતી</a><a href="">ಕನ್ನಡ</a><a href="">മലയാളം</a>
+</div>
+
+<div id="footer2">
+<a href="">Sign Up</a><a href="">Log In</a><a href="">Messenger</a><a href="">Facebook Lite</a><a href="">People</a><a href="">Pages</a><a href="">Page Categories</a><a href="">Places</a><a href="">Game</a><a href="">Locations</a><a href="">Marketplace</a><a href="">Groups</a><a href="">Instagram</a><a href="">Local</a><a href="">Fundraisers</a><a href="">Services</a><a href="">About</a><a href="">Create ad</a><a href="">Create Page</a><a href="">Developers</a><a href="">Careers</a><a href="">Privacy</a><a href="">Cookies</a><a href="">adChoices</a><a href="">Terms</a><a href="">Help</a>
+
+</div>
+
+</div>
+</body>
 </html>
