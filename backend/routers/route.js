@@ -28,7 +28,7 @@ module.exports =()=> {
     router.post('/home',(req, res)=>{
         Users.userPost(req,res);
 
-
+    })
     router.use(authMiddleware)
 
     router.get('/home/getPosts',async (req,res)=>{
