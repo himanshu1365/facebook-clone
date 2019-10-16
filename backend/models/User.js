@@ -1,19 +1,16 @@
 const SignUpModel = require('./signupdata')
-const Comment = require('./comment');
-
+const postData = require('./arrange-post')
 const commentModel = require('./commentModel')
-
 const PostModel = require('./postModel')
-
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-//  const userData = require('./')
 const {SECRET} = require('../config/config')
-// const commentSchema = require('./commentschema')
+
+
 const saveSignUpData  = async(req,res,data)=>{
     let existingUser
     let modeldata = new SignUpModel(data)
-    existingUser = await SignUpModel.find({Email: data.Email})
+    existingUser = await SignUpModel.find({email: data.email})
     if(existingUser.length == 0){
         response = await modeldata.save()
         return res.status(200).send({msg:'User saved Successfully'})
@@ -24,18 +21,22 @@ const saveSignUpData  = async(req,res,data)=>{
 }
 
 const loginUser = async(req,res)=>{
-    let checkUser = await SignUpModel.find({Email: req.body.Email})
+    try{
+    let checkUser = await SignUpModel.find({email: req.body.email})
     if(checkUser.length != 0){
-        let password = checkUser[0].Password
-        let status = bcryptjs.compareSync(req.body.Password,password)
+        let password = checkUser[0].password
+        let status = bcryptjs.compareSync(req.body.password,password)
         if(status){
-            jwt.sign({userToken: checkUser[0]._id},SECRET,{ expiresIn: 30},(err,token)=>{
+            jwt.sign({userToken: checkUser[0]._id},SECRET,{ expiresIn: 1000},(err,token)=>{
                 return res.status(200).send({msg:'Login Successful',token: token})
             })
         }
         else{
             return res.status(400).send({msg:'Incorrect Login Credentials'})
+            }
         }
+    }catch(err){
+        console.log(err)
     }
 }
 
@@ -58,7 +59,8 @@ const particularUserData  = async(req,res)=>{
 
 const getAllPosts = async(req,res)=>{
         try{
-            const response = await PostModel.find()
+            const response = await postData.postData(req,res)
+            // console.log(response)
             return response
         }catch(error){
 
@@ -76,15 +78,17 @@ const checkUserToken = async(req,res)=>{
 }
 const saveUserPost = async( req, res )=>{
     try{
-        req.body.userId = req.headers.tokenValue;
-        let post = await PostModel.find({userId:req.body.userId});
-        console.log(post);
-
-
+        
+        let signUpUser = await SignUpModel.find({_id:req.headers.tokenValue})
+        // console.log(signUpUser[0].Email);
+        let post = await PostModel.find({userId:signUpUser[0].email});
+        req.body.userId = signUpUser[0].email;
+        req.body.name=signUpUser[0].firstName +" "+ signUpUser[0].lastName;
+        
     if ( post.length != 0 ){
 
         await PostModel.findOneAndUpdate({
-            userId: req.headers.tokenValue
+            userId:req.body.userId
         },
         {
             $push:{
@@ -174,4 +178,6 @@ module.exports = {
     saveUserPost,
     userComment,
     getComments,
+    getAllPosts,
+    particularUserData
 }
