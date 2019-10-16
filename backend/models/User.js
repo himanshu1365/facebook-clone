@@ -1,15 +1,11 @@
 const SignUpModel = require('./signupdata')
-const Comment = require('./comment');
-
 const commentModel = require('./commentModel')
-
 const PostModel = require('./postModel')
-
+const LikeModel = require('./LikeModel')
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-//  const userData = require('./')
 const {SECRET} = require('../config/config')
-// const commentSchema = require('./commentschema')
+
 const saveSignUpData  = async(req,res,data)=>{
     let existingUser
     let modeldata = new SignUpModel(data)
@@ -29,7 +25,7 @@ const loginUser = async(req,res)=>{
         let password = checkUser[0].Password
         let status = bcryptjs.compareSync(req.body.Password,password)
         if(status){
-            jwt.sign({userToken: checkUser[0]._id},SECRET,{ expiresIn: 30},(err,token)=>{
+            jwt.sign({userToken: checkUser[0]._id},SECRET,{ expiresIn: 1000},(err,token)=>{
                 return res.status(200).send({msg:'Login Successful',token: token})
             })
         }
@@ -41,8 +37,6 @@ const loginUser = async(req,res)=>{
 
 const particularUserData  = async(req,res)=>{
     try{
-        debugger
-        // console.log(req.query._id)
         let fetchId = await PostModel.findOne({_id: req.query._id})
         console.log(fetchId)
             if(fetchId.length!=0){
@@ -119,10 +113,9 @@ const saveUserPost = async( req, res )=>{
  
 const userComment = async( req , res ) =>{
 try{
+
     let comment = await commentModel.find({userid:req.body.userid});
-    //console.log(comment);
     if ( comment.length != 0 ){
-        console.log(req.body)
         const status = await commentModel.findOneAndUpdate({
             userid:req.body.userid,
         },
@@ -165,6 +158,32 @@ const getComments = async(req , res )=>{
     }
 }
 
+const saveLikes = async(req,res)=>{
+    let getUser = await LikeModel.find({userId:req.headers.tokenValue})
+    if(getUser.length != 0){
+        let getExistingLike= await LikeModel.find({like:{$elemMatch:{postId:req.body.postId}}})
+        if(getExistingLike.length == 0){
+            const status = await LikeModel.findOneAndUpdate(
+                {userId: req.headers.tokenValue},
+                {  $push:{like: req.body} }
+            )
+        }
+        else{
+            const status = await LikeModel.findOneAndDelete({like:{$elemMatch:{postId:req.body.postId}}})
+        }
+        
+    }
+    else{
+        let likedata = {
+            'userId':req.headers.tokenValue,
+            'like': {'postId':req.body.postId}
+        }
+        let like = new LikeModel(likedata)
+        await like.save()
+    }
+    return res.status(200).send({msg:'Like Added Successfully'})
+}
+
 module.exports = {
     saveSignUpData,
     loginUser,
@@ -174,4 +193,5 @@ module.exports = {
     saveUserPost,
     userComment,
     getComments,
+    saveLikes
 }

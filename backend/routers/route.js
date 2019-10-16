@@ -43,5 +43,9 @@ module.exports =()=> {
         Users.getComments(req,res);
     })
 
+    router.post('/home/saveLike',(req,res)=>{
+        Users.saveLikes(req,res)
+    })
+
     return router
 }

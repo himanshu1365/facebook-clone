@@ -1,6 +1,5 @@
 const bcryptjs = require('bcryptjs')
 const User = require('../models/User')
-const jwt = require('jsonwebtoken')
 
 const saveSignUpData = async (req,res)=>{
     let body,response
@@ -22,17 +21,14 @@ const checkUserToken = async(req,res)=>{
     return status
 }
 
-
-
-
 const getAllPosts = async(req,res)=>{
    try{
     const status = await User.getAllPosts(req,res)
-    // console.log(status);
     res.send(status);
    }
    catch(error){}
 }
+
 const saveUserPost = async(req, res )=>{ 
     try{
         console.log(req.body);
@@ -43,7 +39,6 @@ const saveUserPost = async(req, res )=>{
     
     }
 }
-
 
 const userComment = async(req,res)=>{
     try{
@@ -73,6 +68,10 @@ const getComments = async( req, res )=>{
     }
 }
 
+const saveLikes = async(req,res)=>{
+    let response = await User.saveLikes(req,res)
+    return response
+}
 module.exports = {
     saveSignUpData,
     checkLoginUser,
@@ -81,5 +80,6 @@ module.exports = {
     saveUserPost,
     userComment,
     getComments,
-    getAllPosts
+    getAllPosts,
+    saveLikes
 }

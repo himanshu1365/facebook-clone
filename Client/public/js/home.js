@@ -1,13 +1,12 @@
 
 function showdata(data){
-    
     for(let i=0;i<data.length;i++){
         for(let j=0;j<data[i].posts.length;j++){
-            console.log(data[i].posts[j])
             let body = document.getElementById('show-post-div')
 
             let postcard = document.createElement("div")
             postcard.setAttribute('class','card postcard')
+            postcard.setAttribute('id',data[i].posts[j]._id)
             body.appendChild(postcard)
 
             let cardheader = document.createElement("div")
@@ -54,6 +53,7 @@ function showdata(data){
             row.setAttribute("class","row")
             let likecontent = document.createElement("div")
             likecontent.setAttribute('class','like-share-contents col-md-3')
+            likecontent.setAttribute('id','saveLike')
             row.appendChild(likecontent)
             let thumbs = document.createElement('span')
             let ithumbs = document.createElement('i')
@@ -111,7 +111,6 @@ $(document).ready( function(){
         })
 
     $("#btn").click( function(){
-        
         $.ajax("http://localhost:9000/post",{
                 type:"POST",
                 dataType: "json",
@@ -155,8 +154,29 @@ $(document).ready( function(){
             }
         });
     });
-    $("#show-comments").click( function(){
+    $("#show-comments").click(function(){
         console.log('hide')
         $(".display-comment").show();
     });
 });
+
+$(document).on('click','#saveLike',function(){
+    if($('.fa-thumbs-o-up').css("color") == 'rgb(128, 128, 128)'){
+        $(this).css("color","blue")
+    }
+    else{
+        $(this).css("color","rgb(128, 128, 128)")
+    }
+    $.ajax('http://localhost:9000/home/saveLike',{
+        type:'POST',
+        dataType:'JSON',
+        headers:{
+            token: localStorage.getItem('userToken')
+        },
+        data: {
+            postId : $('.postcard').attr('id')
+        },
+        success: function(){ },
+        error: function(){ }
+    })
+})
