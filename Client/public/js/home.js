@@ -108,6 +108,10 @@ $(document).ready( function(){
                 $(location).attr('href','../index.html')
             }
         })
+    var className = document.getElementsByClassName("send-comment");
+        Array.from(className).forEach((element)=>{
+           console.log(element)
+        });   
 
     $("#btn").click( function(){
         $.ajax("http://localhost:9000/post",{
@@ -124,6 +128,7 @@ $(document).ready( function(){
                 }),
                 success:function(data, status){
                     console.log(data.msg +" "+status);
+                    location.reload(true);
                 },
                 error: function(error){
                     console.log(error +" "+ "error occurred");

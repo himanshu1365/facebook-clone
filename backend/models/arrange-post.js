@@ -22,9 +22,9 @@ const postData = async()=>{
         //     for ( let j = 0 ; j < post[i].posts.length; j++ ){
         //         var date = moment(post[i].posts[j].postDate).format('llll');
         //         console.log("adsadad",date);
-        //         post[i]['posts'][j]['postDate'] = 'test'
-        //         //post[i].posts[j].postDate = date;
-        //         console.log("tredsasd",post[i].posts[j].postDate)
+                // post[i]['posts'][j]['postDate'] = 'test'
+                //post[i].posts[j].postDate = date;
+                // console.log("tredsasd",post[i].posts[j].postDate)
         //     }
         // }
         // console.log(JSON.stringify(post[0].posts))
