@@ -18,6 +18,7 @@ module.exports =()=> {
     // })
 
     router.post('/signup',(req,res)=>{
+        console.log(req.body)
         Users.saveSignUpData(req,res)
     })
     

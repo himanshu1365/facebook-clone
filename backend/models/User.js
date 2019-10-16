@@ -9,7 +9,7 @@ const {SECRET} = require('../config/config')
 const saveSignUpData  = async(req,res,data)=>{
     let existingUser
     let modeldata = new SignUpModel(data)
-    existingUser = await SignUpModel.find({Email: data.Email})
+    existingUser = await SignUpModel.find({email: data.email})
     if(existingUser.length == 0){
         response = await modeldata.save()
         return res.status(200).send({msg:'User saved Successfully'})
@@ -20,10 +20,10 @@ const saveSignUpData  = async(req,res,data)=>{
 }
 
 const loginUser = async(req,res)=>{
-    let checkUser = await SignUpModel.find({Email: req.body.Email})
+    let checkUser = await SignUpModel.find({email: req.body.email})
     if(checkUser.length != 0){
-        let password = checkUser[0].Password
-        let status = bcryptjs.compareSync(req.body.Password,password)
+        let password = checkUser[0].password
+        let status = bcryptjs.compareSync(req.body.password,password)
         if(status){
             jwt.sign({userToken: checkUser[0]._id},SECRET,{ expiresIn: 1000},(err,token)=>{
                 return res.status(200).send({msg:'Login Successful',token: token})
@@ -38,26 +38,26 @@ const loginUser = async(req,res)=>{
 const particularUserData  = async(req,res)=>{
     try{
         let fetchId = await PostModel.findOne({_id: req.query._id})
-        console.log(fetchId)
-            if(fetchId.length!=0){
+        if(fetchId.length!=0){
             return res.status(200).send(fetchId.data);
-    }
-    
-        }catch(error){
-            return res.status(200).send({message: 'No Posts exist for this user'})
         }
+    }
+    catch(error){
+        return res.status(200).send({message: 'No Posts exist for this user'})
+    }
         
 }
 
 
 const getAllPosts = async(req,res)=>{
-        try{
-            const response = await PostModel.find()
-            return response
-        }catch(error){
-
-        }
+    try{
+        const response = await PostModel.find()
+        return response
     }
+    catch(error){
+
+    }
+}
 
 
 const checkUserToken = async(req,res)=>{
@@ -72,7 +72,6 @@ const saveUserPost = async( req, res )=>{
     try{
         req.body.userId = req.headers.tokenValue;
         let post = await PostModel.find({userId:req.body.userId});
-        console.log(post);
 
 
     if ( post.length != 0 ){
@@ -169,9 +168,8 @@ const saveLikes = async(req,res)=>{
             )
         }
         else{
-            const status = await LikeModel.findOneAndDelete({like:{$elemMatch:{postId:req.body.postId}}})
-        }
-        
+            await LikeModel.update({userId:req.headers.tokenValue},{$pull: { like: {postId: req.body.postId}}})
+        }  
     }
     else{
         let likedata = {

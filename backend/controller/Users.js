@@ -13,6 +13,7 @@ const saveSignUpData = async (req,res)=>{
 const checkLoginUser = async(req,res)=>{
     let response
     response = await User.loginUser(req,res)
+    
     return response
 }
 

@@ -100,7 +100,6 @@ $(document).ready( function(){
                 token: localStorage.getItem('userToken')
             },
             success: function(data){
-                console.log(data[0].name)
                 showdata(data)
             },
             error: function(error){
@@ -163,7 +162,7 @@ $(document).ready( function(){
 });
 
 $(document).on('click','#saveLike',function(){
-    if($('.fa-thumbs-o-up').css("color") == 'rgb(128, 128, 128)'){
+    if($(this).css("color") == 'rgb(128, 128, 128)'){
         $(this).css("color","blue")
     }
     else{
@@ -176,7 +175,7 @@ $(document).on('click','#saveLike',function(){
             token: localStorage.getItem('userToken')
         },
         data: {
-            postId : $('.postcard').attr('id')
+            postId :$(this).parent().parent().parent().parent().attr('id')
         },
         success: function(){ },
         error: function(){ }
