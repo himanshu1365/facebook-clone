@@ -4,33 +4,31 @@ const moment = require('moment')
 
 const postData = async()=>{
     try{
-        var object = new Object();
-    const post = await PostModel.find();
-    object = post;
-    console.log(object[0].userId)
-    var user = await SignUpModel.find()
-    console.log(user.length)
-    object[0].name = user[0].FirstName +" "+user[0].LastName;
-    console.log(object[0].name);
-    console.log(post[0].posts[0].postData+" "+object.length)
-    console.log(moment(object[0].posts[0].postDate).format('LLLL'));
+        let post = await PostModel.find();
+        // let post = await PostModel.find({},{"posts":1,"_id":0});
+        // console.log(JSON.stringify(post))
+        // console.log(post[0]['posts'][0]['postDate'])
+        // var testdate = ( moment((post[0]['posts'][0]['postDate'])).format('llll'))
+        // console.log('test',testdate)
 
-    for ( let i = 0 ; i < post.length; i++ ){
-        const user = await SignUpModel.find({_id:post[i].userId})
-        object[i].name = user[0].FirstName +" "+user[0].LastName;
-        // console.log('name '+object[i].name)
-        }
+        // setTimeout(function(){
+        //     post[0]['posts'][0]['postDate'] = testdate;
+        //     console.log("inside timeout",post[0]['posts'][0]['postDate']) 
+        // }, 3000);
 
-        // for ( let i = 0 ; i < object.length; i++ ){
-        //     console.log(object[i].name)
-        //         for ( let j = 0 ; j < object[i].posts.length; j++ ){
-        //             console.log(object[i].posts[j].postDate)
-        //             console.log(object[i].posts[j].postData)
-        //         }
-        //     console.log(object[i].userId);
+        
+        
+        // for ( let i = 0 ; i < post.length; i++ ){
+        //     for ( let j = 0 ; j < post[i].posts.length; j++ ){
+        //         var date = moment(post[i].posts[j].postDate).format('llll');
+        //         console.log("adsadad",date);
+        //         post[i]['posts'][j]['postDate'] = 'test'
+        //         //post[i].posts[j].postDate = date;
+        //         console.log("tredsasd",post[i].posts[j].postDate)
         //     }
-        console.log('object name'+ object[0].name)
-        return  object
+        // }
+        // console.log(JSON.stringify(post[0].posts))
+        return  post
     }
     catch(err){
         console.log(err);

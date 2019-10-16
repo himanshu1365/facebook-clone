@@ -1,4 +1,4 @@
-
+// var moment = require('moment')
 function showdata(data){
     
     for(let i=0;i<data.length;i++){
@@ -33,7 +33,7 @@ function showdata(data){
             let cardbody = document.createElement("div")
             let postContent = document.createElement("p")
             postContent.setAttribute("class","text-justify")
-            postContent.innerHTML = data[i].posts[j].postdata
+            postContent.innerHTML = data[i].posts[j].postData
             cardbody.appendChild(postContent)
             postcard.appendChild(cardbody)
 

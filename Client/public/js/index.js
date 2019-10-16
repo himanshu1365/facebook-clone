@@ -1,3 +1,4 @@
+
 function checkPassword(form) { 
     pwd = form.pwd.value; 
     confirmpwd = form.confirmpwd.value;  
@@ -21,11 +22,11 @@ $(document).ready( function(){
     $('#btnSave').click( function(event){
         event.preventDefault()
         let signUpData  = {
-            FirstName: $('#SignUpFirstName').val(),
-            LastName: $('#SignUpLastName').val(),
-            Email: $('#SignUpFormEmail').val(),
-            Password: $('#SignUpFormPassword').val(),
-            Phone: $('#SignUpFormPhone').val()
+            firstName: $('#SignUpFirstName').val(),
+            lastName: $('#SignUpLastName').val(),
+            email: $('#SignUpFormEmail').val(),
+            password: $('#SignUpFormPassword').val(),
+            phoneNumber: $('#SignUpFormPhone').val()
         }
         $.ajax("http://localhost:9000/signup",{
             type:"POST",
@@ -47,8 +48,8 @@ $(document).ready( function(){
     $('#loginbtn').click(function(event){
         event.preventDefault()
         let logindata = {
-            Email: $('#LoginFormEmail').val(),
-            Password: $("#LoginFormPassword").val()
+            email: $('#LoginFormEmail').val(),
+            password: $("#LoginFormPassword").val()
         }
         $.ajax("http://localhost:9000/login",{
             type:"POST",

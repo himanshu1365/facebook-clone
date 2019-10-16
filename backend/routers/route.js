@@ -33,6 +33,7 @@ module.exports =()=> {
 
     router.get('/home/getPosts',async (req,res)=>{
         const response = await Users.getAllPosts(req,res);
+        //console.log("router : "+response)
         return response
     })
 

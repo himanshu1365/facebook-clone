@@ -3,6 +3,9 @@ const {mongoose} = require('../db/connection');
 const Schema = mongoose.Schema;
 
 const PostModel = new Schema({
+    name:{
+        type:String
+    },
     userId:{
         type: String
     },

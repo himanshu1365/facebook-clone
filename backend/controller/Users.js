@@ -5,8 +5,8 @@ const jwt = require('jsonwebtoken')
 const saveSignUpData = async (req,res)=>{
     let body,response
     body = req.body
-    var hash = bcryptjs.hashSync(body.Password, 8)
-    body.Password = hash
+    var hash = bcryptjs.hashSync(body.password, 8)
+    body.password = hash
     response = await User.saveSignUpData(req,res,body)
     return response
 }
@@ -22,13 +22,10 @@ const checkUserToken = async(req,res)=>{
     return status
 }
 
-
-
-
 const getAllPosts = async(req,res)=>{
    try{
     const status = await User.getAllPosts(req,res)
-    console.log('get post name '+ status[0].name);
+    //console.log('Users '+ status);
     res.send(status);
    }
    catch(error){}
@@ -36,7 +33,7 @@ const getAllPosts = async(req,res)=>{
 
 const saveUserPost = async(req, res )=>{ 
     try{
-        console.log(req.body);
+        // console.log(req.body);
         let resp = await User.saveUserPost(req, res);
         res.send(resp);
     }
