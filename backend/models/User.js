@@ -159,6 +159,7 @@ const getComments = async(req , res )=>{
 }
 
 const saveLikes = async(req,res)=>{
+    console.log(req.body.postId)
     let getUser = await LikeModel.find({userId:req.headers.tokenValue})
     if(getUser.length != 0){
         let getExistingLike= await LikeModel.find({like:{$elemMatch:{postId:req.body.postId}}})
