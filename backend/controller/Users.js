@@ -4,8 +4,8 @@ const User = require('../models/User')
 const saveSignUpData = async (req,res)=>{
     let body,response
     body = req.body
-    var hash = bcryptjs.hashSync(body.Password, 8)
-    body.Password = hash
+    var hash = bcryptjs.hashSync(body.password, 8)
+    body.password = hash
     response = await User.saveSignUpData(req,res,body)
     return response
 }
@@ -31,7 +31,6 @@ const getAllPosts = async(req,res)=>{
 
 const saveUserPost = async(req, res )=>{ 
     try{
-        console.log(req.body);
         let resp = await User.saveUserPost(req, res);
         res.send(resp);
     }
@@ -39,7 +38,6 @@ const saveUserPost = async(req, res )=>{
     
     }
 }
-
 const userComment = async(req,res)=>{
     try{
         let comm = await User.userComment( req , res );
@@ -48,19 +46,9 @@ const userComment = async(req,res)=>{
         console.log(error)
     }
 }
-const particularUserData  = async(req,res)=>{
-    try{
-        let postData = await User.particularUserData(req,res);
-        res.send(postData);
-    }catch(error){
-        console.log(error)
-    }
-
-}
 const getComments = async( req, res )=>{
     try{
         let data = await User.getComments(req , res );
-        // console.log(data)
        res.send(data);
     }
     catch(error ){
@@ -76,7 +64,6 @@ module.exports = {
     saveSignUpData,
     checkLoginUser,
     checkUserToken,
-    particularUserData,
     saveUserPost,
     userComment,
     getComments,

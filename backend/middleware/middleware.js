@@ -6,6 +6,7 @@ function authMiddleware(req,res,next){
     try{
         const status = jwt.verify(token,SECRET)
         req.headers.tokenValue = status.userToken
+        
         next()
     }
     catch(error){

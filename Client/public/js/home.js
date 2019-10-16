@@ -1,4 +1,4 @@
-
+// var moment = require('moment')
 function showdata(data){
     for(let i=0;i<data.length;i++){
         for(let j=0;j<data[i].posts.length;j++){
@@ -21,7 +21,7 @@ function showdata(data){
             image.setAttribute('class','rounded-circle postUserPhoto')
             dflex.appendChild(image)
             let author = document.createElement("p")
-            author.innerHTML = "Author"
+            author.innerHTML = data[i].name
             dflex.appendChild(author)
 
             let date = document.createElement('p')
@@ -32,7 +32,7 @@ function showdata(data){
             let cardbody = document.createElement("div")
             let postContent = document.createElement("p")
             postContent.setAttribute("class","text-justify")
-            postContent.innerHTML = data[i].posts[j].postdata
+            postContent.innerHTML = data[i].posts[j].postData
             cardbody.appendChild(postContent)
             postcard.appendChild(cardbody)
 
@@ -92,8 +92,6 @@ function showdata(data){
     }
 }
 
-
-
 $(document).ready( function(){
     $.ajax("http://localhost:9000/home/getPosts",{
             type:'GET',
@@ -102,6 +100,7 @@ $(document).ready( function(){
                 token: localStorage.getItem('userToken')
             },
             success: function(data){
+                console.log(data[0].name)
                 showdata(data)
             },
             error: function(error){
@@ -114,6 +113,9 @@ $(document).ready( function(){
         $.ajax("http://localhost:9000/post",{
                 type:"POST",
                 dataType: "json",
+                headers:{
+                    token:localStorage.getItem('userToken')
+                },
                 contentType: "application/json; charset=utf-8",
                 data:JSON.stringify({
                     "posts":[{
