@@ -1,7 +1,7 @@
 function showdata(data){
     for(let i=0;i<data.length;i++){
         for(let j=0;j<data[i].posts.length;j++){
-            console.log(data[i].posts[j])
+            // console.log(data[i].posts[j])
             let body = document.getElementById('show-post-div')
 
             let postcard = document.createElement("div")
@@ -105,22 +105,45 @@ $(document).ready( function(){
                 $(location).attr('href','../index.html')
             }
         })
-
-    var className = document.getElementsByClassName("send-comment");
-    console.log(className.length)
-        for ( let i = 0; i < className.length; i++ ){
-            className[i].addEventListener('keydown',function(e){
-                e.preventDefault();
-                if ( e.keyCode == 13){
-                    alert(this.innerHTML);
+        
+        
+    $(document).on('keydown','input.send-comment',function(e){
+        let classnName = document.getElementsByClassName('send-comment');
+        let comments =''
+            if(e.key == 'Enter'){
+                let i = 0
+                for ( ; i< classnName.length;i++){
+                    if( $(classnName[i]).val() !=''){
+                       comments += $(classnName[i]).val();
+                        break
+                    }
                 }
-            },false)
-        }
-
+                console.log(i+" "+comments)
+                // $.ajax("http://localhost:9000/post",{
+                // type:"POST",
+                // dataType: "json",
+                // headers:{
+                //     token: localStorage.getItem('userToken')
+                // },
+                // contentType: "application/json; charset=utf-8",
+                // data:JSON.stringify({
+                //     "postId":3728923,
+                //     "comments":[{
+                //         "commentData":comments
+                //     }]
+                // }),
+                // success:function(data, status){
+                //     console.log(data.msg +" "+status);
+                //     location.reload(true);
+                // },
+                // error: function(error){
+                //     console.log(error +" "+ "error occurred");
+                //     }
+                // });
+            }
+        })
+        
     $("#btn").click( function(){
-        let src = $("#image").attr('src');
-        alert(src)
-        return
         $.ajax("http://localhost:9000/post",{
                 type:"POST",
                 dataType: "json",
@@ -143,8 +166,3 @@ $(document).ready( function(){
         });
     });
 });
-$(document).ready(function(){
-    $("#hideandshow").click(function(){
-      $("i").toggle();
-    });
-  });
