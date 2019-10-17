@@ -16,7 +16,7 @@
 </head>
 <body>
     <nav>
-        <!-- <a href="#" class="logo"><img src="/assets/fblogo.jpg" alt=""></a> -->
+        <a href="#" class="logo"><img src="/assets/fblogo.jpg" alt=""></a>
         <div class="search">
           <input type="text" id="inputText" placeholder="Search">
           <div class="search-icon">
@@ -24,9 +24,21 @@
           </div>
         </div>
         <div class="right-side">
-            <div class="d-flex user">
+            <a href="#" class="profile">
                 <img class="rounded-circle user-profile" src="../assets/post.jpg">
-                <p >Birendra</p>
+                <p>Birendra</p>
+            </a>|
+            <a href="#" class="home-create"><p>Home</p></a>
+                |
+            <a href="#" class="home-create"> <p>Create</p></a>
+            |
+            <div class="notice-icon">
+                <a href="#"><p><i class="fa fa-users" aria-hidden="true"></i></p></a>
+                <a href="#"><p><i class="fa fa-comment" aria-hidden="true"></i></p></a>
+                <a href="#"><p><i class="fa fa-bell notice" aria-hidden="true"></i></p></a>
+                |
+                <a href="#"><p><i class="fa fa-question-circle" aria-hidden="true"></i></p></a>
+                <a href="#"><p><i class="fa fa-caret-down" aria-hidden="true"></i></p></a>
             </div>
         </div>
     </nav>
@@ -37,7 +49,10 @@
                 <form class="post">
                     <h5>Create Your Post:</h5>
                     <textarea id="myTextarea" rows="3" placeholder="Write something..."></textarea><br>
-                    <button type="button" class="btn btn-primary" id="btn">Post</button>
+                    <div class="input-image-post">
+                        <input type="file" name="myImage" id="image" accept="image/x-png,image/gif,image/jpeg" />
+                        <button type="button" class="btn btn-primary" id="btn">Post</button>
+                    </div>
                     <hr>
                 </form>
                 <div id="show-post-div"></div>
