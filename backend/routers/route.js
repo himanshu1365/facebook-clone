@@ -12,6 +12,10 @@ app.use(bodyParser.urlencoded({
 module.exports =()=> {
     const router = express.Router();
     
+    // router.get('/postdata',(req,res)=>{
+    //     postData.postData();
+    // })
+
     router.post('/signup',(req,res)=>{
         Users.saveSignUpData(req,res)
     })
@@ -28,6 +32,7 @@ module.exports =()=> {
 
     router.get('/home/getPosts',async (req,res)=>{
         const response = await Users.getAllPosts(req,res);
+        //console.log("router : "+response)
         return response
     })
 

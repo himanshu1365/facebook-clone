@@ -1,4 +1,4 @@
-
+// var moment = require('moment')
 function showdata(data){
     
     for(let i=0;i<data.length;i++){
@@ -22,7 +22,7 @@ function showdata(data){
             image.setAttribute('class','rounded-circle postUserPhoto')
             dflex.appendChild(image)
             let author = document.createElement("p")
-            author.innerHTML = "Author"
+            author.innerHTML = data[i].name
             dflex.appendChild(author)
 
             let date = document.createElement('p')
@@ -33,7 +33,7 @@ function showdata(data){
             let cardbody = document.createElement("div")
             let postContent = document.createElement("p")
             postContent.setAttribute("class","text-justify")
-            postContent.innerHTML = data[i].posts[j].postdata
+            postContent.innerHTML = data[i].posts[j].postData
             cardbody.appendChild(postContent)
             postcard.appendChild(cardbody)
 
@@ -92,8 +92,6 @@ function showdata(data){
     }
 }
 
-
-
 $(document).ready( function(){
     $.ajax("http://localhost:9000/home/getPosts",{
             type:'GET',
@@ -102,6 +100,7 @@ $(document).ready( function(){
                 token: localStorage.getItem('userToken')
             },
             success: function(data){
+                console.log(data[0].name)
                 showdata(data)
             },
             error: function(error){
@@ -111,7 +110,6 @@ $(document).ready( function(){
         })
 
     $("#btn").click( function(){
-        
         $.ajax("http://localhost:9000/post",{
                 type:"POST",
                 dataType: "json",
@@ -131,36 +129,6 @@ $(document).ready( function(){
                     console.log(error +" "+ "error occurred");
             }
         });
-    });
-    $("#comment-btn").click( function(){
-        var d = new Date();
-        var month = d.getMonth()+1;
-        var day = d.getDate();
-        var output = d.getFullYear() + '-' +
-            (month<10 ? '0' : '') + month + '-' +
-            (day<10 ? '0' : '') + day;
-            console.log('hello');
-        $.ajax("http://localhost:9000/home/comment",{
-                type:"POST",
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                data:JSON.stringify({
-                    "post_id" : "p1235",
-                    "user_id":"bhujel@gmail.com",
-                    "comment_user": $.trim($("#comment-id").val()),
-                    "comment_date" : output
-                }),
-                success:function(data, status){
-                    console.log(data.msg +" "+status);
-                },
-                error: function(error){
-                    console.log(error +" "+ "error occurred");
-            }
-        });
-    });
-    $("#show-comments").click( function(){
-        console.log('hide')
-        $(".display-comment").show();
     });
 });
 $(document).ready(function(){

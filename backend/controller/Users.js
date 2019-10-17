@@ -22,22 +22,18 @@ const checkUserToken = async(req,res)=>{
     return status
 }
 
-
-
-
 const getAllPosts = async(req,res)=>{
    try{
     const status = await User.getAllPosts(req,res)
-    // console.log(status);
+    //console.log('Users '+ status);
     res.send(status);
    }
    catch(error){}
 }
+
 const saveUserPost = async(req, res )=>{ 
     try{
-
         console.log(req.body);
-
         let resp = await User.saveUserPost(req, res);
         res.send(resp);
     }
@@ -45,8 +41,6 @@ const saveUserPost = async(req, res )=>{
     
     }
 }
-
-
 const userComment = async(req,res)=>{
     try{
         let comm = await User.userComment( req , res );
@@ -54,15 +48,6 @@ const userComment = async(req,res)=>{
     }catch( error ){
         console.log(error)
     }
-}
-const particularUserData  = async(req,res)=>{
-    try{
-        let postData = await User.particularUserData(req,res);
-        res.send(postData);
-    }catch(error){
-        console.log(error)
-    }
-
 }
 const getComments = async( req, res )=>{
     try{
@@ -79,7 +64,7 @@ module.exports = {
     saveSignUpData,
     checkLoginUser,
     checkUserToken,
-    particularUserData,
+    // particularUserData,
     saveUserPost,
     userComment,
     getComments,

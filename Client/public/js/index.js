@@ -1,5 +1,3 @@
-
-
 $(document).ready( function(){
     document.getElementById('btnSave').addEventListener('click',validateForm)
     function validateForm(){
@@ -79,7 +77,7 @@ $(document).ready( function(){
                 lastName: $('#SignUpLastName').val(),
                 email: $('#SignUpFormEmail').val(),
                 password: $('#SignUpFormPassword').val(),
-                phone: $('#SignUpFormPhone').val()
+                phone_number: $('#SignUpFormPhone').val()
             }
             $.ajax("http://localhost:9000/signup",{
                 type:"POST",
@@ -167,4 +165,3 @@ $(document).ready( function(){
         }
     }
 })
-
