@@ -1,6 +1,5 @@
 const bcryptjs = require('bcryptjs')
 const User = require('../models/User')
-const jwt = require('jsonwebtoken')
 
 const saveSignUpData = async (req,res)=>{
     let body,response
@@ -25,7 +24,6 @@ const checkUserToken = async(req,res)=>{
 const getAllPosts = async(req,res)=>{
    try{
     const status = await User.getAllPosts(req,res)
-    //console.log('Users '+ status);
     res.send(status);
    }
    catch(error){}
@@ -33,12 +31,11 @@ const getAllPosts = async(req,res)=>{
 
 const saveUserPost = async(req, res )=>{ 
     try{
-        console.log(req.body);
         let resp = await User.saveUserPost(req, res);
         res.send(resp);
     }
     catch( erre ){
-    
+
     }
 }
 const userComment = async(req,res)=>{
@@ -52,7 +49,6 @@ const userComment = async(req,res)=>{
 const getComments = async( req, res )=>{
     try{
         let data = await User.getComments(req , res );
-        // console.log(data)
        res.send(data);
     }
     catch(error ){
@@ -60,13 +56,29 @@ const getComments = async( req, res )=>{
     }
 }
 
+const saveLikes = async(req,res)=>{
+    let response = await User.saveLikes(req,res)
+    return response
+}
+
+const deleteLikes = async(req,res)=>{
+    let response = await User.deleteLikes(req,res)
+    return response
+}
+
+const saveSharedPost = async(req,res)=>{
+    let response = await User.saveSharedPost(req,res)
+    return response
+}
 module.exports = {
     saveSignUpData,
     checkLoginUser,
     checkUserToken,
-    // particularUserData,
     saveUserPost,
     userComment,
     getComments,
-    getAllPosts
+    getAllPosts,
+    saveLikes,
+    deleteLikes,
+    saveSharedPost
 }

@@ -1,13 +1,12 @@
 // var moment = require('moment')
 function showdata(data){
-    
     for(let i=0;i<data.length;i++){
         for(let j=0;j<data[i].posts.length;j++){
-            console.log(data[i].posts[j])
             let body = document.getElementById('show-post-div')
 
             let postcard = document.createElement("div")
             postcard.setAttribute('class','card postcard')
+            postcard.setAttribute('id',data[i].posts[j]._id)
             body.appendChild(postcard)
 
             let cardheader = document.createElement("div")
@@ -54,6 +53,7 @@ function showdata(data){
             row.setAttribute("class","row")
             let likecontent = document.createElement("div")
             likecontent.setAttribute('class','like-share-contents col-md-3')
+            likecontent.setAttribute('id','saveLike')
             row.appendChild(likecontent)
             let thumbs = document.createElement('span')
             let ithumbs = document.createElement('i')
@@ -102,7 +102,6 @@ $(document).ready( function(){
                 token: localStorage.getItem('userToken')
             },
             success: function(data){
-                console.log(data[0].name)
                 showdata(data)
             },
             error: function(error){
@@ -110,8 +109,22 @@ $(document).ready( function(){
                 $(location).attr('href','../index.html')
             }
         })
+        
+    var className = document.getElementsByClassName("send-comment");
+    console.log(className.length)
+        for ( let i = 0; i < className.length; i++ ){
+            className[i].addEventListener('keydown',function(e){
+                e.preventDefault();
+                if ( e.keyCode == 13){
+                    alert(this.innerHTML);
+                }
+            },false)
+        }
 
     $("#btn").click( function(){
+        let src = $("#image").attr('src');
+        alert(src)
+        return
         $.ajax("http://localhost:9000/post",{
                 type:"POST",
                 dataType: "json",
@@ -126,15 +139,90 @@ $(document).ready( function(){
                 }),
                 success:function(data, status){
                     console.log(data.msg +" "+status);
+                    location.reload(true);
                 },
                 error: function(error){
                     console.log(error +" "+ "error occurred");
             }
         });
     });
-});
-$(document).ready(function(){
-    $("#hideandshow").click(function(){
-      $("i").toggle();
+    $("#comment-btn").click( function(){
+        var d = new Date();
+        var month = d.getMonth()+1;
+        var day = d.getDate();
+        var output = d.getFullYear() + '-' +
+            (month<10 ? '0' : '') + month + '-' +
+            (day<10 ? '0' : '') + day;
+            console.log('hello');
+        $.ajax("http://localhost:9000/home/comment",{
+                type:"POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data:JSON.stringify({
+                    "post_id" : "p1235",
+                    "user_id":"bhujel@gmail.com",
+                    "comment_user": $.trim($("#comment-id").val()),
+                    "comment_date" : output
+                }),
+                success:function(data, status){
+                    console.log(data.msg +" "+status);
+                },
+                error: function(error){
+                    console.log(error +" "+ "error occurred");
+            }
+        });
     });
-  });
+    $("#show-comments").click(function(){
+        console.log('hide')
+        $(".display-comment").show();
+    });
+});
+<<<<<<< HEAD
+
+$(document).on('click','#saveLike',function(){
+    if($(this).css("color") == 'rgb(128, 128, 128)'){
+        $(this).css("color","blue")
+        $.ajax('http://localhost:9000/home/like',{
+        type:'POST',
+        dataType:'JSON',
+        headers:{
+            token: localStorage.getItem('userToken')
+        },
+        data: {
+            postId :$(this).parent().parent().parent().parent().attr('id')
+        },
+        success: function(){ },
+        error: function(){ }
+    })
+    }
+    else{
+        $(this).css("color","rgb(128, 128, 128)")
+        $.ajax('http://localhost:9000/home/like',{
+            type:'DELETE',
+            dataType:'JSON',
+            headers:{
+                token: localStorage.getItem('userToken')
+            },
+            data:{
+                postId: $(this).parent().parent().parent().parent().attr('id')
+            },
+            success: function() { },
+            error: function() { }
+        })
+    }
+})
+
+$(document).on('click','#sharePost',function(){
+    $.ajax('http://localhost:9000/home/sharePost',{
+        type:'POST',
+        dataType:'JSON',
+        headers: {
+            token: localStorage.getItem('userToken')
+        },
+        data:{
+            postID: $(this).parent().parent().parent().parent().attr('id')
+        },
+        success: function(){ },
+        error: function(){ }
+    })
+})

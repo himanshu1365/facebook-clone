@@ -11,15 +11,12 @@ app.use(bodyParser.urlencoded({
 
 module.exports =()=> {
     const router = express.Router();
-    
-    // router.get('/postdata',(req,res)=>{
-    //     postData.postData();
-    // })
 
     router.post('/signup',(req,res)=>{
+        console.log(req.body)
         Users.saveSignUpData(req,res)
     })
-    
+
     router.post('/login',(req,res)=>{
         Users.checkLoginUser(req,res)
     })
@@ -36,7 +33,7 @@ module.exports =()=> {
 
     router.get('/home/getPosts',async (req,res)=>{
         const response = await Users.getAllPosts(req,res);
-        //console.log("router : "+response)
+
         return response
     })
 
@@ -50,6 +47,18 @@ module.exports =()=> {
     })
 
    
+
+    router.post('/home/like',(req,res)=>{
+        Users.saveLikes(req,res)
+    })
+
+    router.delete('/home/like',(req,res)=>{
+        Users.deleteLikes(req,res)
+    })
+
+    router.post('/home/sharePost',(req,res)=>{
+        Users.saveSharedPost(req,res)
+    })
 
     return router
 }
