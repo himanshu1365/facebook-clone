@@ -164,11 +164,7 @@ $(document).ready( function(){
 $(document).on('click','#saveLike',function(){
     if($(this).css("color") == 'rgb(128, 128, 128)'){
         $(this).css("color","blue")
-    }
-    else{
-        $(this).css("color","rgb(128, 128, 128)")
-    }
-    $.ajax('http://localhost:9000/home/saveLike',{
+        $.ajax('http://localhost:9000/home/like',{
         type:'POST',
         dataType:'JSON',
         headers:{
@@ -176,6 +172,37 @@ $(document).on('click','#saveLike',function(){
         },
         data: {
             postId :$(this).parent().parent().parent().parent().attr('id')
+        },
+        success: function(){ },
+        error: function(){ }
+    })
+    }
+    else{
+        $(this).css("color","rgb(128, 128, 128)")
+        $.ajax('http://localhost:9000/home/like',{
+            type:'DELETE',
+            dataType:'JSON',
+            headers:{
+                token: localStorage.getItem('userToken')
+            },
+            data:{
+                postId: $(this).parent().parent().parent().parent().attr('id')
+            },
+            success: function() { },
+            error: function() { }
+        })
+    }
+})
+
+$(document).on('click','#sharePost',function(){
+    $.ajax('http://localhost:9000/home/sharePost',{
+        type:'POST',
+        dataType:'JSON',
+        headers: {
+            token: localStorage.getItem('userToken')
+        },
+        data:{
+            postID: $(this).parent().parent().parent().parent().attr('id')
         },
         success: function(){ },
         error: function(){ }

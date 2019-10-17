@@ -61,6 +61,16 @@ const saveLikes = async(req,res)=>{
     let response = await User.saveLikes(req,res)
     return response
 }
+
+const deleteLikes = async(req,res)=>{
+    let response = await User.deleteLikes(req,res)
+    return response
+}
+
+const saveSharedPost = async(req,res)=>{
+    let response = await User.saveSharedPost(req,res)
+    return response
+}
 module.exports = {
     saveSignUpData,
     checkLoginUser,
@@ -69,5 +79,7 @@ module.exports = {
     userComment,
     getComments,
     getAllPosts,
-    saveLikes
+    saveLikes,
+    deleteLikes,
+    saveSharedPost
 }

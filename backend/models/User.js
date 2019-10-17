@@ -1,7 +1,8 @@
 const SignUpModel = require('./signupdata')
 const commentModel = require('./commentModel')
 const PostModel = require('./postModel')
-const LikeModel = require('./LikeModel')
+const LikeModel = require('./likeModel')
+const ShareModel = require('./shareModel')
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const {SECRET} = require('../config/config')
@@ -162,14 +163,8 @@ const saveLikes = async(req,res)=>{
     if(getUser.length != 0){
         let getExistingLike= await LikeModel.find({like:{$elemMatch:{postId:req.body.postId}}})
         if(getExistingLike.length == 0){
-            const status = await LikeModel.findOneAndUpdate(
-                {userId: req.headers.tokenValue},
-                {  $push:{like: req.body} }
-            )
+            await LikeModel.findOneAndUpdate({userId: req.headers.tokenValue},{$push:{like: req.body}})
         }
-        else{
-            await LikeModel.update({userId:req.headers.tokenValue},{$pull: { like: {postId: req.body.postId}}})
-        }  
     }
     else{
         let likedata = {
@@ -182,6 +177,27 @@ const saveLikes = async(req,res)=>{
     return res.status(200).send({msg:'Like Added Successfully'})
 }
 
+const deleteLikes = async(req,res)=>{
+    await LikeModel.update({userId:req.headers.tokenValue},{$pull: { like: {postId: req.body.postId}}})
+    return res.status(200).send({msg:'Like deleted Successfully'})
+}
+
+const saveSharedPost = async(req,res)=>{
+    let existingUser = await ShareModel.find({userId:req.headers.tokenValue})
+    if(existingUser.length == 0){
+        let sharedata = {
+            'userId':req.headers.tokenValue,
+            'share':{'postId':req.body.postId}
+        }
+        let share = new ShareModel(sharedata)
+        await share.save()
+        return res.status(200).send({msg:'Shareed Post Successfully'})
+    }
+    else{
+        let getExistingShare = await ShareModel.find({share:{$elemMatch:{postId:req.body.postId}}})
+
+    }
+}
 module.exports = {
     saveSignUpData,
     loginUser,
@@ -191,5 +207,6 @@ module.exports = {
     saveUserPost,
     userComment,
     getComments,
-    saveLikes
+    saveLikes,
+    deleteLikes
 }
