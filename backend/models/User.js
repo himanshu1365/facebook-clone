@@ -1,11 +1,10 @@
 const SignUpModel = require('./signupdata')
-const postData = require('./arrange-post')
+const Comment = require('./commentModel');
 const commentModel = require('./commentModel')
 const PostModel = require('./postModel')
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const {SECRET} = require('../config/config')
-
 
 const saveSignUpData  = async(req,res,data)=>{
     let existingUser
@@ -16,7 +15,7 @@ const saveSignUpData  = async(req,res,data)=>{
         return res.status(200).send({msg:'User saved Successfully'})
     }
     else{
-        return res.status(400).send({msg:'User already Existed'})
+        return resz.status(400).send({msg:'User already Existed'})
     }   
 }
 
@@ -42,8 +41,6 @@ const loginUser = async(req,res)=>{
 
 const particularUserData  = async(req,res)=>{
     try{
-        debugger
-        // console.log(req.query._id)
         let fetchId = await PostModel.findOne({_id: req.query._id})
         console.log(fetchId)
             if(fetchId.length!=0){
@@ -58,12 +55,11 @@ const particularUserData  = async(req,res)=>{
 
 
 const getAllPosts = async(req,res)=>{
-        try{
-            const response = await postData.postData(req,res)
-            // console.log(response)
-            return response
+    try{
+        let post = await PostModel.find();
+        return post;
         }catch(error){
-
+            return error
         }
     }
 
@@ -80,7 +76,6 @@ const saveUserPost = async( req, res )=>{
     try{
         
         let signUpUser = await SignUpModel.find({_id:req.headers.tokenValue})
-        // console.log(signUpUser[0].Email);
         let post = await PostModel.find({userId:signUpUser[0].email});
         req.body.userId = signUpUser[0].email;
         req.body.name=signUpUser[0].firstName +" "+ signUpUser[0].lastName;
@@ -124,15 +119,14 @@ const saveUserPost = async( req, res )=>{
 const userComment = async( req , res ) =>{
 try{
     let comment = await commentModel.find({userid:req.body.userid});
-    //console.log(comment);
     if ( comment.length != 0 ){
         console.log(req.body)
         const status = await commentModel.findOneAndUpdate({
-            userid:req.body.userid,
+            postid:req.body.postid,
         },
         {
             $push:{
-                comments:req.body.comments
+                comment:req.body.comments
             }
         });
         return {
