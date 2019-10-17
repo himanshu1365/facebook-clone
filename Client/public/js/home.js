@@ -107,13 +107,27 @@ $(document).ready( function(){
                 $(location).attr('href','../index.html')
             }
         })
+        
+    var className = document.getElementsByClassName("send-comment");
+    console.log(className.length)
+        for ( let i = 0; i < className.length; i++ ){
+            className[i].addEventListener('keydown',function(e){
+                e.preventDefault();
+                if ( e.keyCode == 13){
+                    alert(this.innerHTML);
+                }
+            },false)
+        }
 
     $("#btn").click( function(){
+        let src = $("#image").attr('src');
+        alert(src)
+        return
         $.ajax("http://localhost:9000/post",{
                 type:"POST",
                 dataType: "json",
                 headers:{
-                    token:localStorage.getItem('userToken')
+                    token: localStorage.getItem('userToken')
                 },
                 contentType: "application/json; charset=utf-8",
                 data:JSON.stringify({
@@ -123,6 +137,7 @@ $(document).ready( function(){
                 }),
                 success:function(data, status){
                     console.log(data.msg +" "+status);
+                    location.reload(true);
                 },
                 error: function(error){
                     console.log(error +" "+ "error occurred");
@@ -160,6 +175,7 @@ $(document).ready( function(){
         $(".display-comment").show();
     });
 });
+<<<<<<< HEAD
 
 $(document).on('click','#saveLike',function(){
     if($(this).css("color") == 'rgb(128, 128, 128)'){

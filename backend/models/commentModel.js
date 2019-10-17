@@ -4,8 +4,8 @@ const Schema = mongoose.Schema
 
 const commentSchema = new Schema({
     userid: String,
-    comments : [{
-        postId: String,
+    postId: String,
+    comments : {
         commentList: [{
             commentData : String,
             commentdate: {
@@ -13,7 +13,7 @@ const commentSchema = new Schema({
                 default: +new Date() + 7*24*16*60*1000
             }
         }]
-    }]
+    }
 })
 
 module.exports = mongoose.model('commentSchema',commentSchema)

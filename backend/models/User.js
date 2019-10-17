@@ -16,7 +16,7 @@ const saveSignUpData  = async(req,res,data)=>{
         return res.status(200).send({msg:'User saved Successfully'})
     }
     else{
-        return res.status(400).send({msg:'User already Existed'})
+        return resz.status(400).send({msg:'User already Existed'})
     }   
 }
 
@@ -52,11 +52,11 @@ const particularUserData  = async(req,res)=>{
 
 const getAllPosts = async(req,res)=>{
     try{
-        const response = await PostModel.find()
-        return response
-    }
+        let post = await PostModel.find();
+        return post;
+        }
     catch(error){
-
+        return error
     }
 }
 
@@ -71,10 +71,11 @@ const checkUserToken = async(req,res)=>{
 }
 const saveUserPost = async( req, res )=>{
     try{
-        req.body.userId = req.headers.tokenValue;
-        let post = await PostModel.find({userId:req.body.userId});
-
-
+        let signUpUser = await SignUpModel.find({_id:req.headers.tokenValue})
+        let post = await PostModel.find({userId:signUpUser[0].email});
+        req.body.userId = signUpUser[0].email;
+        req.body.name=signUpUser[0].firstName +" "+ signUpUser[0].lastName;
+        
     if ( post.length != 0 ){
 
         await PostModel.findOneAndUpdate({
@@ -117,11 +118,11 @@ try{
     let comment = await commentModel.find({userid:req.body.userid});
     if ( comment.length != 0 ){
         const status = await commentModel.findOneAndUpdate({
-            userid:req.body.userid,
+            postid:req.body.postid,
         },
         {
             $push:{
-                comments:req.body.comments
+                comment:req.body.comments
             }
         });
         return {

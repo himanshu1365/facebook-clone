@@ -13,7 +13,6 @@ const saveSignUpData = async (req,res)=>{
 const checkLoginUser = async(req,res)=>{
     let response
     response = await User.loginUser(req,res)
-    
     return response
 }
 
@@ -36,7 +35,7 @@ const saveUserPost = async(req, res )=>{
         res.send(resp);
     }
     catch( erre ){
-    
+
     }
 }
 const userComment = async(req,res)=>{
