@@ -1,6 +1,4 @@
-// var moment = require('moment')
 function showdata(data){
-    
     for(let i=0;i<data.length;i++){
         for(let j=0;j<data[i].posts.length;j++){
             console.log(data[i].posts[j])
@@ -46,7 +44,7 @@ function showdata(data){
 
             let hr = document.createElement("hr")
             cardbody.appendChild(hr)
-            
+
             let likebox = document.createElement("div")
             likebox.setAttribute("class","like-share-box")
             let row = document.createElement("div")
@@ -107,7 +105,7 @@ $(document).ready( function(){
                 $(location).attr('href','../index.html')
             }
         })
-        
+
     var className = document.getElementsByClassName("send-comment");
     console.log(className.length)
         for ( let i = 0; i < className.length; i++ ){
