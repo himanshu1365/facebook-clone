@@ -114,7 +114,7 @@ $(document).ready( function(){
                 type:"POST",
                 dataType: "json",
                 headers:{
-                    token:localStorage.getItem('userToken')
+                    token: localStorage.getItem('userToken')
                 },
                 contentType: "application/json; charset=utf-8",
                 data:JSON.stringify({
@@ -131,3 +131,8 @@ $(document).ready( function(){
         });
     });
 });
+$(document).ready(function(){
+    $("#hideandshow").click(function(){
+      $("i").toggle();
+    });
+  });

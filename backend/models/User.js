@@ -1,11 +1,10 @@
 const SignUpModel = require('./signupdata')
-const postData = require('./arrange-post')
+const Comment = require('./commentModel');
 const commentModel = require('./commentModel')
 const PostModel = require('./postModel')
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const {SECRET} = require('../config/config')
-
 
 const saveSignUpData  = async(req,res,data)=>{
     let existingUser
@@ -16,7 +15,7 @@ const saveSignUpData  = async(req,res,data)=>{
         return res.status(200).send({msg:'User saved Successfully'})
     }
     else{
-        return res.status(400).send({msg:'User already Existed'})
+        return resz.status(400).send({msg:'User already Existed'})
     }   
 }
 
@@ -58,12 +57,11 @@ const particularUserData  = async(req,res)=>{
 
 
 const getAllPosts = async(req,res)=>{
-        try{
-            const response = await postData.postData(req,res)
-            // console.log(response)
-            return response
+    try{
+        let post = await PostModel.find();
+        return post;
         }catch(error){
-
+            return error
         }
     }
 
@@ -128,11 +126,12 @@ try{
     if ( comment.length != 0 ){
         console.log(req.body)
         const status = await commentModel.findOneAndUpdate({
-            userid:req.body.userid,
+            postid:req.body.postid,
         },
+        // populate('comments')
         {
             $push:{
-                comments:req.body.comments
+                comment:req.body.comments
             }
         });
         return {

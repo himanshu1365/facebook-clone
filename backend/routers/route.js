@@ -1,6 +1,5 @@
 const express = require('express')
 const Users = require('../controller/Users')
-const postData= require('../models/arrange-post')
 const bodyParser = require('body-parser')
 const app = express()
 const { authMiddleware } = require('../middleware/middleware')
