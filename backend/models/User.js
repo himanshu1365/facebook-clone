@@ -26,7 +26,7 @@ const loginUser = async(req,res)=>{
         let password = checkUser[0].password
         let status = bcryptjs.compareSync(req.body.password,password)
         if(status){
-            jwt.sign({userToken: checkUser[0]._id},SECRET,{ expiresIn: 1000},(err,token)=>{
+            jwt.sign({userToken: checkUser[0]._id},SECRET,{ expiresIn: '24h'},(err,token)=>{
                 return res.status(200).send({msg:'Login Successful',token: token})
             })
         }
@@ -113,42 +113,51 @@ const saveUserPost = async( req, res )=>{
 }
  
 const userComment = async( req , res ) =>{
-try{
 
-    let comment = await commentModel.find({userid:req.body.userid});
-    if ( comment.length != 0 ){
-        const status = await commentModel.findOneAndUpdate({
-            postid:req.body.postid,
-        },
+    try{
+        let comment = await commentModel.find({postId:req.headers.tokenValue});
+        let signUpUser = await SignUpModel.find({_id:req.headers.tokenValue})
+         
+        // let postid = await commentModel.find({postid:postmodel[0].postid});
+        req.body.postId = req.headers.tokenValue;
+        req.body.comments[0].commentator=signUpUser[0].firstName +" "+ signUpUser[0].lastName;
+        console.log("commentator name"+ req.body.comments[0].commentator)
+        console.log(comment);
+        if ( comment.length != 0 ){
+            debugger
+         console.log(req.body)
+            await commentModel.findOneAndUpdate({
+                postId:req.body.postId,
+            },
+            {
+                $push:{
+                    comments:req.body.comments,
+                }
+            }).sort({commentData : -1});
+            return {
+                'status':200,
+                'msg':'multiple comments added'
+            }
+        }
+        else
         {
-            $push:{
-                comment:req.body.comments
+            let commentData = new commentModel(req.body);
+            await commentData.save();
+            return {
+                status:200,
+                msg:'new comment added'
+                }
             }
-        });
-        return {
-            'status':200,
-            'msg':'multiple comments added'
+          
         }
-
-    }
-    else
-    {
-        let commentData = new commentModel(req.body);
-        await commentData.save();
-        return {
-            'status':200,
-            'msg':'new comment added'
+        catch(err){
+            return {
+                'status':404,
+                'msg':'something went wrong',
+                'error':err
             }
         }
-    
-    }catch(err){
-        return {
-            'status':404,
-            'msg':'something went wrong',
-            'error':err
-        }
     }
-}
 const getComments = async(req , res )=>{
     try{
         let data = await Comment.find();
