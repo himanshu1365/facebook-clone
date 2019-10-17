@@ -10,10 +10,12 @@ const jwt = require('jsonwebtoken')
 //  const userData = require('./')
 const {SECRET} = require('../config/config')
 // const commentSchema = require('./commentschema')
+
+
 const saveSignUpData  = async(req,res,data)=>{
     let existingUser
     let modeldata = new SignUpModel(data)
-    existingUser = await SignUpModel.find({Email: data.Email})
+    existingUser = await SignUpModel.find({email: data.email})
     if(existingUser.length == 0){
         response = await modeldata.save()
         return res.status(200).send({msg:'User saved Successfully'})
