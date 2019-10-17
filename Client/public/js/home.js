@@ -163,3 +163,8 @@ $(document).ready( function(){
         $(".display-comment").show();
     });
 });
+$(document).ready(function(){
+    $("#hideandshow").click(function(){
+      $("i").toggle();
+    });
+  });
