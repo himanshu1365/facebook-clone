@@ -1,7 +1,7 @@
 const SignUpModel = require('./signupdata')
-const Comment = require('./comment');
+const Comment = require('./commentModel');
 
-const commentModel = require('./commentschema')
+const commentModel = require('./commentModel')
 
 const PostModel = require('./postModel')
 
@@ -24,10 +24,10 @@ const saveSignUpData  = async(req,res,data)=>{
 }
 
 const loginUser = async(req,res)=>{
-    let checkUser = await SignUpModel.find({Email: req.body.Email})
+    let checkUser = await SignUpModel.find({email: req.body.email})
     if(checkUser.length != 0){
-        let password = checkUser[0].Password
-        let status = bcryptjs.compareSync(req.body.Password,password)
+        let password = checkUser[0].password
+        let status = bcryptjs.compareSync(req.body.password,password)
         if(status){
             jwt.sign({userToken: checkUser[0]._id},SECRET,{ expiresIn: 30},(err,token)=>{
                 return res.status(200).send({msg:'Login Successful',token: token})
@@ -118,36 +118,18 @@ const saveUserPost = async( req, res )=>{
 }
  
 const userComment = async( req , res ) =>{
-
-
-//         const comment = new commentModel(req.body);
-
-//   comment
-//     .save()
-//     .then(comment => {
-//       return commentModel.findById(req.params.postId);
-//     })
-//     .then(comment => {
-//        commentModel.commentschemas.unshift(commentModel);
-//       return commentschemas.save();
-//     })
-//     .then(comment => {
-//       res.redirect(`/`);
-//     })
-//     .catch(err => {
-//       console.log(err);
-//     });
 try{
     let comment = await commentModel.find({userid:req.body.userid});
     //console.log(comment);
     if ( comment.length != 0 ){
         console.log(req.body)
         const status = await commentModel.findOneAndUpdate({
-            userid:req.body.userid,
+            postid:req.body.postid,
         },
+        // populate('comments')
         {
             $push:{
-                comments:req.body.comments
+                comment:req.body.comments
             }
         });
         return {

@@ -16,9 +16,13 @@ h2.textcolor{
     color: rgb(0, 0, 0);
     text-align: center;
 } */
-.bg-color{
-    background-color: grey;
-}
+/* .backgroundColor{
+    background-color: blue;
+} */
+.navbar navbar-expand-sm bg-dark navbar-dark{
+        background-color: blue;
+        height: 100px;
+    }
 
 
 /* y */
