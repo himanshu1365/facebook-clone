@@ -35,7 +35,7 @@ const saveUserPost = async(req, res )=>{
         res.send(resp);
     }
     catch( erre ){
-    
+
     }
 }
 const userComment = async(req,res)=>{
@@ -56,6 +56,20 @@ const getComments = async( req, res )=>{
     }
 }
 
+const saveLikes = async(req,res)=>{
+    let response = await User.saveLikes(req,res)
+    return response
+}
+
+const deleteLikes = async(req,res)=>{
+    let response = await User.deleteLikes(req,res)
+    return response
+}
+
+const saveSharedPost = async(req,res)=>{
+    let response = await User.saveSharedPost(req,res)
+    return response
+}
 module.exports = {
     saveSignUpData,
     checkLoginUser,
@@ -63,5 +77,8 @@ module.exports = {
     saveUserPost,
     userComment,
     getComments,
-    getAllPosts
+    getAllPosts,
+    saveLikes,
+    deleteLikes,
+    saveSharedPost
 }

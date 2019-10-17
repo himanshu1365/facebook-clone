@@ -7,7 +7,7 @@ const ShareModel = new Schema({
         type: String,
     },
     shares:[{
-        
+        postId: String
     }]
 })
 

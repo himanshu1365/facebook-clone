@@ -1,11 +1,11 @@
 function showdata(data){
     for(let i=0;i<data.length;i++){
         for(let j=0;j<data[i].posts.length;j++){
-            // console.log(data[i].posts[j])
             let body = document.getElementById('show-post-div')
 
             let postcard = document.createElement("div")
             postcard.setAttribute('class','card postcard')
+            postcard.setAttribute('id',data[i].posts[j]._id)
             body.appendChild(postcard)
 
             let cardheader = document.createElement("div")
@@ -52,6 +52,7 @@ function showdata(data){
             row.setAttribute("class","row")
             let likecontent = document.createElement("div")
             likecontent.setAttribute('class','like-share-contents col-md-3')
+            likecontent.setAttribute('id','saveLike')
             row.appendChild(likecontent)
             let thumbs = document.createElement('span')
             let ithumbs = document.createElement('i')
@@ -86,6 +87,8 @@ function showdata(data){
             cardfooter.appendChild(input)
             postcard.appendChild(cardfooter)
             cardbody.appendChild(likebox)
+
+            
         }
     }
 }
@@ -165,4 +168,51 @@ $(document).ready( function(){
             }
         });
     });
+    $(document).on('click','#saveLike',function(){
+        if($(this).css("color") == 'rgb(128, 128, 128)'){
+            $(this).css("color","blue")
+            $.ajax('http://localhost:9000/home/like',{
+            type:'POST',
+            dataType:'JSON',
+            headers:{
+                token: localStorage.getItem('userToken')
+            },
+            data: {
+                postId :$(this).parent().parent().parent().parent().attr('id')
+            },
+            success: function(){ },
+            error: function(){ }
+            })
+        }
+    else{
+        $(this).css("color","rgb(128, 128, 128)")
+        $.ajax('http://localhost:9000/home/like',{
+            type:'DELETE',
+            dataType:'JSON',
+            headers:{
+                token: localStorage.getItem('userToken')
+            },
+            data:{
+                postId: $(this).parent().parent().parent().parent().attr('id')
+            },
+            success: function() { },
+            error: function() { }
+            })
+        }
+    })
+
+    $(document).on('click','#sharePost',function(){
+        $.ajax('http://localhost:9000/home/sharePost',{
+            type:'POST',
+            dataType:'JSON',
+            headers: {
+                token: localStorage.getItem('userToken')
+            },
+            data:{
+                postID: $(this).parent().parent().parent().parent().attr('id')
+            },
+            success: function(){ },
+            error: function(){ }
+        })
+    })
 });
