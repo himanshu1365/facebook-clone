@@ -13,7 +13,6 @@ module.exports =()=> {
     const router = express.Router();
 
     router.post('/signup',(req,res)=>{
-        console.log(req.body)
         Users.saveSignUpData(req,res)
     })
 
@@ -25,28 +24,24 @@ module.exports =()=> {
         Users.particularUserData(req,res)
     })
 
-    router.get('/home/getComment',(req,res)=>{
-        Users.getComments(req,res);
-    })
-
     router.use(authMiddleware)
-
-    router.get('/home/getPosts',async (req,res)=>{
+//route to get posts from backend
+    router.get('/post',async (req,res)=>{
         const response = await Users.getAllPosts(req,res);
-
         return response
     })
-
+//route to save user posts in backend
     router.post('/post',(req, res)=>{
         Users.saveUserPost(req,res);
     })
-
-    router.post('/home/comment',(req,res)=>{
-        console.log('hello')
+//route to save comments of post
+    router.post('/post/comment',(req,res)=>{
         Users.userComment(req,res);
     })
-
-   
+//route to get comments of post
+    router.get('/post/comment',(req,res)=>{
+        Users.getComments(req,res);
+    })
 
     router.post('/home/like',(req,res)=>{
         Users.saveLikes(req,res)

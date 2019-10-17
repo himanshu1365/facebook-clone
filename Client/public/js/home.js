@@ -94,7 +94,7 @@ function showdata(data){
 }
 
 $(document).ready( function(){
-    $.ajax("http://localhost:9000/home/getPosts",{
+    $.ajax("http://localhost:9000/post",{
             type:'GET',
             dataType:'JSON',
             headers:{
@@ -122,27 +122,28 @@ $(document).ready( function(){
                     }
                 }
                 console.log(i+" "+comments)
-                // $.ajax("http://localhost:9000/post",{
-                // type:"POST",
-                // dataType: "json",
-                // headers:{
-                //     token: localStorage.getItem('userToken')
-                // },
-                // contentType: "application/json; charset=utf-8",
-                // data:JSON.stringify({
-                //     "postId":3728923,
-                //     "comments":[{
-                //         "commentData":comments
-                //     }]
-                // }),
-                // success:function(data, status){
-                //     console.log(data.msg +" "+status);
-                //     location.reload(true);
-                // },
-                // error: function(error){
-                //     console.log(error +" "+ "error occurred");
-                //     }
-                // });
+                console.log('id '+$(classnName[i]).parent().parent().attr('id'))
+                $.ajax("http://localhost:9000/post/comment",{
+                type:"POST",
+                dataType: "json",
+                headers:{
+                    token: localStorage.getItem('userToken')
+                },
+                contentType: "application/json; charset=utf-8",
+                data:JSON.stringify({
+                    "postId":$(classnName[i]).parent().parent().attr('id'),
+                    "comments":[{
+                        "commentData":$(classnName[i]).val()
+                    }]
+                }),
+                success:function(data, status){
+                    console.log(data.msg +" "+status);
+                    location.reload(true);
+                },
+                error: function(error){
+                    console.log(error +" "+ "error occurred");
+                    }
+                });
             }
         })
         

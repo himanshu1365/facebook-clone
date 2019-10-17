@@ -48,8 +48,7 @@ const particularUserData  = async(req,res)=>{
     }
         
 }
-
-
+//get post of all users 
 const getAllPosts = async(req,res)=>{
     try{
         let post = await PostModel.find();
@@ -60,7 +59,6 @@ const getAllPosts = async(req,res)=>{
     }
 }
 
-
 const checkUserToken = async(req,res)=>{
     jwt.verify(req.headers.token,SECRET,(err,authData)=>{
         if(err){
@@ -69,17 +67,20 @@ const checkUserToken = async(req,res)=>{
         return res.status(200).send({'msg':'Valid Token'})
     })
 }
+//save post data
 const saveUserPost = async( req, res )=>{
     try{
+        //get user detail of person who created post
         let signUpUser = await SignUpModel.find({_id:req.headers.tokenValue})
+        //check if the user has other post
         let post = await PostModel.find({userId:signUpUser[0].email});
         req.body.userId = signUpUser[0].email;
         req.body.name=signUpUser[0].firstName +" "+ signUpUser[0].lastName;
-        
+        //if person has other post in backend then append new post otherwise create new collection of post and add new post data
     if ( post.length != 0 ){
 
         await PostModel.findOneAndUpdate({
-            userId: req.headers.tokenValue
+            userId: signUpUser[0].email
         },
         {
             $push:{
@@ -160,7 +161,7 @@ const userComment = async( req , res ) =>{
     }
 const getComments = async(req , res )=>{
     try{
-        let data = await Comment.find();
+        let data = await commentModel.find();
         return data;
     }
     catch( error ){
