@@ -13,6 +13,7 @@ module.exports =()=> {
     const router = express.Router();
 
     router.post('/signup',(req,res)=>{
+        console.log(req.body)
         Users.saveSignUpData(req,res)
     })
 
@@ -42,6 +43,18 @@ module.exports =()=> {
 
     router.get('/home/getComment',(req,res)=>{
         Users.getComments(req,res);
+    })
+
+    router.post('/home/like',(req,res)=>{
+        Users.saveLikes(req,res)
+    })
+
+    router.delete('/home/like',(req,res)=>{
+        Users.deleteLikes(req,res)
+    })
+
+    router.post('/home/sharePost',(req,res)=>{
+        Users.saveSharedPost(req,res)
     })
 
     return router
