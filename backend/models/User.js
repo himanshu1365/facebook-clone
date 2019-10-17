@@ -16,7 +16,7 @@ const saveSignUpData  = async(req,res,data)=>{
         return res.status(200).send({msg:'User saved Successfully'})
     }
     else{
-        return resz.status(400).send({msg:'User already Existed'})
+        return res.status(400).send({msg:'User already Existed'})
     }   
 }
 
@@ -60,7 +60,6 @@ const getAllPosts = async(req,res)=>{
     }
 }
 
-
 const checkUserToken = async(req,res)=>{
     jwt.verify(req.headers.token,SECRET,(err,authData)=>{
         if(err){
@@ -76,8 +75,7 @@ const saveUserPost = async( req, res )=>{
         req.body.userId = signUpUser[0].email;
         req.body.name=signUpUser[0].firstName +" "+ signUpUser[0].lastName;
         
-    if ( post.length != 0 ){
-
+    if (post.length != 0){
         await PostModel.findOneAndUpdate({
             userId: req.headers.tokenValue
         },
@@ -188,15 +186,13 @@ const saveSharedPost = async(req,res)=>{
     if(existingUser.length == 0){
         let sharedata = {
             'userId':req.headers.tokenValue,
-            'share':{'postId':req.body.postId}
+            'shares':{'postId':req.body.postId}
         }
         let share = new ShareModel(sharedata)
         await share.save()
-        return res.status(200).send({msg:'Shareed Post Successfully'})
     }
     else{
-        let getExistingShare = await ShareModel.find({share:{$elemMatch:{postId:req.body.postId}}})
-
+        await ShareModel.findOneAndUpdate({userId:req.headers.tokenValue},{$push:{shares:req.body}})
     }
 }
 module.exports = {
@@ -209,5 +205,6 @@ module.exports = {
     userComment,
     getComments,
     saveLikes,
-    deleteLikes
+    deleteLikes,
+    saveSharedPost
 }

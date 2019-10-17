@@ -3,7 +3,7 @@ const { mongoose } = require('../db/connection')
 const Schema = mongoose.Schema
 
 const ShareModel = new Schema({
-    userid: {
+    userId: {
         type: String,
     },
     shares:[{
