@@ -41,8 +41,6 @@ const loginUser = async(req,res)=>{
 
 const particularUserData  = async(req,res)=>{
     try{
-        debugger
-        // console.log(req.query._id)
         let fetchId = await PostModel.findOne({_id: req.query._id})
         console.log(fetchId)
             if(fetchId.length!=0){
@@ -78,7 +76,6 @@ const saveUserPost = async( req, res )=>{
     try{
         
         let signUpUser = await SignUpModel.find({_id:req.headers.tokenValue})
-        // console.log(signUpUser[0].Email);
         let post = await PostModel.find({userId:signUpUser[0].email});
         req.body.userId = signUpUser[0].email;
         req.body.name=signUpUser[0].firstName +" "+ signUpUser[0].lastName;
@@ -122,13 +119,11 @@ const saveUserPost = async( req, res )=>{
 const userComment = async( req , res ) =>{
 try{
     let comment = await commentModel.find({userid:req.body.userid});
-    //console.log(comment);
     if ( comment.length != 0 ){
         console.log(req.body)
         const status = await commentModel.findOneAndUpdate({
             postid:req.body.postid,
         },
-        // populate('comments')
         {
             $push:{
                 comment:req.body.comments

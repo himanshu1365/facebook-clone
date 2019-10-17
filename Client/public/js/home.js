@@ -100,7 +100,6 @@ $(document).ready( function(){
                 token: localStorage.getItem('userToken')
             },
             success: function(data){
-                console.log(data[0].name)
                 showdata(data)
             },
             error: function(error){
@@ -108,8 +107,22 @@ $(document).ready( function(){
                 $(location).attr('href','../index.html')
             }
         })
+        
+    var className = document.getElementsByClassName("send-comment");
+    console.log(className.length)
+        for ( let i = 0; i < className.length; i++ ){
+            className[i].addEventListener('keydown',function(e){
+                e.preventDefault();
+                if ( e.keyCode == 13){
+                    alert(this.innerHTML);
+                }
+            },false)
+        }
 
     $("#btn").click( function(){
+        let src = $("#image").attr('src');
+        alert(src)
+        return
         $.ajax("http://localhost:9000/post",{
                 type:"POST",
                 dataType: "json",
@@ -124,6 +137,7 @@ $(document).ready( function(){
                 }),
                 success:function(data, status){
                     console.log(data.msg +" "+status);
+                    location.reload(true);
                 },
                 error: function(error){
                     console.log(error +" "+ "error occurred");
