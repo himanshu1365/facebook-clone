@@ -46,14 +46,13 @@ const particularUserData  = async(req,res)=>{
     catch(error){
         return res.status(200).send({message: 'No Posts exist for this user'})
     }
-        
 }
-
-
+//get post of all users
 const getAllPosts = async(req,res)=>{
     try{
-        let post = await PostModel.find();
-        return post;
+        let post = await PostModel.find().sort({"postedAt":'desc'})
+        console.log(post)
+        return null;
         }
     catch(error){
         return error
@@ -63,59 +62,39 @@ const getAllPosts = async(req,res)=>{
 const checkUserToken = async(req,res)=>{
     jwt.verify(req.headers.token,SECRET,(err,authData)=>{
         if(err){
-            return res.status(403).send({'msg':'Invalid Token'})
+            return res.status(401).send({'msg':'Invalid Token'})
         }
         return res.status(200).send({'msg':'Valid Token'})
     })
 }
+//save post data
 const saveUserPost = async( req, res )=>{
     try{
+        //get user detail of person who created post
         let signUpUser = await SignUpModel.find({_id:req.headers.tokenValue})
-        let post = await PostModel.find({userId:signUpUser[0].email});
         req.body.userId = signUpUser[0].email;
-        req.body.name=signUpUser[0].firstName +" "+ signUpUser[0].lastName;
-        
-    if (post.length != 0){
-        await PostModel.findOneAndUpdate({
-            userId: req.headers.tokenValue
-        },
-        {
-            $push:{
-                posts:req.body.posts
-            }
-        });
-
-        return {
-            status:200,
-            msg:'post added'
-        }
-
-    }
-    else
-    {
-        let postData = new PostModel(req.body);
-        await postData.save();
+        req.body.userName=signUpUser[0].firstName +" "+ signUpUser[0].lastName;
+        let savePost = new PostModel(req.body)
+        await savePost.save();
         return {
             status:200,
             msg:'new user post added'
             }
-        }
-    
+
     }catch(err){
         return {
-            status:404,
+            status:400,
             msg:'something went wrong',
             error:err
         }
     }
 }
- 
+
 const userComment = async( req , res ) =>{
 
     try{
         let comment = await commentModel.find({postId:req.headers.tokenValue});
         let signUpUser = await SignUpModel.find({_id:req.headers.tokenValue})
-         
         // let postid = await commentModel.find({postid:postmodel[0].postid});
         req.body.postId = req.headers.tokenValue;
         req.body.comments[0].commentator=signUpUser[0].firstName +" "+ signUpUser[0].lastName;
@@ -146,7 +125,6 @@ const userComment = async( req , res ) =>{
                 msg:'new comment added'
                 }
             }
-          
         }
         catch(err){
             return {
@@ -158,7 +136,7 @@ const userComment = async( req , res ) =>{
     }
 const getComments = async(req , res )=>{
     try{
-        let data = await Comment.find();
+        let data = await commentModel.find();
         return data;
     }
     catch( error ){
