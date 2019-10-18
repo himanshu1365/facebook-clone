@@ -101,6 +101,7 @@ $(document).ready( function(){
                 token: localStorage.getItem('userToken')
             },
             success: function(data){
+                console.log(data)
                 showdata(data)
             },
             error: function(error){
