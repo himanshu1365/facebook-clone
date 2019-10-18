@@ -75,6 +75,7 @@ const checkUserToken = async(req,res)=>{
     })
 }
 const saveUserPost = async( req, res )=>{
+    console.log("hello")
     try{
         req.body.userId = req.headers.tokenValue;
         let post = await PostModel.find({userId:req.body.userId});
@@ -118,25 +119,6 @@ const saveUserPost = async( req, res )=>{
 }
  
 const userComment = async( req , res ) =>{
-
-
-//         const comment = new commentModel(req.body);
-
-//   comment
-//     .save()
-//     .then(comment => {
-//       return commentModel.findById(req.params.postId);
-//     })
-//     .then(comment => {
-//        commentModel.commentschemas.unshift(commentModel);
-//       return commentschemas.save();
-//     })
-//     .then(comment => {
-//       res.redirect(`/`);
-//     })
-//     .catch(err => {
-//       console.log(err);
-//     });
 try{
     let comment = await commentModel.find({userid:req.body.userid});
     //console.log(comment);
@@ -183,6 +165,74 @@ const getComments = async(req , res )=>{
         console.log(error)
     }
 }
+const updatePassword = async(req ,res )=>{
+    //console.log("hello")
+    try{
+        let userId = await SignUpModel.findOne({ _id : "5da43b1a5375b43a4429cec1"})
+        oldp = req.body.oldPwd
+        console.log(oldp)
+        newPassword = req.body.newPassword
+        console.log(newPassword)
+        console.log(userId)
+        let hashedPwd = userId.Password
+        let status = bcryptjs.compareSync(oldp,hashedPwd)
+        console.log(status)
+        if(status){
+            await SignUpModel.findByIdAndUpdate({
+                _id : "5da447225375b43a4429cec21"
+            },
+            {
+                $set:{
+                "Password" : newPassword
+                }
+            }
+            );    
+        }
+    }
+    catch(error){
+        console.log(error)
+    }
+}
+const updateUsername = async(req , res )=>{
+    try{
+        //console.log("welcome to user.updateusername")
+        let userId = await SignUpModel.findOneAndUpdate({ _id : "5da43b1a5375b43a4429cec1"})
+        oldEmail = req.body.existUname
+        //console.log(oldEmail)
+        newEmail = req.body.newUname
+       // console.log(newEmail)
+        let checkEmailExistence1 = await SignUpModel.find({Email:newEmail})
+        if(checkEmailExistence1 == null){
+            let checkEmailExistence = await SignUpModel.find({Email:oldEmail})
+            //console.log(checkEmailExistence)
+            
+                await SignUpModel.findOneAndUpdate({
+                    Email : oldEmail
+                },
+                {
+                    $set:{
+                        "Email" : newEmail
+                    }
+                });
+                res.send({
+                    status:200,
+                    msg:'Email Updated'
+                })
+            
+        }
+        else{
+            return res.send({
+                status:409,
+                msg:'edit conflict as the username already exists'
+            })
+        }
+    }
+        catch(error){
+            console.log(error)
+        }
+        
+       
+}
 
 module.exports = {
     saveSignUpData,
@@ -193,4 +243,6 @@ module.exports = {
     saveUserPost,
     userComment,
     getComments,
+    updatePassword,
+    updateUsername
 }

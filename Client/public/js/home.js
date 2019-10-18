@@ -15,11 +15,15 @@ $(document).ready( function(){
         })
 
     $("#btn").click( function(){
+        // console.log("hello")
         
         $.ajax("http://localhost:9000/post",{
                 type:"POST",
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
+                headers:{
+                    token: localStorage.getItem('userToken')
+                },
                 data:JSON.stringify({
                     "posts":[{
                         "postData":$.trim($("#myTextarea").val())

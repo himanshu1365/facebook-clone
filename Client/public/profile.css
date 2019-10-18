@@ -19,11 +19,14 @@ h2.textcolor{
 /* .backgroundColor{
     background-color: blue;
 } */
-.navbar navbar-expand-sm bg-dark navbar-dark{
-        background-color: blue;
-        height: 100px;
-    }
+.logo img{
 
+    height: 35px;
+    width: 35px;
+}
+a.text-color{
+    color:white;
+}  
 
 /* y */
 /* .fakeimg {

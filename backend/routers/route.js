@@ -20,12 +20,28 @@ module.exports =()=> {
         Users.checkLoginUser(req,res)
     })
 
-    router.get('/home/profilePage',(req,res)=>{
+    router.get('/profilePage',(req,res)=>{
         Users.particularUserData(req,res)
     })
+    router.patch('/profilePage/updatePassword',(req,res)=>{
+        console.log(req.body.oldPwd)
+        console.log(req.body.newPassword)
+       // console.log(req.headers)
+       Users.updatePassword(req,res);
+
+    })
+    router.patch('/profilePage/updateUsername',(req,res)=>{
+        console.log(req.body.existUname)
+        console.log(req.body.newUname)
+       // console.log(req.headers)
+       Users.updateUsername(req,res);
+
+    })
+    
 
 
     router.use(authMiddleware)
+    
 
     router.get('/home/getPosts',async (req,res)=>{
         const response = await Users.getAllPosts(req,res);
@@ -34,6 +50,7 @@ module.exports =()=> {
 
     router.post('/post',(req, res)=>{
         console.log(req.body)
+        console.log("hello")
         Users.saveUserPost(req,res);
 
     })
@@ -45,6 +62,7 @@ module.exports =()=> {
     router.get('/home/getComment',(req,res)=>{
         Users.getComments(req,res);
     })
+    
 
     return router
 }

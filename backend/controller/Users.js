@@ -72,6 +72,24 @@ const getComments = async( req, res )=>{
         console.log(error)
     }
 }
+const updatePassword = async(req , res )=>{
+    try{
+        let pass = await User.updatePassword(req , res );
+        res.send(pass);
+    }
+    catch(error){
+        console.log(error)
+    }
+}
+const updateUsername = async(req , res )=>{
+    try{
+        let update = await User.updateUsername(req , res )
+            res.send(update)
+    }
+    catch(error){
+        console.log(error)
+    }
+}
 
 module.exports = {
     saveSignUpData,
@@ -81,5 +99,7 @@ module.exports = {
     saveUserPost,
     userComment,
     getComments,
-    getAllPosts
+    getAllPosts,
+    updatePassword,
+    updateUsername
 }
