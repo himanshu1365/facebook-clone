@@ -1,5 +1,5 @@
 const { mongoose } = require('../db/connection')
-
+ 
 const Schema = mongoose.Schema
 
 const SignUpModel = new Schema({
