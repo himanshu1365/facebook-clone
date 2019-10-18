@@ -103,7 +103,7 @@ $(document).ready( function(){
             },
             error: function(error){
                 localStorage.removeItem("userToken")
-                //$(location).attr('href','../index.html')
+                $(location).attr('href','../index.html')
             }
         })
     $(document).on('keydown','input.send-comment',function(e){

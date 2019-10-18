@@ -8,9 +8,8 @@ const jwt = require('jsonwebtoken')
 const {SECRET} = require('../config/config')
 
 const saveSignUpData  = async(req,res,data)=>{
-    let existingUser
     let modeldata = new SignUpModel(data)
-    existingUser = await SignUpModel.find({email: data.email})
+    let existingUser = await SignUpModel.find({email: data.email})
     if(existingUser.length == 0){
         response = await modeldata.save()
         return res.status(200).send({msg:'User saved Successfully'})
@@ -51,9 +50,8 @@ const particularUserData  = async(req,res)=>{
 const getAllPosts = async(req,res)=>{
     try{
         let post = await PostModel.find().sort({"postedAt":'desc'})
-        console.log(post)
         return post;
-        }
+    }
     catch(error){
         return error
     }
@@ -76,17 +74,10 @@ const saveUserPost = async( req, res )=>{
         req.body.userName=signUpUser[0].firstName +" "+ signUpUser[0].lastName;
         let savePost = new PostModel(req.body)
         await savePost.save();
-        return {
-            status:200,
-            msg:'new user post added'
-            }
-
-    }catch(err){
-        return {
-            status:400,
-            msg:'something went wrong',
-            error:err
-        }
+        return res.send(200).status({ msg:'new user post added'})
+    }
+    catch(err){
+        return res.send(400).status({ msg:'something went wrong' })
     }
 }
 
@@ -95,14 +86,9 @@ const userComment = async( req , res ) =>{
     try{
         let comment = await commentModel.find({postId:req.headers.tokenValue});
         let signUpUser = await SignUpModel.find({_id:req.headers.tokenValue})
-        // let postid = await commentModel.find({postid:postmodel[0].postid});
         req.body.postId = req.headers.tokenValue;
         req.body.comments[0].commentator=signUpUser[0].firstName +" "+ signUpUser[0].lastName;
-        console.log("commentator name"+ req.body.comments[0].commentator)
-        console.log(comment);
         if ( comment.length != 0 ){
-            debugger
-         console.log(req.body)
             await commentModel.findOneAndUpdate({
                 postId:req.body.postId,
             },
