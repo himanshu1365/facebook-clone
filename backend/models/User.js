@@ -17,7 +17,7 @@ const saveSignUpData  = async(req,res,data)=>{
     }
     else{
         return res.status(400).send({msg:'User already Existed'})
-    }   
+    }
 }
 
 const loginUser = async(req,res)=>{

@@ -1,11 +1,10 @@
 function showdata(data){
     for(let i=0;i<data.length;i++){
-        for(let j=0;j<data[i].posts.length;j++){
-            let body = document.getElementById('show-post-div')
+        let body = document.getElementById('show-post-div')
 
             let postcard = document.createElement("div")
             postcard.setAttribute('class','card postcard')
-            postcard.setAttribute('id',data[i].posts[j]._id)
+            postcard.setAttribute('id',data[i]._id)
             body.appendChild(postcard)
 
             let cardheader = document.createElement("div")
@@ -20,18 +19,18 @@ function showdata(data){
             image.setAttribute('class','rounded-circle postUserPhoto')
             dflex.appendChild(image)
             let author = document.createElement("p")
-            author.innerHTML = data[i].name
+            author.innerHTML = data[i].userName
             dflex.appendChild(author)
 
             let date = document.createElement('p')
             date.setAttribute('class','post-date')
             cardheader.appendChild(date)
-            date.innerHTML = data[i].posts[j].postDate
+            date.innerHTML = data[i].postedAt
 
             let cardbody = document.createElement("div")
             let postContent = document.createElement("p")
             postContent.setAttribute("class","text-justify")
-            postContent.innerHTML = data[i].posts[j].postData
+            postContent.innerHTML = data[i].postText
             cardbody.appendChild(postContent)
             postcard.appendChild(cardbody)
 
@@ -88,8 +87,6 @@ function showdata(data){
             cardfooter.appendChild(input)
             postcard.appendChild(cardfooter)
             cardbody.appendChild(likebox)
-
-        }
     }
 }
 
@@ -101,11 +98,12 @@ $(document).ready( function(){
                 token: localStorage.getItem('userToken')
             },
             success: function(data){
+                console.log(data)
                 showdata(data)
             },
             error: function(error){
-                // localStorage.removeItem("userToken")
-               // $(location).attr('href','../index.html')
+                localStorage.removeItem("userToken")
+                $(location).attr('href','../index.html')
             }
         })
     $(document).on('keydown','input.send-comment',function(e){
@@ -119,8 +117,6 @@ $(document).ready( function(){
                         break
                     }
                 }
-                console.log(i+" "+comments)
-                console.log('id '+$(classnName[i]).parent().parent().attr('id'))
                 $.ajax("http://localhost:9000/post/comment",{
                 type:"POST",
                 dataType: "json",
@@ -219,7 +215,7 @@ $(document).on('click','#sharePost',function(){
             "postData":postContent
         }),
         success: function(){ },
-        error: function(){ 
+        error: function(){
             $(location).attr('href','../index.html')
         }
     })
