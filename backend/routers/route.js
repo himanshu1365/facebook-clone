@@ -32,6 +32,7 @@ module.exports =()=> {
     router.use(authMiddleware)
 
     router.get('/home/getPosts',async (req,res)=>{
+        
         const response = await Users.getAllPosts(req,res);
 
         return response

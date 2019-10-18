@@ -3,17 +3,14 @@ const { mongoose } = require('../db/connection')
 const Schema = mongoose.Schema
 
 const commentSchema = new Schema({
-    userid: String,
+    userId: String,
     postId: String,
-    comments : 
-        [{
-            commentator: String,
-            commentdate: {
-                type: Date, 
-                default: +new Date() + 7*24*16*60*1000
-            },
-            commentData : String
-        }]
+    commentText : String,
+    createdAt :{
+        type : Date,
+        default :Date.now()
+    } ,
+    userName : String
 })
 
 

@@ -79,7 +79,7 @@ const saveUserPost = async( req, res )=>{
     if ( post.length != 0 ){
 
         await PostModel.findOneAndUpdate({
-            userId: req.headers.tokenValue
+            userId:req.body.userId
         },
         {
             $push:{
@@ -115,41 +115,21 @@ const saveUserPost = async( req, res )=>{
 const userComment = async( req , res ) =>{
 
     try{
-        let comment = await commentModel.find({postId:req.headers.tokenValue});
+        // let comment = await commentModel.find({postId:req.headers.tokenValue});
         let signUpUser = await SignUpModel.find({_id:req.headers.tokenValue})
-         
-        // let postid = await commentModel.find({postid:postmodel[0].postid});
         req.body.postId = req.headers.tokenValue;
-        req.body.comments[0].commentator=signUpUser[0].firstName +" "+ signUpUser[0].lastName;
-        console.log("commentator name"+ req.body.comments[0].commentator)
+        req.body.userName=signUpUser[0].firstName +" "+ signUpUser[0].lastName;
+        console.log("user name"+ req.body.userName)
         console.log(comment);
-        if ( comment.length != 0 ){
-            debugger
+        let commentData = new commentModel(req.body);
+        await commentData.save();   
          console.log(req.body)
-            await commentModel.findOneAndUpdate({
-                postId:req.body.postId,
-            },
-            {
-                $push:{
-                    comments:req.body.comments,
-                }
-            }).sort({commentData : -1});
+        
             return {
                 'status':200,
-                'msg':'multiple comments added'
+                'msg':'comments added'
             }
-        }
-        else
-        {
-            let commentData = new commentModel(req.body);
-            await commentData.save();
-            return {
-                status:200,
-                msg:'new comment added'
-                }
-            }
-          
-        }
+    }      
         catch(err){
             return {
                 'status':404,

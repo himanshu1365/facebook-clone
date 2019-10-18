@@ -79,6 +79,12 @@ function showdata(data){
             share.appendChild(ishare)
             sharecontent.appendChild(share)
 
+            let commentdom = document.createElement("div")
+            commentdom.setAttribute("id","show-comments")
+            likebox.appendChild(commentdom)
+            icomment.setAttribute('class','"fa fa-comments-o')
+
+
             let cardfooter = document.createElement("div")
             cardfooter.setAttribute('class','card-footer')
             let input = document.createElement('input')
@@ -122,9 +128,7 @@ $(document).ready( function(){
         }
 
     $("#btn").click( function(){
-        let src = $("#image").attr('src');
-        alert(src)
-        return
+     
         $.ajax("http://localhost:9000/post",{
                 type:"POST",
                 dataType: "json",
@@ -174,10 +178,15 @@ $(document).ready( function(){
     });
     $("#show-comments").click(function(){
         console.log('hide')
+        
         $(".display-comment").show();
+        $('.display-comment').click(function(){
+            $(".show-comments").slideToggle();
+            return false;
+            });
     });
 });
-<<<<<<< HEAD
+
 
 $(document).on('click','#saveLike',function(){
     if($(this).css("color") == 'rgb(128, 128, 128)'){
