@@ -89,6 +89,8 @@ function showdata(data){
             cardfooter.appendChild(input)
             postcard.appendChild(cardfooter)
             cardbody.appendChild(likebox)
+
+            
         }
     }
 }

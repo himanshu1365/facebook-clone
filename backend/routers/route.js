@@ -25,6 +25,10 @@ module.exports =()=> {
         Users.particularUserData(req,res)
     })
 
+    router.get('/home/getComment',(req,res)=>{
+        Users.getComments(req,res);
+    })
+
     router.use(authMiddleware)
 
     router.get('/home/getPosts',async (req,res)=>{
@@ -37,12 +41,11 @@ module.exports =()=> {
     })
 
     router.post('/home/comment',(req,res)=>{
+        console.log('hello')
         Users.userComment(req,res);
     })
 
-    router.get('/home/getComment',(req,res)=>{
-        Users.getComments(req,res);
-    })
+   
 
     router.post('/post/like',(req,res)=>{
         Users.saveLikes(req,res)
