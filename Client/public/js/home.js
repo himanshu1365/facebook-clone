@@ -104,8 +104,8 @@ $(document).ready( function(){
                 showdata(data)
             },
             error: function(error){
-                localStorage.removeItem("userToken")
-                $(location).attr('href','../index.html')
+                // localStorage.removeItem("userToken")
+               // $(location).attr('href','../index.html')
             }
         })
     $(document).on('keydown','input.send-comment',function(e){

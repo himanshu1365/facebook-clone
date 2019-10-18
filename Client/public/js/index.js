@@ -154,8 +154,6 @@ $(document).ready( function(){
                     $(location).attr('href','./views/home.html')
                 },
                 error: function(data,error){
-                    // let statusMessage = JSON.stringify(data)
-                    // console.log('data : '+data.responseJSON)
                     console.log('error '+ error)
                 }
             })
