@@ -11,9 +11,7 @@ function authMiddleware(req,res,next){
     catch(error){
         return res.status(403).send({'msg':'Invalid Token'})
     }
-    
 }
-
 module.exports = {
     authMiddleware
 }

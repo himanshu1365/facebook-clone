@@ -16,7 +16,7 @@ const saveSignUpData  = async(req,res,data)=>{
         return res.status(200).send({msg:'User saved Successfully'})
     }
     else{
-        return resz.status(400).send({msg:'User already Existed'})
+        return res.status(400).send({msg:'User already Existed'})
     }   
 }
 
@@ -46,13 +46,11 @@ const particularUserData  = async(req,res)=>{
     catch(error){
         return res.status(200).send({message: 'No Posts exist for this user'})
     }
-        
 }
-
-
+//get post of all users
 const getAllPosts = async(req,res)=>{
     try{
-        let post = await PostModel.find();
+        let post = await PostModel.find().sort({"postedAt":'desc'})
         return post;
         }
     catch(error){
@@ -60,58 +58,37 @@ const getAllPosts = async(req,res)=>{
     }
 }
 
-
 const checkUserToken = async(req,res)=>{
     jwt.verify(req.headers.token,SECRET,(err,authData)=>{
         if(err){
-            return res.status(403).send({'msg':'Invalid Token'})
+            return res.status(401).send({'msg':'Invalid Token'})
         }
         return res.status(200).send({'msg':'Valid Token'})
     })
 }
+//save post data
 const saveUserPost = async( req, res )=>{
     try{
+        //get user detail of person who created post
         let signUpUser = await SignUpModel.find({_id:req.headers.tokenValue})
-        let post = await PostModel.find({userId:signUpUser[0].email});
         req.body.userId = signUpUser[0].email;
-        req.body.name=signUpUser[0].firstName +" "+ signUpUser[0].lastName;
-        
-    if ( post.length != 0 ){
-
-        await PostModel.findOneAndUpdate({
-            userId:req.body.userId
-        },
-        {
-            $push:{
-                posts:req.body.posts
-            }
-        });
-
-        return {
-            status:200,
-            msg:'post added'
-        }
-
-    }
-    else
-    {
-        let postData = new PostModel(req.body);
-        await postData.save();
+        req.body.userName=signUpUser[0].firstName +" "+ signUpUser[0].lastName;
+        let savePost = new PostModel(req.body)
+        await savePost.save();
         return {
             status:200,
             msg:'new user post added'
             }
-        }
-    
+
     }catch(err){
         return {
-            status:404,
+            status:400,
             msg:'something went wrong',
             error:err
         }
     }
 }
- 
+
 const userComment = async( req , res ) =>{
 
     try{
@@ -140,7 +117,7 @@ const userComment = async( req , res ) =>{
     }
 const getComments = async(req , res )=>{
     try{
-        let data = await Comment.find();
+        let data = await commentModel.find();
         return data;
     }
     catch( error ){
@@ -149,43 +126,38 @@ const getComments = async(req , res )=>{
 }
 
 const saveLikes = async(req,res)=>{
-    let getUser = await LikeModel.find({userId:req.headers.tokenValue})
-    if(getUser.length != 0){
-        let getExistingLike= await LikeModel.find({like:{$elemMatch:{postId:req.body.postId}}})
-        if(getExistingLike.length == 0){
-            await LikeModel.findOneAndUpdate({userId: req.headers.tokenValue},{$push:{like: req.body}})
-        }
-    }
-    else{
-        let likedata = {
-            'userId':req.headers.tokenValue,
-            'like': {'postId':req.body.postId}
-        }
-        let like = new LikeModel(likedata)
-        await like.save()
-    }
+    let likeData = new LikeModel({
+        'userId' : req.headers.tokenValue,
+        'postId' : req.body.postId
+    })
+    await likeData.save()
     return res.status(200).send({msg:'Like Added Successfully'})
 }
 
 const deleteLikes = async(req,res)=>{
-    await LikeModel.update({userId:req.headers.tokenValue},{$pull: { like: {postId: req.body.postId}}})
+    await LikeModel.findOneAndDelete({'postId':req.body.postId})
     return res.status(200).send({msg:'Like deleted Successfully'})
 }
 
 const saveSharedPost = async(req,res)=>{
-    let existingUser = await ShareModel.find({userId:req.headers.tokenValue})
-    if(existingUser.length == 0){
-        let sharedata = {
-            'userId':req.headers.tokenValue,
-            'share':{'postId':req.body.postId}
-        }
-        let share = new ShareModel(sharedata)
-        await share.save()
-        return res.status(200).send({msg:'Shareed Post Successfully'})
-    }
-    else{
-        let getExistingShare = await ShareModel.find({share:{$elemMatch:{postId:req.body.postId}}})
+    let existingShare = await ShareModel.find({$and: [{'userId':req.headers.userToken}, {'postId':req.body.postId}]})
+    if(existingShare.length == 0){
+        let shareData = new ShareModel({
+            'userId':req.headers.userToken,
+            'postId':req.body.postId
+        })
+        await shareData.save()
 
+        let existingUser = await SignUpModel.findById({'_id':req.headers.tokenValue})
+        let postData = new PostModel({
+            userName: existingShare.firstName+' '+existingShare.lastName,
+            userId: req.headers.tokenValue,
+            likeCounts: 0,
+            shareCounts: 0,
+            postData: req.body.postData
+        })
+        postData.save()
+        return res.sendStatus(200)
     }
 }
 module.exports = {
@@ -198,5 +170,6 @@ module.exports = {
     userComment,
     getComments,
     saveLikes,
-    deleteLikes
+    deleteLikes,
+    saveSharedPost
 }

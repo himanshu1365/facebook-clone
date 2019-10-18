@@ -1,23 +1,22 @@
-const {mongoose} = require('../db/connection');
+const { mongoose } = require('../db/connection');
 
 const Schema = mongoose.Schema;
 
 const PostModel = new Schema({
-    name:{
-        type:String
+    userName : String,
+    userId : String,
+    postedAt : {
+        type : Date,
+        default : Date.now
     },
-    userId:{
-        type: String
+    postText : String,
+    commentCounts : {
+        type : Number,
+        default : 0
     },
-    posts:[{
-        postDate:{
-            type:Date,
-            default:Date.now()
-        },
-        postData:{
-            type:String
-        }
-    }]
+    likeCounts : {
+        type : Number,
+        default : 0
+    }
 })
-
 module.exports = mongoose.model("PostModel", PostModel)
