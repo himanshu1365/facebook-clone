@@ -52,7 +52,7 @@ const getAllPosts = async(req,res)=>{
     try{
         let post = await PostModel.find().sort({"postedAt":'desc'})
         console.log(post)
-        return null;
+        return post;
         }
     catch(error){
         return error
