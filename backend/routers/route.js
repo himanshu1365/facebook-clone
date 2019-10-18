@@ -8,6 +8,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }))
 
+app.use(bodyParser.json())
 
 module.exports =()=> {
     const router = express.Router();
@@ -43,15 +44,15 @@ module.exports =()=> {
         Users.getComments(req,res);
     })
 
-    router.post('/home/like',(req,res)=>{
+    router.post('/post/like',(req,res)=>{
         Users.saveLikes(req,res)
     })
 
-    router.delete('/home/like',(req,res)=>{
+    router.delete('/post/like',(req,res)=>{
         Users.deleteLikes(req,res)
     })
 
-    router.post('/home/sharePost',(req,res)=>{
+    router.post('/post/sharePost',(req,res)=>{
         Users.saveSharedPost(req,res)
     })
 
