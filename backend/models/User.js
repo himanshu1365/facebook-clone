@@ -158,41 +158,38 @@ const getComments = async(req , res )=>{
 }
 
 const saveLikes = async(req,res)=>{
-    let getUser = await LikeModel.find({userId:req.headers.tokenValue})
-    if(getUser.length != 0){
-        let getExistingLike= await LikeModel.find({like:{$elemMatch:{postId:req.body.postId}}})
-        if(getExistingLike.length == 0){
-            await LikeModel.findOneAndUpdate({userId: req.headers.tokenValue},{$push:{like: req.body}})
-        }
-    }
-    else{
-        let likedata = {
-            'userId':req.headers.tokenValue,
-            'like': {'postId':req.body.postId}
-        }
-        let like = new LikeModel(likedata)
-        await like.save()
-    }
+    let likeData = new LikeModel({
+        'userId' : req.headers.tokenValue,
+        'postId' : req.body.postId
+    })
+    await likeData.save()
     return res.status(200).send({msg:'Like Added Successfully'})
 }
 
 const deleteLikes = async(req,res)=>{
-    await LikeModel.update({userId:req.headers.tokenValue},{$pull: { like: {postId: req.body.postId}}})
+    await LikeModel.findOneAndDelete({'postId':req.body.postId})
     return res.status(200).send({msg:'Like deleted Successfully'})
 }
 
 const saveSharedPost = async(req,res)=>{
-    let existingUser = await ShareModel.find({userId:req.headers.tokenValue})
-    if(existingUser.length == 0){
-        let sharedata = {
-            'userId':req.headers.tokenValue,
-            'shares':{'postId':req.body.postId}
-        }
-        let share = new ShareModel(sharedata)
-        await share.save()
-    }
-    else{
-        await ShareModel.findOneAndUpdate({userId:req.headers.tokenValue},{$push:{shares:req.body}})
+    let existingShare = await ShareModel.find({$and: [{'userId':req.headers.userToken}, {'postId':req.body.postId}]})
+    if(existingShare.length == 0){
+        let shareData = new ShareModel({
+            'userId':req.headers.userToken,
+            'postId':req.body.postId
+        })
+        await shareData.save()
+
+        let existingUser = await SignUpModel.findById({'_id':req.headers.tokenValue})
+        let postData = new PostModel({
+            userName: existingShare.firstName+' '+existingShare.lastName,
+            userId: req.headers.tokenValue,
+            likeCounts: 0,
+            shareCounts: 0,
+            postData: req.body.postData
+        })
+        postData.save()
+        return res.sendStatus(200)
     }
 }
 module.exports = {

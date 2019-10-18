@@ -3,17 +3,14 @@ const { mongoose } = require('../db/connection')
 const Schema = mongoose.Schema
 
 const commentSchema = new Schema({
-    userid: String,
+    userId: String,
     postId: String,
-    comments : {
-        commentList: [{
-            commentData : String,
-            commentdate: {
-                type: Date, 
-                default: +new Date() + 7*24*16*60*1000
-            }
-        }]
+    commentData: String,
+    createdAt: {
+        type: Date,
+        default: Date.now()
     }
+    
 })
 
 module.exports = mongoose.model('commentSchema',commentSchema)

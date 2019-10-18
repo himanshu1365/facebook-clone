@@ -209,6 +209,8 @@ $(document).on('click','#saveLike',function(){
 
 $(document).on('click','#sharePost',function(){
     let postId =  $(this).parent().parent().parent().parent().attr('id')
+    let postContent = $(this).parent().parent().parent().text()
+    console.log(postContent)
     $.ajax('http://localhost:9000/post/sharePost',{
         type:"POST",
         dataType: "json",
@@ -217,9 +219,12 @@ $(document).on('click','#sharePost',function(){
             token: localStorage.getItem('userToken')
         },
         data: JSON.stringify({
-            'postId': postId
+            'postId': postId,
+            "postData":postContent
         }),
         success: function(){ },
-        error: function(){ }
+        error: function(){ 
+            $(location).attr('href','../index.html')
+        }
     })
 })
