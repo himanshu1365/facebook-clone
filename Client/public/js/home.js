@@ -88,7 +88,6 @@ function showdata(data){
             postcard.appendChild(cardfooter)
             cardbody.appendChild(likebox)
 
-            
         }
     }
 }
@@ -108,8 +107,6 @@ $(document).ready( function(){
                 $(location).attr('href','../index.html')
             }
         })
-        
-        
     $(document).on('keydown','input.send-comment',function(e){
         let classnName = document.getElementsByClassName('send-comment');
         let comments =''
@@ -146,7 +143,6 @@ $(document).ready( function(){
                 });
             }
         })
-        
     $("#btn").click( function(){
         $.ajax("http://localhost:9000/post",{
                 type:"POST",
@@ -156,9 +152,7 @@ $(document).ready( function(){
                 },
                 contentType: "application/json; charset=utf-8",
                 data:JSON.stringify({
-                    "posts":[{
-                        "postData":$.trim($("#myTextarea").val())
-                    }]
+                    "postText" : $.trim($("#myTextarea").val())
                 }),
                 success:function(data, status){
                     console.log(data.msg +" "+status);
