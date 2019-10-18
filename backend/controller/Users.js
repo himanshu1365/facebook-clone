@@ -70,6 +70,7 @@ const saveSharedPost = async(req,res)=>{
     let response = await User.saveSharedPost(req,res)
     return response
 }
+
 module.exports = {
     saveSignUpData,
     checkLoginUser,

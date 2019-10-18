@@ -72,6 +72,7 @@ function showdata(data){
 
             let sharecontent = document.createElement('div')
             sharecontent.setAttribute('class','col-md-3 like-share-contents')
+            sharecontent.setAttribute('id','sharePost')
             row.appendChild(sharecontent)
             let share = document.createElement('span')
             let ishare = document.createElement('i')
@@ -110,8 +111,7 @@ $(document).ready( function(){
             }
         })
         
-    var className = document.getElementsByClassName("send-comment");
-    console.log(className.length)
+    var className = document.getElementsByClassName("send-comment")
         for ( let i = 0; i < className.length; i++ ){
             className[i].addEventListener('keydown',function(e){
                 e.preventDefault();
@@ -123,8 +123,6 @@ $(document).ready( function(){
 
     $("#btn").click( function(){
         let src = $("#image").attr('src');
-        alert(src)
-        return
         $.ajax("http://localhost:9000/post",{
                 type:"POST",
                 dataType: "json",
@@ -177,12 +175,11 @@ $(document).ready( function(){
         $(".display-comment").show();
     });
 });
-<<<<<<< HEAD
 
 $(document).on('click','#saveLike',function(){
     if($(this).css("color") == 'rgb(128, 128, 128)'){
         $(this).css("color","blue")
-        $.ajax('http://localhost:9000/home/like',{
+        $.ajax('http://localhost:9000/post/like',{
         type:'POST',
         dataType:'JSON',
         headers:{
@@ -197,15 +194,15 @@ $(document).on('click','#saveLike',function(){
     }
     else{
         $(this).css("color","rgb(128, 128, 128)")
-        $.ajax('http://localhost:9000/home/like',{
+        $.ajax('http://localhost:9000/post/like',{
             type:'DELETE',
             dataType:'JSON',
             headers:{
                 token: localStorage.getItem('userToken')
             },
-            data:{
+            data:JSON.stringify({
                 postId: $(this).parent().parent().parent().parent().attr('id')
-            },
+            }),
             success: function() { },
             error: function() { }
         })
@@ -213,16 +210,23 @@ $(document).on('click','#saveLike',function(){
 })
 
 $(document).on('click','#sharePost',function(){
-    $.ajax('http://localhost:9000/home/sharePost',{
-        type:'POST',
-        dataType:'JSON',
-        headers: {
+    let postId =  $(this).parent().parent().parent().parent().attr('id')
+    let postContent = $(this).parent().parent().parent().text()
+    console.log(postContent)
+    $.ajax('http://localhost:9000/post/sharePost',{
+        type:"POST",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        headers:{
             token: localStorage.getItem('userToken')
         },
-        data:{
-            postID: $(this).parent().parent().parent().parent().attr('id')
-        },
+        data: JSON.stringify({
+            'postId': postId,
+            "postData":postContent
+        }),
         success: function(){ },
-        error: function(){ }
+        error: function(){ 
+            $(location).attr('href','../index.html')
+        }
     })
 })
