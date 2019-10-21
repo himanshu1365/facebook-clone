@@ -63,12 +63,13 @@ module.exports = () => {
         Users.getComments(req, res);
     })
 
+    //Route to save likes of post
     app.post('/post/like', (req, res) => {
         Users.saveLikes(req, res)
     })
 
+    //Route to delete likes of post
     app.delete('/post/like', (req, res) => {
-        console.log('deleting like')
         Users.removeLikes(req, res)
     })
 
