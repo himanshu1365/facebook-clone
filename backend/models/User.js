@@ -7,6 +7,7 @@ const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const {SECRET} = require('../config/config')
 
+
 const saveSignUpData  = async(req,res,data)=>{
     let existingUser
     let modeldata = new SignUpModel(data)
@@ -51,6 +52,7 @@ const particularUserData  = async(req,res)=>{
 const getAllPosts = async(req,res)=>{
     try{
         let post = await PostModel.find().sort({"postedAt":'desc'})
+        //console.log(post)
         return post;
         }
     catch(error){
@@ -90,18 +92,11 @@ const saveUserPost = async( req, res )=>{
 }
 
 const userComment = async( req , res ) =>{
-
     try{
-        // let comment = await commentModel.find({postId:req.headers.tokenValue});
         let signUpUser = await SignUpModel.find({_id:req.headers.tokenValue})
-        req.body.postId = req.headers.tokenValue;
         req.body.userName=signUpUser[0].firstName +" "+ signUpUser[0].lastName;
-        console.log("user name"+ req.body.userName)
-        console.log(comment);
         let commentData = new commentModel(req.body);
-        await commentData.save();   
-         console.log(req.body)
-        
+        await commentData.save().sort;
             return {
                 'status':200,
                 'msg':'comments added'
@@ -117,11 +112,12 @@ const userComment = async( req , res ) =>{
     }
 const getComments = async(req , res )=>{
     try{
-        let data = await commentModel.find();
-        return data;
+        let postID = req.query.postId
+        let comment = await commentModel.find({'postId':postID}).sort({"createdAt":'desc'})
+        return comment;
     }
-    catch( error ){
-        console.log(error)
+    catch(error){
+        return error
     }
 }
 
