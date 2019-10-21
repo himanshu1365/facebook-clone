@@ -6,7 +6,8 @@ body {
   nav{
         background-color: #3b5998;
         padding: 7px 0px 4px 10%;
-        height: 40px;
+        height: 50px;
+        width: 100%;
   }
   nav *{
     display:inline-block;
@@ -18,7 +19,7 @@ body {
   }
   
   #inputText {
-      width: 300px;
+      width: 250px;
       height: 22px;
       position: relative;
       top: 0px;
@@ -39,7 +40,45 @@ body {
     height: 15px;
     width:15px;
   }
-  
+  .right-side{
+      position: relative;
+      left: 15%;
+  }
+  .profile{
+      text-decoration: none;
+      height: 35px;
+      border-radius: 5px;
+      text-align: center;
+      width: 120px;
+  }
+  .home-create{
+    text-decoration: none;
+    height: 30px;
+    border-radius: 5px;
+    width: 80px;
+    text-align: center;
+}
+  .right-side img{
+    height: 30px;
+    width: 30px;
+}
+.right-side p{
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+}
+.notice-icon a{
+    text-decoration: none;
+    height: 18px;
+    margin: 5px;
+}
+.notice-icon a .notice{
+    color: white;
+}
+.right-side a p i{
+    color: black;
+    font-size: 18px;
+}
 .main{
     background: white;
     padding: 30px;
@@ -56,43 +95,71 @@ body {
 textarea{
     width: 100%;
 }
-/* .post-author{
+
+.postcard{
+    /* width: 50%; */
+    margin: 0 auto;
+}
+
+.post-img{
+    margin: auto;
+    width: 80%;
+    height: 200px;
+}
+.post-img img{
+    width: 100%;
+    height: 200px;
+}
+.postUserPhoto{
+    width: 10px;
+    height: 10px;
+}
+.post-author{
     display: flex;
+
 }
-.author-img{
-    padding: 5px;
+.card-header img{
+    width: 70px;
+    height: 70px;
 }
-.author-img i{
-    font-size: 50px;
+
+.card-header p{
+    margin: 10px 5px;
 }
-.author-details{
-    padding: 5px;
+.post-date{
+    position: relative;
+    top: 20px;
+    left: -70px;
+    font-size: 12px;
+}
+
+.like-share-contents{
+    margin: 0 auto;
+    text-align: center;
+    cursor: pointer!important;
     font-size: 18px;
     font-weight: bold;
+    padding: 10px 0px;
+    color: grey;
 }
-.post-description{
-    color: white;
+.like-share-contents i{
+    font-size: 20px;
 }
-.like-comment-share i{
-    font-size: 25px;
-}
-.comment{
+
+.send-comment{
+    border: none;
+    border-radius: 20px;
     outline: none;
-    height: 50px;
-    border-radius: 15px;
-    width: 60%;
+    width:100%;
+    padding:10px 15px;
+    font-size: 14px;
 }
-.display-comment{
-    border-radius: 5px;
-    background: white;
-    display: none;
-} */
 .postcard{
     /* width: 50%; */
     margin: 0 auto;
 }
 .post-img{
-    margin: auto;
+   margin: auto;
     width: 80%;
     height: 200px;
 }
@@ -131,11 +198,6 @@ textarea{
 .like-share-contents i{
     font-size: 20px;
 }
-/* .row .like-share-contents:hover{
-    background-color: blue;
-    border-radius: 30px;
-    color: white;
-} */
 
 .send-comment{
     border: none;
@@ -148,4 +210,7 @@ textarea{
 
 .send-comment:focus{
     border: 1px solid lightblue;
+}
+.right-side a:hover{
+    background: #2d4b8b;
 }

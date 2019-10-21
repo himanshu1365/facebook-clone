@@ -70,7 +70,7 @@ $(document).ready(function()
       
          token = localStorage.removeItem('usertoken'),
          window.alert("you are being logged out now")
-         window.location = '/login';
+         window.location = '../index.html';
      
 
      })

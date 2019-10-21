@@ -1,21 +1,21 @@
 const { mongoose } = require('../db/connection')
-
+ 
 const Schema = mongoose.Schema
 
 const SignUpModel = new Schema({
-    FirstName: {
+    firstName: {
         type: String,
     },
-    LastName: {
+    lastName: {
         type: String,
     },
-    Email: {
+    email: {
         type: String,
     },
-    Password: {
+    password: {
         type: String
     },
-    Phone_number: {
+    phone_number: {
         type: String
     }
 })

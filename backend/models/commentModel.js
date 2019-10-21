@@ -2,13 +2,15 @@ const { mongoose } = require('../db/connection')
 
 const Schema = mongoose.Schema
 
-const LikeModel = new Schema({
+const commentSchema = new Schema({
     userId: String,
     postId: String,
-    likedAt:{
+    commentData: String,
+    createdAt: {
         type: Date,
         default: Date.now()
     }
 })
 
-module.exports = mongoose.model('LikeModel',LikeModel)
+
+module.exports = mongoose.model('commentSchema',commentSchema)

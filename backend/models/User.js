@@ -1,19 +1,16 @@
-const SignUpModel = require('./signupdata')
-const Comment = require('./comment');
-
-const commentModel = require('./commentschema')
-
+const signupdata = require('./signupdata')
+const commentModel = require('./commentModel')
 const PostModel = require('./postModel')
-
+const LikeModel = require('./likeModel')
+const ShareModel = require('./shareModel')
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-//  const userData = require('./')
 const {SECRET} = require('../config/config')
-// const commentSchema = require('./commentschema')
+
 const saveSignUpData  = async(req,res,data)=>{
     let existingUser
-    let modeldata = new SignUpModel(data)
-    existingUser = await SignUpModel.find({Email: data.Email})
+    let modeldata = new signupdata(data)
+    existingUser = await signupdata.find({email: data.email})
     if(existingUser.length == 0){
         response = await modeldata.save()
         return res.status(200).send({msg:'User saved Successfully'})
@@ -24,12 +21,12 @@ const saveSignUpData  = async(req,res,data)=>{
 }
 
 const loginUser = async(req,res)=>{
-    let checkUser = await SignUpModel.find({Email: req.body.Email})
+    let checkUser = await signupdata.find({email: req.body.email})
     if(checkUser.length != 0){
-        let password = checkUser[0].Password
-        let status = bcryptjs.compareSync(req.body.Password,password)
+        let password = checkUser[0].password
+        let status = bcryptjs.compareSync(req.body.password,password)
         if(status){
-            jwt.sign({userToken: checkUser[0]._id},SECRET,{ expiresIn: 30},(err,token)=>{
+            jwt.sign({userToken: checkUser[0]._id},SECRET,{ expiresIn: '24h'},(err,token)=>{
                 return res.status(200).send({msg:'Login Successful',token: token})
             })
         }
@@ -41,124 +38,106 @@ const loginUser = async(req,res)=>{
 
 const particularUserData  = async(req,res)=>{
     try{
-        debugger
-        // console.log(req.query._id)
         let fetchId = await PostModel.findOne({_id: req.query._id})
-        console.log(fetchId)
-            if(fetchId.length!=0){
+        if(fetchId.length!=0){
             return res.status(200).send(fetchId.data);
-    }
-    
-        }catch(error){
-            return res.status(200).send({message: 'No Posts exist for this user'})
         }
-        
+    }
+    catch(error){
+        return res.status(200).send({message: 'No Posts exist for this user'})
+    }
 }
-
-
+//get post of all users
 const getAllPosts = async(req,res)=>{
-        try{
-            const response = await PostModel.find()
-            return response
-        }catch(error){
-
+    try{
+        let post = await PostModel.find().sort({"postedAt":'desc'})
+        console.log(post)
+        return post;
         }
+    catch(error){
+        return error
     }
-
+}
 
 const checkUserToken = async(req,res)=>{
     jwt.verify(req.headers.token,SECRET,(err,authData)=>{
         if(err){
-            return res.status(403).send({'msg':'Invalid Token'})
+            return res.status(401).send({'msg':'Invalid Token'})
         }
         return res.status(200).send({'msg':'Valid Token'})
     })
 }
+//save post data
 const saveUserPost = async( req, res )=>{
     console.log("hello")
     try{
-        req.body.userId = req.headers.tokenValue;
-        let post = await PostModel.find({userId:req.body.userId});
-        console.log(post);
-
-
-    if ( post.length != 0 ){
-
-        await PostModel.findOneAndUpdate({
-            userId: req.headers.tokenValue
-        },
-        {
-            $push:{
-                posts:req.body.posts
-            }
-        });
-
-        return {
-            status:200,
-            msg:'post added'
-        }
-
-    }
-    else
-    {
-        let postData = new PostModel(req.body);
-        await postData.save();
+        //get user detail of person who created post
+        let signUpUser = await signupdata.find({_id:req.headers.tokenValue})
+        req.body.userId = signUpUser[0].email;
+        req.body.userName=signUpUser[0].firstName +" "+ signUpUser[0].lastName;
+        let savePost = new PostModel(req.body)
+        await savePost.save();
         return {
             status:200,
             msg:'new user post added'
             }
-        }
-    
+
     }catch(err){
         return {
-            status:404,
+            status:400,
             msg:'something went wrong',
             error:err
         }
     }
 }
- 
-const userComment = async( req , res ) =>{
-try{
-    let comment = await commentModel.find({userid:req.body.userid});
-    //console.log(comment);
-    if ( comment.length != 0 ){
-        console.log(req.body)
-        const status = await commentModel.findOneAndUpdate({
-            userid:req.body.userid,
-        },
-        {
-            $push:{
-                comments:req.body.comments
-            }
-        });
-        return {
-            'status':200,
-            'msg':'multiple comments added'
-        }
 
-    }
-    else
-    {
-        let commentData = new commentModel(req.body);
-        await commentData.save();
-        return {
-            'status':200,
-            'msg':'new comment added'
+const userComment = async( req , res ) =>{
+
+    try{
+        let comment = await commentModel.find({postId:req.headers.tokenValue});
+        let signUpUser = await signupdata.find({_id:req.headers.tokenValue})
+        // let postid = await commentModel.find({postid:postmodel[0].postid});
+        req.body.postId = req.headers.tokenValue;
+        req.body.comments[0].commentator=signUpUser[0].firstName +" "+ signUpUser[0].lastName;
+        console.log("commentator name"+ req.body.comments[0].commentator)
+        console.log(comment);
+        if ( comment.length != 0 ){
+            debugger
+         console.log(req.body)
+            await commentModel.findOneAndUpdate({
+                postId:req.body.postId,
+            },
+            {
+                $push:{
+                    comments:req.body.comments,
+                }
+            }).sort({commentData : -1});
+            return {
+                'status':200,
+                'msg':'multiple comments added'
             }
         }
-    
-    }catch(err){
-        return {
-            'status':404,
-            'msg':'something went wrong',
-            'error':err
+        else
+        {
+            let commentData = new commentModel(req.body);
+            await commentData.save();
+            return {
+                status:200,
+                msg:'new comment added'
+                }
+            }
+        }
+        catch(err){
+            return {
+                'status':404,
+                'msg':'something went wrong',
+                'error':err
+            }
         }
     }
-}
 const getComments = async(req , res )=>{
     try{
-        let data = await Comment.find();
+        let data = await commentModel.find();
         return data;
     }
     catch( error ){
@@ -168,25 +147,29 @@ const getComments = async(req , res )=>{
 const updatePassword = async(req ,res )=>{
     //console.log("hello")
     try{
-        let userId = await SignUpModel.findOne({ _id : "5da43b1a5375b43a4429cec1"})
+        
+        let userId = await signupdata.findOne({ _id : req.headers.tokenValue})
+       // console.log(req.headers.tokenValue)
         oldp = req.body.oldPwd
-        console.log(oldp)
+        //console.log(oldp)
         newPassword = req.body.newPassword
-        console.log(newPassword)
-        console.log(userId)
-        let hashedPwd = userId.Password
+        //console.log(newPassword)
+        
+        let hashedPwd = userId.password
         let status = bcryptjs.compareSync(oldp,hashedPwd)
-        console.log(status)
+        //console.log(status)
         if(status){
-            await SignUpModel.findByIdAndUpdate({
-                _id : "5da447225375b43a4429cec21"
+           let updation =  await signupdata.findOneAndUpdate({
+                _id : req.headers.tokenValue
             },
+            
             {
                 $set:{
-                "Password" : newPassword
+                "password" : newPassword
                 }
             }
-            );    
+            );
+            console.log('check'+updation)    
         }
     }
     catch(error){
@@ -196,22 +179,22 @@ const updatePassword = async(req ,res )=>{
 const updateUsername = async(req , res )=>{
     try{
         //console.log("welcome to user.updateusername")
-        let userId = await SignUpModel.findOneAndUpdate({ _id : "5da43b1a5375b43a4429cec1"})
+        let userId = await signupdata.findOneAndUpdate({ _id : req.headers.tokenValue})
         oldEmail = req.body.existUname
         //console.log(oldEmail)
         newEmail = req.body.newUname
        // console.log(newEmail)
-        let checkEmailExistence1 = await SignUpModel.find({Email:newEmail})
+        let checkEmailExistence1 = await signupdata.find({email:newEmail})
         if(checkEmailExistence1 == null){
-            let checkEmailExistence = await SignUpModel.find({Email:oldEmail})
+            let checkEmailExistence = await signupdata.find({email:oldEmail})
             //console.log(checkEmailExistence)
             
-                await SignUpModel.findOneAndUpdate({
-                    Email : oldEmail
+                await signupdata.findOneAndUpdate({
+                    email : oldEmail
                 },
                 {
                     $set:{
-                        "Email" : newEmail
+                        "email" : newEmail
                     }
                 });
                 res.send({
@@ -234,6 +217,41 @@ const updateUsername = async(req , res )=>{
        
 }
 
+const saveLikes = async(req,res)=>{
+    let likeData = new LikeModel({
+        'userId' : req.headers.tokenValue,
+        'postId' : req.body.postId
+    })
+    await likeData.save()
+    return res.status(200).send({msg:'Like Added Successfully'})
+}
+
+const deleteLikes = async(req,res)=>{
+    await LikeModel.findOneAndDelete({'postId':req.body.postId})
+    return res.status(200).send({msg:'Like deleted Successfully'})
+}
+
+const saveSharedPost = async(req,res)=>{
+    let existingShare = await ShareModel.find({$and: [{'userId':req.headers.userToken}, {'postId':req.body.postId}]})
+    if(existingShare.length == 0){
+        let shareData = new ShareModel({
+            'userId':req.headers.userToken,
+            'postId':req.body.postId
+        })
+        await shareData.save()
+
+        let existingUser = await signupdata.findById({'_id':req.headers.tokenValue})
+        let postData = new PostModel({
+            userName: existingShare.firstName+' '+existingShare.lastName,
+            userId: req.headers.tokenValue,
+            likeCounts: 0,
+            shareCounts: 0,
+            postData: req.body.postData
+        })
+        postData.save()
+        return res.sendStatus(200)
+    }
+}
 module.exports = {
     saveSignUpData,
     loginUser,
@@ -244,5 +262,8 @@ module.exports = {
     userComment,
     getComments,
     updatePassword,
-    updateUsername
+    updateUsername,
+    saveLikes,
+    deleteLikes,
+    saveSharedPost
 }

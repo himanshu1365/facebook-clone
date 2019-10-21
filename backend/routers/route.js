@@ -8,18 +8,24 @@ app.use(bodyParser.urlencoded({
     extended: true
 }))
 
+app.use(bodyParser.json())
 
 module.exports =()=> {
     const router = express.Router();
-    
+
     router.post('/signup',(req,res)=>{
         Users.saveSignUpData(req,res)
     })
-    
+
     router.post('/login',(req,res)=>{
+       // console.log("hello")
         Users.checkLoginUser(req,res)
     })
 
+    
+   
+    
+    router.use(authMiddleware)
     router.get('/profilePage',(req,res)=>{
         Users.particularUserData(req,res)
     })
@@ -37,32 +43,40 @@ module.exports =()=> {
        Users.updateUsername(req,res);
 
     })
-    
 
 
-    router.use(authMiddleware)
-    
 
-    router.get('/home/getPosts',async (req,res)=>{
+//route to get posts from backend
+    router.get('/post',async (req,res)=>{
         const response = await Users.getAllPosts(req,res);
         return response
     })
-
+//route to save user posts in backend
     router.post('/post',(req, res)=>{
         console.log(req.body)
         console.log("hello")
         Users.saveUserPost(req,res);
-
     })
-
-    router.post('/home/comment',(req,res)=>{
+//route to save comments of post
+    router.post('/post/comment',(req,res)=>{
         Users.userComment(req,res);
     })
-
-    router.get('/home/getComment',(req,res)=>{
+//route to get comments of post
+    router.get('/post/comment',(req,res)=>{
         Users.getComments(req,res);
     })
-    
 
+    router.post('/post/like',(req,res)=>{
+        Users.saveLikes(req,res)
+    })
+
+    router.delete('/post/like',(req,res)=>{
+        Users.deleteLikes(req,res)
+    })
+
+    router.post('/post/sharePost',(req,res)=>{
+        Users.saveSharedPost(req,res)
+    })
+   
     return router
 }

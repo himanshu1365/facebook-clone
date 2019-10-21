@@ -15,6 +15,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json())
 app.use(cors())
+app.options("*",cors())
 
 
 app.use(router())
