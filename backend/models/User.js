@@ -20,6 +20,7 @@ const saveSignUpData = async (req, res, data) => {
     }
 }
 
+<<<<<<< Updated upstream
 const loginUser = async (req, res) => {
     let checkUser = await signupdata.find({ email: req.body.email })
     if (checkUser.length != 0) {
@@ -32,16 +33,44 @@ const loginUser = async (req, res) => {
         }
         else {
             return res.status(400).send({ msg: 'Incorrect Login Credentials' })
+=======
+const loginUser = async(req,res)=>{
+    
+    let checkUser = await signupdata.find({email: req.body.email})
+    if(checkUser.length != 0){
+        //console.log("in if loop")        
+        let password = checkUser[0].password
+       
+        let status = bcryptjs.compareSync(req.body.password,password)
+       // console.log(status)
+        if(status){
+            jwt.sign({userToken: checkUser[0]._id},SECRET,{ expiresIn: '24h'},(err,token)=>{
+                return res.status(200).send({msg:'Login Successful',token: token})
+            })
+        }
+        else{
+            console.log("in else loop")
+            return res.status(400).send({msg:'Incorrect Login Credentials'})
+>>>>>>> Stashed changes
         }
     }
 }
 
+<<<<<<< Updated upstream
 const particularUserData = async (req, res) => {
     try {
         let fetchId = await PostModel.findOne({ _id: req.query._id })
         if (fetchId.length != 0) {
             return res.status(200).send(fetchId.data);
         }
+=======
+const particularUserData  = async(req,res)=>{
+    try{
+        let userData = await PostModel.findOne({_id: req.headers.tokenValue})
+        
+            return res.status(200).send(userData);
+        
+>>>>>>> Stashed changes
     }
     catch (error) {
         return res.status(200).send({ message: 'No Posts exist for this user' })
@@ -125,14 +154,17 @@ const updatePassword = async(req ,res )=>{
         
         let userId = await signupdata.findOne({ _id : req.headers.tokenValue})
        // console.log(req.headers.tokenValue)
-        oldp = req.body.oldPwd
-        //console.log(oldp)
-        newPassword = req.body.newPassword
-        //console.log(newPassword)
+        oldPwd = req.body.oldPwd //oldp fetches Password that is input from the user while updating the password
+        newPassword = req.body.newPassword//The new password input from the user
+        let password = userId.password//hashed password fetched from the database 
+       // console.log("old password from database is " +password)
+        let status = bcryptjs.compareSync(oldPwd,password) //password = password set at signup.
+        //console.log("status of matching old password is : " + status)
+        var hash = bcryptjs.hashSync(newPassword, 8)
+        newPassword = hash
+        //console.log("new password after hashing is " + newPassword)
         
-        let hashedPwd = userId.password
-        let status = bcryptjs.compareSync(oldp,hashedPwd)
-        //console.log(status)
+        
         if(status){
            let updation =  await signupdata.findOneAndUpdate({
                 _id : req.headers.tokenValue
@@ -144,7 +176,7 @@ const updatePassword = async(req ,res )=>{
                 }
             }
             );
-            console.log('check'+updation)    
+            //console.log('check'+updation)    
         }
     }
     catch(error){
@@ -154,18 +186,25 @@ const updatePassword = async(req ,res )=>{
 const updateUsername = async(req , res )=>{
     try{
         //console.log("welcome to user.updateusername")
-        let userId = await signupdata.findOneAndUpdate({ _id : req.headers.tokenValue})
-        oldEmail = req.body.existUname
-        //console.log(oldEmail)
-        newEmail = req.body.newUname
-       // console.log(newEmail)
-        let checkEmailExistence1 = await signupdata.find({email:newEmail})
+        let user = await signupdata.findOne({ _id : req.headers.tokenValue})
+        //let email = user.email 
+        oldEmail = req.body.existUname//old username input from the user
+        newEmail = req.body.newUname//new username that the user wants
+        let checkEmailExistence1 = await signupdata.findOne({email:newEmail})
+       // console.log("status is :" +checkEmailExistence1)
+       if(checkEmailExistence1!=null){
+           res.send({
+               status:403,
+               msg:"Username already exists"
+           })
+       }
+        
         if(checkEmailExistence1 == null){
             let checkEmailExistence = await signupdata.find({email:oldEmail})
             //console.log(checkEmailExistence)
             
                 await signupdata.findOneAndUpdate({
-                    email : oldEmail
+                    _id : req.headers.tokenValue
                 },
                 {
                     $set:{
@@ -174,7 +213,7 @@ const updateUsername = async(req , res )=>{
                 });
                 res.send({
                     status:200,
-                    msg:'Email Updated'
+                    msg:'Email/username Updated'
                 })
             
         }

@@ -40,11 +40,22 @@ module.exports = () => {
     
    
     
+<<<<<<< Updated upstream
     app.use(authMiddleware)
     app.get('/profilePage',(req,res)=>{
         Users.particularUserData(req,res)
     })
     app.patch('/profilePage/updatePassword',(req,res)=>{
+=======
+    router.use(authMiddleware)
+
+
+    router.get('/profilePage',(req,res)=>{
+        console.log("route.js")
+        Users.particularUserData(req,res)
+    })
+    router.patch('/profilePage/updatePassword',(req,res)=>{
+>>>>>>> Stashed changes
        // console.log(req.body.oldPwd)
         //console.log(req.body.newPassword)
        // console.log(req.headers)

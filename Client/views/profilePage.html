@@ -13,6 +13,7 @@
  
   <script src="https://use.fontawesome.com/7bfc1da72e.js"></script>
   <link rel="stylesheet" type="text/css" href="../public/profile.css">
+  <link rel="stylesheet" href="../public/css/home.css">
   <script src="../public/js/profile.js"></script>
 
 </head>
@@ -43,7 +44,9 @@
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link text-color" href="#">Username</a>
+              <!-- <a class="nav-link text-color "  href="#"> -->
+                <!-- <img class="rounded-circle user-profile" src="../assets/post.jpg"></a> -->
+               <a class="nav-link text-color"  href="#">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link text-color"  href="#">Home</a>
@@ -85,69 +88,107 @@
       </div>
     </div> 
       </nav>  
-    <br><br><br>
+    <br>
     <div class="container" >
-        <h2 class="textcolor">Profile Image</h2>
+        <!-- <h2 class="textcolor">Profile Image</h2> -->
 
         <div class="card">
-            <!-- <img class="img-responsive" src="../assets/profileImage.jpg" alt="Profile image" style="width:50%"> -->
-           <!-- <input type="file" id="pp"> -->
-            <div class="card-body">
-                <h4 class="card-title">ASHISH CHOPRA</h4>
-                <p class="card-text">Ashish Chopra is an engineer</p>
-                
-                 <a href="#" class="btn btn-primary">See Profile</a> 
+            <img class="img-responsive rounded-circle" src="../assets/profileImage.jpg" alt="Profile image" style="width:50%">
+           
+            <div class="card-body" style="padding: 0px;">
+                <!-- <h4 class="card-title">ASHISH CHOPRA</h4>
+                <p class="card-text">Ashish Chopra is an engineer</p> -->
+                <nav class="navbar navbar-expand-sm bg-light">
+                  <ul class="navbar-nav spacing">
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Timeline</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Friends</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Photos</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Archive</a>
+                    </li>
+                  </ul>
+                </nav>
+                 <!-- <a href="#" class="btn btn-primary">See Profile</a>  -->
             </div>
         </div>
     </div>
+    <br>
+    <br>
+    <br>
     <div class="container" style="margin-top:30px">
-        <div class="row">
-          <div class="col-sm-4">
-            <h2>About Me</h2>
-            <h5>Photo of me:</h5>
-            <ul>
-              <div class="fakeimg"><li>FULL STACK WEB DEVELOPER</li></div>
-            <li><p>Joined facebook on 13th January,2010</p></li>
+      <div class="row">
+        <div class="col-sm-3">
+          <h2>About Me</h2>
+          <h5>Photo of me:</h5>
+          <ul>
+            <div class="fakeimg"><li>FULL STACK WEB DEVELOPER</li></div>
+          <li><p>Joined facebook on 13th January,2010</p></li>
+        </ul>
+          <h3>Some Links</h3>
+          <p>Birthday Details</p>
+          <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Birth Date</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Hometown</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Current City</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">Disabled</a>
+            </li>
           </ul>
-            <h3>Some Links</h3>
-            <p>Birthday Details</p>
-            <ul class="nav nav-pills flex-column">
-              <li class="nav-item">
-                <a class="nav-link active" href="#">Birth Date</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Hometown</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Current City</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-              </li>
-            </ul>
-            <hr class="d-sm-none">
-          </div>
-          <div class="col-sm-8" id = "posts-background">
-            <h2 class ="bg-color">POST 1 HEADING</h2>
-            <h5>Post description, Oct 11, 2019</h5>
-            <div class="fakeimg">User1 Image</div>
-            <p>Hey</p>
-            <p>Udemy.com is the world's largest online learning platform. It is aimed at professional adults and students. Udemy has more than 30 million students and 50,000 instructors teaching courses in over 60 languages.</p>
-            <br>
-            <h2 class="bg-color">POST 2 HEADING</h2>
-            <h5>Post description, Oct 11, 2019</h5>
-            <div class="fakeimg">User2 Image</div>
-            <p>Hey..</p>
-            <p>Udemy.com is the world's largest online learning platform. It is aimed at professional adults and students. Udemy has more than 30 million students and 50,000 instructors teaching courses in over 60 languages.</p>
-            <h2 class = "bg-color">POST 3 HEADING</h2>
-            <h5>Post description, Oct 11, 2019</h5>
-            <div class="fakeimg">User1 Image</div>
-            <p>Hey</p>
-            <p>Udemy.com is the world's largest online learning platform. It is aimed at professional adults and students. Udemy has more than 30 million students and 50,000 instructors teaching courses in over 60 languages.</p>
-            <br>
-          </div>
+          <hr class="d-sm-none">
         </div>
+        
+        <!-- <div class="col-sm-8" id = "posts-background">
+          <h2 class ="bg-color">POST 1 HEADING</h2>
+          <h5>Post description, Oct 11, 2019</h5>
+          <div class="fakeimg">User1 Image</div>
+          <p>Hey</p>
+          <p>Udemy.com is the world's largest online learning platform. It is aimed at professional adults and students. Udemy has more than 30 million students and 50,000 instructors teaching courses in over 60 languages.</p>
+          <br>
+          <h2 class="bg-color">POST 2 HEADING</h2>
+          <h5>Post description, Oct 11, 2019</h5>
+          <div class="fakeimg">User2 Image</div>
+          <p>Hey..</p>
+          <p>Udemy.com is the world's largest online learning platform. It is aimed at professional adults and students. Udemy has more than 30 million students and 50,000 instructors teaching courses in over 60 languages.</p>
+          <h2 class = "bg-color">POST 3 HEADING</h2>
+          <h5>Post description, Oct 11, 2019</h5>
+          <div class="fakeimg">User1 Image</div>
+          <p>Hey</p>
+          <p>Udemy.com is the world's largest online learning platform. It is aimed at professional adults and students. Udemy has more than 30 million students and 50,000 instructors teaching courses in over 60 languages.</p>
+          <br>
+        </div> -->
+        <div class="col-sm-9 main">
+          <form class="post">
+              <h5>Create Your Post:</h5>
+              <textarea id="myTextarea" rows="3" placeholder="Write something..."></textarea><br>
+              <div class="input-image-post">
+                  <input type="file" name="myImage" id="image" accept="image/x-png,image/gif,image/jpeg" />
+                  <button type="button" class="btn btn-primary" id="btn">Post</button>
+              </div>
+              <hr>
+          </form>
+          <div id="show-post-div">
+              
+          </div>
       </div>
+      
+      </div>
+    </div>
+    <div class="co"></div>
       <div class="modal fade" id="Logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -203,17 +244,15 @@
                 </div>
                 <div class="modal-body">
                   <input type="text" id="oldEmail" name="Old Username" placeholder="Old Username"><br>
-                  <input type="text" id="newEmail" name="New Username" placeholder="Enter New Username"><br>
-                  <!-- <input type="date" name="Old birthdate" placeholder="Birthdate"><br>
-                  <input type="date" name="Enter new birthdate" placeholder="Enter New Birthdate"> -->
+                  <input type="text" id="newEmail" name="New Username" placeholder="Enter New Username"><br> 
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   <button type="button" id="update" class="btn btn-primary">Update Changes</button>
                 </div>
               </div>
-            </div>
-          <!-- </div> -->
+            <!-- </div> -->
+          </div>
 
 </body>
 

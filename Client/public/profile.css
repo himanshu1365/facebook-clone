@@ -1,32 +1,32 @@
-/* .card{
+ /* .card{
     float: left;
-    /* background-color: rgba(20, 230, 167, 0.651); */
-    
-    /* float:left;
-}
+     background-color: lightgrey; 
+}  */
 h2.textcolor{
-    color: azure;
+    color:yellow
 }
-.container{
-    background-color: rgb(194, 193, 193);
-    float: left;
-    width: 100%!important;
-}
-.card-title{
-    color: rgb(0, 0, 0);
-    text-align: center;
-} */
-/* .backgroundColor{
-    background-color: blue;
-} */
-.logo img{
 
-    height: 35px;
-    width: 35px;
+body{
+    background-color:lightgrey;
 }
+.card{
+    background-color:rgba(0, 0, 0, 0.61);
+}
+
 a.text-color{
     color:white;
 }  
+a img{
+    height: 35px;
+    width: 35px;
+}
+li a{
+    font-weight: bold;
+}
+.spacing li{
+    width: 150px;
+}
+
 
 /* y */
 /* .fakeimg {
