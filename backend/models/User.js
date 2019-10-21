@@ -135,6 +135,7 @@ const saveLikes = async(req,res)=>{
         'userId' : req.headers.tokenValue,
         'postId' : req.body.postId
     })
+    console.log(likeData)
     await likeData.save()
     return res.status(200).send({msg:'Like Added Successfully'})
 }
