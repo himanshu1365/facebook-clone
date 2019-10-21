@@ -72,9 +72,6 @@ body {
     height: 18px;
     margin: 5px;
 }
-.notice-icon a .notice{
-    color: white;
-}
 .right-side a p i{
     color: black;
     font-size: 18px;
@@ -132,7 +129,6 @@ textarea{
     left: -70px;
     font-size: 12px;
 }
-
 .like-share-contents{
     margin: 0 auto;
     text-align: center;
@@ -145,7 +141,6 @@ textarea{
 .like-share-contents i{
     font-size: 20px;
 }
-
 .send-comment{
     border: none;
     border-radius: 20px;
@@ -198,7 +193,6 @@ textarea{
 .like-share-contents i{
     font-size: 20px;
 }
-
 .send-comment{
     border: none;
     border-radius: 20px;
@@ -211,6 +205,12 @@ textarea{
 .send-comment:focus{
     border: 1px solid lightblue;
 }
-.right-side a:hover{
+.profile:hover,.home-create:hover {
     background: #2d4b8b;
+}
+
+.show-comments{
+    height:300px;
+    width: 300px;
+    border-radius: 20px;
 }

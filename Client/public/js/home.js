@@ -1,3 +1,23 @@
+function showComments(id,data){
+    var b= document.getElementById(id)
+    $('#'+id).toggle("slow", function(){
+        if($('#'+id).is(":hidden")){
+            $('#'+id).hide()
+        }
+        else{
+            $('#'+id).show()
+            $('#'+id).empty()
+            for(i=0;i<data.length;i++){
+                var a = document.createElement('div')
+                a.innerHTML = data[i].commentText + data[i].createdAt
+                b.appendChild(a)
+            }
+
+        }
+    });
+}
+
+
 function showdata(data){
     for(let i=0;i<data.length;i++){
         let body = document.getElementById('show-post-div')
@@ -38,7 +58,7 @@ function showdata(data){
             postImage.setAttribute('class','post-img')
             cardbody.appendChild(postImage)
             let postImg = document.createElement('img')
-            postImg.setAttribute('src','../assets/post.jpg')
+            postImg.setAttribute('src',data[i].postImage)
             postImage.appendChild(postImg)
 
             let hr = document.createElement("hr")
@@ -61,6 +81,7 @@ function showdata(data){
 
             let commentcontent = document.createElement("div")
             commentcontent.setAttribute('class','like-share-contents col-md-3')
+            commentcontent.setAttribute('id','commentButton')
             row.appendChild(commentcontent)
             let comment = document.createElement('span')
             let icomment = document.createElement('i')
@@ -77,6 +98,13 @@ function showdata(data){
             ishare.setAttribute('class','fa fa-share-square-o')
             share.appendChild(ishare)
             sharecontent.appendChild(share)
+
+            let commentdom = document.createElement("div")
+            commentdom.setAttribute("id","show-comments")
+            commentdom.setAttribute("class","show-comments-class")
+           
+            likebox.appendChild(commentdom)
+            icomment.setAttribute('class','"fa fa-comments-o')
 
             let cardfooter = document.createElement("div")
             cardfooter.setAttribute('class','card-footer')
@@ -98,12 +126,11 @@ $(document).ready( function(){
                 token: localStorage.getItem('userToken')
             },
             success: function(data){
-                console.log(data)
                 showdata(data)
             },
             error: function(error){
                 localStorage.removeItem("userToken")
-                //$(location).attr('href','../index.html')
+                $(location).attr('href','../index.html')
             }
         })
     $(document).on('keydown','input.send-comment',function(e){
@@ -129,9 +156,7 @@ $(document).ready( function(){
                 },
                 data:JSON.stringify({
                     "postId":$(classnName[i]).parent().parent().attr('id'),
-                    "comments":[{
-                        "commentData":$(classnName[i]).val()
-                    }]
+                    "commentText":$(classnName[i]).val()
                 }),
                 success:function(data, status){
                     console.log(data.msg +" "+status);
@@ -143,30 +168,32 @@ $(document).ready( function(){
                 });
             }
         })
+
     $("#btn").click( function(){
+        var postText = $.trim($("#myTextarea").val());
+        var formData = new FormData();
+        formData.append('postText',postText );
+        // Attach file
+        formData.append('image', $('input[type=file]')[0].files[0]); 
         $.ajax("http://localhost:9000/post",{
-                type:"POST",
-                dataType: "json",
-                headers:{
-                    token: localStorage.getItem('userToken')
-                },
-                contentType: "application/json; charset=utf-8",
-                data:JSON.stringify({
-                    "postText" : $.trim($("#myTextarea").val())
-                }),
-                success:function(data, status){
-                    console.log(data.msg +" "+status);
-                    location.reload(true);
-                },
-                error: function(error){
-                    console.log(error +" "+ "error occurred");
-            }
-        });
+                    type:"POST",
+                    data:formData,
+                    dataType: "json",
+                    headers:{
+                        token: localStorage.getItem('userToken')
+                    },
+                    contentType: false,
+                    processData: false,
+                    success:function(data, status){
+                        console.log(data.msg +" "+status);
+                        // location.reload(true);
+                    },
+                    error: function(error){
+                        console.log(error +" "+ "error occurred");
+                }
+            });
     });
-    $("#show-comments").click(function(){
-        console.log('hide')
-        $(".display-comment").show();
-    });
+    
 });
 
 $(document).on('click','#saveLike',function(){
@@ -205,7 +232,6 @@ $(document).on('click','#saveLike',function(){
 $(document).on('click','#sharePost',function(){
     let postId =  $(this).parent().parent().parent().parent().attr('id')
     let postContent = $(this).parent().parent().parent().text()
-    console.log(postContent)
     $.ajax('http://localhost:9000/post/sharePost',{
         type:"POST",
         dataType: "json",
@@ -218,8 +244,35 @@ $(document).on('click','#sharePost',function(){
             "postData":postContent
         }),
         success: function(){ },
-        error: function(){ 
+        error: function(){
             $(location).attr('href','../index.html')
         }
     })
 });
+
+$(document).on('click','#commentButton',function(e){
+    const postID = $(this).parent().parent().parent().parent().attr('id')
+    console.log('postID : '+postID)
+    $(this).parent().parent().children().eq(1).attr('id','_post'+postID)
+    let commentID = $(this).parent().parent().children().eq(1).attr('id')
+    $.ajax("http://localhost:9000/post/comment",{
+        
+    type:"GET",
+    
+    headers:{
+        token: localStorage.getItem('userToken')
+    },
+    dataType: "json",
+    contentType: "application/json",
+    data: {
+        postId:postID
+    },
+    success:function(data, status){
+        showComments(commentID,data)
+    },
+    error: function(error){
+        console.log(error +" "+ "error occurred");
+    }
+});
+        
+    })

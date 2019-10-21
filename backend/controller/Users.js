@@ -21,9 +21,9 @@ const checkUserToken = async(req,res)=>{
     return status
 }
 //get postdata
-const getAllPosts = async(req,res)=>{
+const viewPost = async(req,res)=>{
    try{
-    const status = await User.getAllPosts(req,res)
+    const status = await User.viewPost(req,res)
     res.send(status);
    }
    catch(error){}
@@ -48,8 +48,8 @@ const userComment = async(req,res)=>{
 }
 const getComments = async( req, res )=>{
     try{
-        let data = await User.getComments(req , res );
-       res.send(data);
+        let data = await User.getComments(req ,res)
+        res.status(200).send(data);
     }
     catch(error ){
         console.log(error)
@@ -96,9 +96,9 @@ module.exports = {
     saveUserPost,
     userComment,
     getComments,
-    getAllPosts,
     updatePassword,
     updateUsername,
+    viewPost,
     saveLikes,
     deleteLikes,
     saveSharedPost
