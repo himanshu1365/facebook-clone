@@ -1,7 +1,7 @@
 function showComments(id,data){
     var b= document.getElementById(id)
-    $("#show-comments").toggle("slow", function(){
-        if($("#show-comments").is(":visible")){
+    $('#'+id).toggle("slow", function(){
+        if($('#'+id).is(":hidden")){
             $('#'+id).hide()
         }
         else{
@@ -12,7 +12,7 @@ function showComments(id,data){
                 a.innerHTML = data[i].commentText + data[i].createdAt
                 b.appendChild(a)
             }
-           
+
         }
     });
 }
@@ -58,7 +58,7 @@ function showdata(data){
             postImage.setAttribute('class','post-img')
             cardbody.appendChild(postImage)
             let postImg = document.createElement('img')
-            postImg.setAttribute('src','../assets/post.jpg')
+            postImg.setAttribute('src',data[i].postImage)
             postImage.appendChild(postImg)
 
             let hr = document.createElement("hr")
@@ -167,24 +167,28 @@ $(document).ready( function(){
         })
 
     $("#btn").click( function(){
+        var postText = $.trim($("#myTextarea").val());
+        var formData = new FormData();
+        formData.append('postText',postText );
+        // Attach file
+        formData.append('image', $('input[type=file]')[0].files[0]); 
         $.ajax("http://localhost:9000/post",{
-                type:"POST",
-                dataType: "json",
-                headers:{
-                    token: localStorage.getItem('userToken')
-                },
-                contentType: "application/json; charset=utf-8",
-                data:JSON.stringify({
-                    "postText" : $.trim($("#myTextarea").val())
-                }),
-                success:function(data, status){
-                    console.log(data.msg +" "+status);
-                    location.reload(true);
-                },
-                error: function(error){
-                    console.log(error +" "+ "error occurred");
-            }
-        });
+                    type:"POST",
+                    data:formData,
+                    dataType: "json",
+                    headers:{
+                        token: localStorage.getItem('userToken')
+                    },
+                    contentType: false,
+                    processData: false,
+                    success:function(data, status){
+                        console.log(data.msg +" "+status);
+                        // location.reload(true);
+                    },
+                    error: function(error){
+                        console.log(error +" "+ "error occurred");
+                }
+            });
     });
     
 });
@@ -237,7 +241,7 @@ $(document).on('click','#sharePost',function(){
             "postData":postContent
         }),
         success: function(){ },
-        error: function(){ 
+        error: function(){
             $(location).attr('href','../index.html')
         }
     })

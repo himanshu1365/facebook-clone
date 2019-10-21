@@ -21,9 +21,9 @@ const checkUserToken = async(req,res)=>{
     return status
 }
 //get postdata
-const getAllPosts = async(req,res)=>{
+const viewPost = async(req,res)=>{
    try{
-    const status = await User.getAllPosts(req,res)
+    const status = await User.viewPost(req,res)
     res.send(status);
    }
    catch(error){}
@@ -78,7 +78,7 @@ module.exports = {
     saveUserPost,
     userComment,
     getComments,
-    getAllPosts,
+    viewPost,
     saveLikes,
     deleteLikes,
     saveSharedPost
