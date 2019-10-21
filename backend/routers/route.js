@@ -68,7 +68,8 @@ module.exports = () => {
     })
 
     app.delete('/post/like', (req, res) => {
-        Users.deleteLikes(req, res)
+        console.log('deleting like')
+        Users.removeLikes(req, res)
     })
 
     app.post('/post/sharePost', (req, res) => {

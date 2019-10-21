@@ -1,7 +1,7 @@
 $(document).ready(function () {
-    $(window).load(function(){
-        if(localStorage.getItem('userToken')!=null){
-            $(location).attr('href','./views/home.html')
+    $(window).load(function () {
+        if (localStorage.getItem('userToken') != null) {
+            $(location).attr('href', './views/home.html')
         }
     })
 
@@ -94,7 +94,7 @@ $(document).ready(function () {
                 data: JSON.stringify(signUpData),
                 contentType: "application/json; charset=utf-8",
                 success: function (data, status) {
-                    
+
                 },
                 error: function (error) {
                     console.log("error : " + error)
@@ -115,7 +115,7 @@ $(document).ready(function () {
         var email = document.getElementById("LoginFormEmail").value;
 
         var password = document.getElementById("LoginFormPassword").value;
-        if(email === "") {
+        if (email === "") {
             alert("Please enter your email");
         }
         else {
@@ -154,8 +154,8 @@ $(document).ready(function () {
                     localStorage.setItem('userToken', data.token)
                     $(location).attr('href', './views/home.html')
                 },
-                error: function(data,error){
-                    console.log('error '+ error)
+                error: function (data, error) {
+                    console.log('error ' + error)
                 }
             })
         }
