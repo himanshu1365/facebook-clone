@@ -109,9 +109,6 @@ $(document).ready( function(){
         var email = document.getElementById("LoginFormEmail").value;
         
         var password = document.getElementById("LoginFormPassword").value;
-        
-       
-
         if(email === "") {
             alert("Please enter your email");
         }
