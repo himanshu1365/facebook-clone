@@ -115,10 +115,7 @@ $(document).ready(function () {
         var email = document.getElementById("LoginFormEmail").value;
 
         var password = document.getElementById("LoginFormPassword").value;
-
-
-
-        if (email === "") {
+        if(email === "") {
             alert("Please enter your email");
         }
         else {
@@ -157,10 +154,8 @@ $(document).ready(function () {
                     localStorage.setItem('userToken', data.token)
                     $(location).attr('href', './views/home.html')
                 },
-                error: function (data, error) {
-                    // let statusMessage = JSON.stringify(data)
-                    // console.log('data : '+data.responseJSON)
-                    console.log('error ' + error)
+                error: function(data,error){
+                    console.log('error '+ error)
                 }
             })
         }

@@ -72,6 +72,15 @@ body
  border:1px solid #08298A;
 }
 
+#loginbtn
+{
+ height:25px;
+ margin-top:20px;
+ background-color:#084B8A;
+ color:white;
+ border:1px solid #08298A;
+}
+
 #footer_wrapper
 {
  width:100%;
@@ -175,12 +184,15 @@ body
 }
 #content #div2 li #SignUpFirstName
 {
- width:48%;
+ width: 49%;
 }
 #content #div2 li #SignUpLastName
 {
- margin-left:2%;
- width:48%;
+ margin-left: 50%;
+ margin-top: -48px;
+ width:49%;
+
+ display: flex;
 }
 #content #div2 li input[type="text"]
 {

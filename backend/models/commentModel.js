@@ -5,11 +5,12 @@ const Schema = mongoose.Schema
 const commentSchema = new Schema({
     userId: String,
     postId: String,
-    commentData: String,
-    createdAt: {
-        type: Date,
-        default: Date.now()
-    }
+    commentText : String,
+    createdAt :{
+        type : Date,
+        default :Date.now()
+    } ,
+    userName : String
 })
 
 
