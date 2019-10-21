@@ -48,8 +48,8 @@ const userComment = async(req,res)=>{
 }
 const getComments = async( req, res )=>{
     try{
-        let data = await User.getComments(req , res );
-       res.send(data);
+        let data = await User.getComments(req ,res)
+        res.status(200).send(data);
     }
     catch(error ){
         console.log(error)

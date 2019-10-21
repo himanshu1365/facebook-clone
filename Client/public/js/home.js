@@ -1,4 +1,23 @@
-// const moment = require('moment.js')
+function showComments(id,data){
+    var b= document.getElementById(id)
+    $('#'+id).toggle("slow", function(){
+        if($('#'+id).is(":hidden")){
+            $('#'+id).hide()
+        }
+        else{
+            $('#'+id).show()
+            $('#'+id).empty()
+            for(i=0;i<data.length;i++){
+                var a = document.createElement('div')
+                a.innerHTML = data[i].commentText + data[i].createdAt
+                b.appendChild(a)
+            }
+
+        }
+    });
+}
+
+
 function showdata(data){
     for(let i=0;i<data.length;i++){
         let body = document.getElementById('show-post-div')
@@ -21,12 +40,12 @@ function showdata(data){
             dflex.appendChild(image)
             let author = document.createElement("p")
             author.innerHTML = data[i].userName
-            dflex   .appendChild(author)
+            dflex.appendChild(author)
 
             let date = document.createElement('p')
             date.setAttribute('class','post-date')
             cardheader.appendChild(date)
-                date.innerHTML = data[i].postedAt
+            date.innerHTML = data[i].postedAt
 
             let cardbody = document.createElement("div")
             let postContent = document.createElement("p")
@@ -62,6 +81,7 @@ function showdata(data){
 
             let commentcontent = document.createElement("div")
             commentcontent.setAttribute('class','like-share-contents col-md-3')
+            commentcontent.setAttribute('id','commentButton')
             row.appendChild(commentcontent)
             let comment = document.createElement('span')
             let icomment = document.createElement('i')
@@ -78,6 +98,13 @@ function showdata(data){
             ishare.setAttribute('class','fa fa-share-square-o')
             share.appendChild(ishare)
             sharecontent.appendChild(share)
+
+            let commentdom = document.createElement("div")
+            commentdom.setAttribute("id","show-comments")
+            commentdom.setAttribute("class","show-comments-class")
+           
+            likebox.appendChild(commentdom)
+            icomment.setAttribute('class','"fa fa-comments-o')
 
             let cardfooter = document.createElement("div")
             cardfooter.setAttribute('class','card-footer')
@@ -99,7 +126,6 @@ $(document).ready( function(){
                 token: localStorage.getItem('userToken')
             },
             success: function(data){
-               // console.log(data)
                 showdata(data)
             },
             error: function(error){
@@ -127,9 +153,7 @@ $(document).ready( function(){
                 contentType: "application/json; charset=utf-8",
                 data:JSON.stringify({
                     "postId":$(classnName[i]).parent().parent().attr('id'),
-                    "comments":[{
-                        "commentData":$(classnName[i]).val()
-                    }]
+                    "commentText":$(classnName[i]).val()
                 }),
                 success:function(data, status){
                     console.log(data.msg +" "+status);
@@ -141,6 +165,7 @@ $(document).ready( function(){
                 });
             }
         })
+
     $("#btn").click( function(){
         var postText = $.trim($("#myTextarea").val());
         var formData = new FormData();
@@ -165,10 +190,7 @@ $(document).ready( function(){
                 }
             });
     });
-    $("#show-comments").click(function(){
-        console.log('hide')
-        $(".display-comment").show();
-    });
+    
 });
 
 $(document).on('click','#saveLike',function(){
@@ -207,7 +229,6 @@ $(document).on('click','#saveLike',function(){
 $(document).on('click','#sharePost',function(){
     let postId =  $(this).parent().parent().parent().parent().attr('id')
     let postContent = $(this).parent().parent().parent().text()
-    console.log(postContent)
     $.ajax('http://localhost:9000/post/sharePost',{
         type:"POST",
         dataType: "json",
@@ -225,3 +246,30 @@ $(document).on('click','#sharePost',function(){
         }
     })
 });
+
+$(document).on('click','#commentButton',function(e){
+    const postID = $(this).parent().parent().parent().parent().attr('id')
+    console.log('postID : '+postID)
+    $(this).parent().parent().children().eq(1).attr('id','_post'+postID)
+    let commentID = $(this).parent().parent().children().eq(1).attr('id')
+    $.ajax("http://localhost:9000/post/comment",{
+        
+    type:"GET",
+    
+    headers:{
+        token: localStorage.getItem('userToken')
+    },
+    dataType: "json",
+    contentType: "application/json",
+    data: {
+        postId:postID
+    },
+    success:function(data, status){
+        showComments(commentID,data)
+    },
+    error: function(error){
+        console.log(error +" "+ "error occurred");
+    }
+});
+        
+    })

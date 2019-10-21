@@ -208,6 +208,9 @@ textarea{
 .profile:hover,.home-create:hover {
     background: #2d4b8b;
 }
-.notice-icon a i:hover{
-    color: grey;
+
+.show-comments{
+    height:300px;
+    width: 300px;
+    border-radius: 20px;
 }

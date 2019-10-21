@@ -90,52 +90,33 @@ const saveUserPost = async (req, res) => {
     }
 }
 
-const userComment = async (req, res) => {
-
-    try {
-        let comment = await commentModel.find({ postId: req.headers.tokenValue });
-        let signUpUser = await SignUpModel.find({ _id: req.headers.tokenValue })
-        // let postid = await commentModel.find({postid:postmodel[0].postid});
-        req.body.postId = req.headers.tokenValue;
-        req.body.comments[0].commentator = signUpUser[0].firstName + " " + signUpUser[0].lastName;
-        if (comment.length != 0) {
-            await commentModel.findOneAndUpdate({
-                postId: req.body.postId,
-            },
-                {
-                    $push: {
-                        comments: req.body.comments,
-                    }
-                }).sort({ commentData: -1 });
+const userComment = async( req , res ) =>{
+    try{
+        let signUpUser = await SignUpModel.find({_id:req.headers.tokenValue})
+        req.body.userName=signUpUser[0].firstName +" "+ signUpUser[0].lastName;
+        let commentData = new commentModel(req.body);
+        await commentData.save().sort;
             return {
-                'status': 200,
-                'msg': 'multiple comments added'
+                'status':200,
+                'msg':'comments added'
             }
-        }
-        else {
-            let commentData = new commentModel(req.body);
-            await commentData.save();
+    }
+        catch(err){
             return {
-                status: 200,
-                msg: 'new comment added'
+                'status':404,
+                'msg':'something went wrong',
+                'error':err
             }
         }
     }
-    catch (err) {
-        return {
-            'status': 404,
-            'msg': 'something went wrong',
-            'error': err
-        }
+const getComments = async(req , res )=>{
+    try{
+        let postID = req.query.postId
+        let comment = await commentModel.find({'postId':postID}).sort({"createdAt":'desc'})
+        return comment;
     }
-}
-const getComments = async (req, res) => {
-    try {
-        let data = await commentModel.find();
-        return data;
-    }
-    catch (error) {
-        console.log(error)
+    catch(error){
+        return error
     }
 }
 
