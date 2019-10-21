@@ -1,3 +1,4 @@
+// const moment = require('moment.js')
 function showdata(data){
     for(let i=0;i<data.length;i++){
         let body = document.getElementById('show-post-div')
@@ -20,12 +21,12 @@ function showdata(data){
             dflex.appendChild(image)
             let author = document.createElement("p")
             author.innerHTML = data[i].userName
-            dflex.appendChild(author)
+            dflex   .appendChild(author)
 
             let date = document.createElement('p')
             date.setAttribute('class','post-date')
             cardheader.appendChild(date)
-            date.innerHTML = data[i].postedAt
+                date.innerHTML = data[i].postedAt
 
             let cardbody = document.createElement("div")
             let postContent = document.createElement("p")
@@ -38,7 +39,7 @@ function showdata(data){
             postImage.setAttribute('class','post-img')
             cardbody.appendChild(postImage)
             let postImg = document.createElement('img')
-            postImg.setAttribute('src','../assets/post.jpg')
+            postImg.setAttribute('src',data[i].postImage)
             postImage.appendChild(postImg)
 
             let hr = document.createElement("hr")
@@ -98,12 +99,12 @@ $(document).ready( function(){
                 token: localStorage.getItem('userToken')
             },
             success: function(data){
-                console.log(data)
+               // console.log(data)
                 showdata(data)
             },
             error: function(error){
                 localStorage.removeItem("userToken")
-                //$(location).attr('href','../index.html')
+                $(location).attr('href','../index.html')
             }
         })
     $(document).on('keydown','input.send-comment',function(e){
@@ -141,24 +142,28 @@ $(document).ready( function(){
             }
         })
     $("#btn").click( function(){
+        var postText = $.trim($("#myTextarea").val());
+        var formData = new FormData();
+        formData.append('postText',postText );
+        // Attach file
+        formData.append('image', $('input[type=file]')[0].files[0]); 
         $.ajax("http://localhost:9000/post",{
-                type:"POST",
-                dataType: "json",
-                headers:{
-                    token: localStorage.getItem('userToken')
-                },
-                contentType: "application/json; charset=utf-8",
-                data:JSON.stringify({
-                    "postText" : $.trim($("#myTextarea").val())
-                }),
-                success:function(data, status){
-                    console.log(data.msg +" "+status);
-                    location.reload(true);
-                },
-                error: function(error){
-                    console.log(error +" "+ "error occurred");
-            }
-        });
+                    type:"POST",
+                    data:formData,
+                    dataType: "json",
+                    headers:{
+                        token: localStorage.getItem('userToken')
+                    },
+                    contentType: false,
+                    processData: false,
+                    success:function(data, status){
+                        console.log(data.msg +" "+status);
+                        // location.reload(true);
+                    },
+                    error: function(error){
+                        console.log(error +" "+ "error occurred");
+                }
+            });
     });
     $("#show-comments").click(function(){
         console.log('hide')
@@ -215,7 +220,7 @@ $(document).on('click','#sharePost',function(){
             "postData":postContent
         }),
         success: function(){ },
-        error: function(){ 
+        error: function(){
             $(location).attr('href','../index.html')
         }
     })
