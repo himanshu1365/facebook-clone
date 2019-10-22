@@ -169,6 +169,18 @@ $(document).ready(function () {
         }
     })
 
+    //logout user
+    $(".fa-sign-out").click(()=>{
+        localStorage.removeItem('userToken')
+        $(location).attr('href','../index.html')
+    })
+    //load user profile
+    $("#user_profile").click(()=>{
+        localStorage.removeItem('userToken')
+        $(location).attr('href','../views/profilePage.html')
+    })
+    //this will submit post
+
     $("#btn").click(function () {
         var postText = $.trim($("#myTextarea").val());
         var formData = new FormData();
