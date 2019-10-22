@@ -10,6 +10,14 @@ const PostModel = new Schema({
         type : Date,
         default : Date.now
     },
+    likeCount:{
+        type: Number,
+        default: 0
+    },
+    shareCount:{
+        type: Number,
+        default: 0
+    },
     postText: String
 })
 module.exports = mongoose.model("Post", PostModel)

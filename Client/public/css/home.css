@@ -13,8 +13,8 @@ body {
     display:inline-block;
   }
   .logo img {
-      height:22px;
-      width: 25px;
+      height:30px;
+      width: 30px;
       position: relative;
   }
   
@@ -49,7 +49,6 @@ body {
       height: 35px;
       border-radius: 5px;
       text-align: center;
-      width: 120px;
   }
   .home-create{
     text-decoration: none;
@@ -82,10 +81,12 @@ body {
     }
     #inputText{
         width: 150px;
+        margin: 11px 0px 0px 15px;
     }
     .search-icon {
         height:22px;
         width: 30px;
+        margin: 11px 0px 0px 0px;
       }
       .search-icon img {
         height: 10px;
@@ -107,6 +108,9 @@ body {
       .right-side img{
         height: 20px;
         width: 20px;
+        position: relative;
+        bottom: 30px;
+        left: 193px;
     }
     .right-side p{
         font-size: 8px;
