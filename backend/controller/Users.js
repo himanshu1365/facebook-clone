@@ -61,8 +61,8 @@ const saveLikes = async(req,res)=>{
     return response
 }
 
-const removeLikes = async(req,res)=>{
-    let response = await User.removeLikes(req,res)
+const deleteLikes = async(req,res)=>{
+    let response = await User.deleteLikes(req,res)
     return response
 }
 
@@ -80,6 +80,6 @@ module.exports = {
     getComments,
     viewPost,
     saveLikes,
-    removeLikes,
+    deleteLikes,
     saveSharedPost
 }

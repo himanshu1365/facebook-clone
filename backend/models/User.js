@@ -50,8 +50,12 @@ const particularUserData = async (req, res) => {
 //get post of all users
 const viewPost = async (req, res) => {
     try {
+        let user = await SignUpModel.find({_id:req.headers.tokenValue})
+        let obj = new Object()
+        obj.name = user[0].firstName+' '+user[0].lastName
+        
         let post = await PostModel.find().sort({ "postedAt": 'desc' })
-        return post;
+        return ({post,obj});
     }
     catch (error) {
         return error
@@ -121,28 +125,17 @@ const getComments = async(req , res )=>{
 }
 
 const saveLikes = async (req, res) => {
-    const existingLike = await LikeModel.findOne({"postId":req.body.postId,"userId":req.headers.tokenValue})
-    if(existingLike  === null){
-        let likeData = new LikeModel({
-            'userId': req.headers.tokenValue,
-            'postId': req.body.postId
-        })
-        await likeData.save()
-        const likeStatus = await PostModel.findByIdAndUpdate(req.body.postId,{$inc:{'likeCount':1}},{new: true}).select({'likeCount':1})
-        return res.status(200).send({count:likeStatus.likeCount})
-    }
+    let likeData = new LikeModel({
+        'userId': req.headers.tokenValue,
+        'postId': req.body.postId
+    })
+    await likeData.save()
+    return res.status(200).send({ msg: 'Like Added Successfully' })
 }
 
-const removeLikes = async (req, res) => {
-    let post = JSON.parse(Object.keys(req.body)[0])
-    const existingLike = await LikeModel.findOne({"postId":post.postId,"userId":req.headers.tokenValue})
-    if(existingLike != null){
-        await LikeModel.findOneAndDelete({ 'postId': post.postId })
-        const like = await PostModel.findById(post.postId).select({'likeCount':1})
-        let num = like.likeCount-1
-        const likeStatus = await PostModel.findByIdAndUpdate(post.postId,{'likeCount':num},{new: true}).select({'likeCount':1})
-        return res.status(200).send({count:likeStatus.likeCount})
-    }
+const deleteLikes = async (req, res) => {
+    await LikeModel.findOneAndDelete({ 'postId': req.body.postId })
+    return res.status(200).send({ msg: 'Like deleted Successfully' })
 }
 
 const saveSharedPost = async (req, res) => {
@@ -176,6 +169,6 @@ module.exports = {
     userComment,
     getComments,
     saveLikes,
-    removeLikes,
+    deleteLikes,
     saveSharedPost
 }
