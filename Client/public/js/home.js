@@ -1,20 +1,19 @@
 function showComments(id, data) {
     var b = document.getElementById(id)
-    $('#' + id).toggle("slow", function () {
+    $('#' + id).toggle("slow", function() {
         if ($('#' + id).is(":hidden")) {
             $('#' + id).hide()
-        }
-        else {
+        } else {
             $('#' + id).show()
             $('#' + id).empty()
             for (i = 0; i < data.length; i++) {
                 let comment_div = document.createElement('div')
-                comment_div.setAttribute('class','comment-div')
+                comment_div.setAttribute('class', 'comment-div')
                 let comment_user_image = document.createElement('img')
-                comment_user_image.setAttribute('src','../assets/1571682893768-baby.jpeg')
+                comment_user_image.setAttribute('src', '../assets/1571682893768-baby.jpeg')
                 comment_div.appendChild(comment_user_image)
                 let comment_container = document.createElement('div')
-                comment_container.setAttribute('class','comment_container')
+                comment_container.setAttribute('class', 'comment_container')
                 let comment_user = document.createElement('h4');
                 comment_user.innerHTML = data[i].userName
                 comment_container.appendChild(comment_user)
@@ -31,6 +30,7 @@ function showComments(id, data) {
         }
     });
 }
+
 function showdata(data) {
     for (let i = 0; i < data.length; i++) {
         let body = document.getElementById('show-post-div')
@@ -98,7 +98,7 @@ function showdata(data) {
         row.appendChild(commentcontent)
         let comment = document.createElement('span')
         let icomment = document.createElement('i')
-        icomment.setAttribute('class', 'fa fa-comment-o')
+        icomment.setAttribute('class', 'fa fa-conmment-o')
         comment.appendChild(icomment)
         commentcontent.appendChild(comment)
 
@@ -121,9 +121,9 @@ function showdata(data) {
 
         let cardfooter = document.createElement("div")
         cardfooter.setAttribute('class', 'card-footer')
-		let likeOutput = document.createElement("div")
+        let likeOutput = document.createElement("div")
         postcard.appendChild(likeOutput)
-		
+
         let input = document.createElement('input')
         input.setAttribute('type', 'text')
         input.setAttribute('class', 'send-comment')
@@ -134,24 +134,24 @@ function showdata(data) {
     }
 }
 
-$(document).ready(function () {
+$(document).ready(function() {
     $.ajax("http://localhost:9000/post", {
         type: 'GET',
         dataType: 'JSON',
         headers: {
             token: localStorage.getItem('userToken')
         },
-        success: function (data) {
+        success: function(data) {
 
             document.getElementById("userName").innerHTML = data.obj.name
             showdata(data.post)
         },
-        error: function (error) {
+        error: function(error) {
             localStorage.removeItem("userToken")
             $(location).attr('href', '../index.html')
         }
     })
-    $(document).on('keydown', 'input.send-comment', function (e) {
+    $(document).on('keydown', 'input.send-comment', function(e) {
         let classnName = document.getElementsByClassName('send-comment');
         //check for enter press and submit comments to backend on enter press
         if (e.key == 'Enter') {
@@ -173,11 +173,11 @@ $(document).ready(function () {
                     "postId": $(classnName[i]).parent().parent().attr('id'),
                     "commentText": $(classnName[i]).val()
                 }),
-                success: function (data, status) {
+                success: function(data, status) {
                     console.log(data.msg + " " + status);
                     location.reload(true);
                 },
-                error: function (error) {
+                error: function(error) {
                     console.log(error + " " + "error occurred");
                 }
             });
@@ -185,18 +185,18 @@ $(document).ready(function () {
     })
 
     //logout user
-    $(".fa-sign-out").click(()=>{
-        localStorage.removeItem('userToken')
-        $(location).attr('href','../index.html')
-    })
-    //load user profile
-    $("#user_profile").click(()=>{
-        localStorage.removeItem('userToken')
-        $(location).attr('href','../views/profilePage.html')
-    })
-    //this will submit post
+    $(".fa-sign-out").click(() => {
+            localStorage.removeItem('userToken')
+            $(location).attr('href', '../index.html')
+        })
+        //load user profile
+    $("#user_profile").click(() => {
+            localStorage.removeItem('userToken')
+            $(location).attr('href', '../views/profilePage.html')
+        })
+        //this will submit post
 
-    $("#btn").click(function () {
+    $("#btn").click(function() {
         //get text
         var postText = $.trim($("#myTextarea").val());
         var formData = new FormData();
@@ -212,10 +212,10 @@ $(document).ready(function () {
             },
             contentType: false,
             processData: false,
-            success: function (data, status) {
+            success: function(data, status) {
                 location.reload(true);
             },
-            error: function (error) {
+            error: function(error) {
                 console.log(error + " " + "error occurred");
             }
         });
@@ -223,9 +223,9 @@ $(document).ready(function () {
 
 });
 
-$(document).on('click', '#saveLike', function () {
+$(document).on('click', '#saveLike', function() {
     let postId = $(this).parent().parent().parent().parent().attr('id')
-    $(this).parent().parent().parent().parent().children(":nth-last-child(2)").attr("id",'_like'+postId)
+    $(this).parent().parent().parent().parent().children(":nth-last-child(2)").attr("id", '_like' + postId)
     let likeID = $(this).parent().parent().parent().parent().children(":nth-last-child(2)").attr("id")
     if ($(this).css("color") == 'rgb(128, 128, 128)') {
         $(this).css("color", "blue")
@@ -238,13 +238,12 @@ $(document).on('click', '#saveLike', function () {
             data: {
                 postId: $(this).parent().parent().parent().parent().attr('id')
             },
-            success: function (data) {
+            success: function(data) {
                 document.getElementById(likeID).innerHTML = data.count + " Likes"
             },
-            error: function () { }
+            error: function() {}
         })
-    }
-    else {
+    } else {
         $(this).css("color", "rgb(128, 128, 128)")
         $.ajax('http://localhost:9000/post/like', {
             type: 'DELETE',
@@ -255,15 +254,15 @@ $(document).on('click', '#saveLike', function () {
             data: JSON.stringify({
                 postId: $(this).parent().parent().parent().parent().attr('id')
             }),
-            success: function (data){
+            success: function(data) {
                 document.getElementById(likeID).innerHTML = data.count + " Likes"
             },
-            error: function () { }
+            error: function() {}
         })
     }
 })
 
-$(document).on('click', '#sharePost', function () {
+$(document).on('click', '#sharePost', function() {
     let postId = $(this).parent().parent().parent().parent().attr('id')
     let postContent = $(this).parent().parent().parent().text()
     $.ajax('http://localhost:9000/post/sharePost', {
@@ -277,14 +276,14 @@ $(document).on('click', '#sharePost', function () {
             'postId': postId,
             "postData": postContent
         }),
-        success: function () { },
-        error: function () {
+        success: function() {},
+        error: function() {
             $(location).attr('href', '../index.html')
         }
     })
 });
 
-$(document).on('click', '#commentButton', function (e) {
+$(document).on('click', '#commentButton', function(e) {
     const postID = $(this).parent().parent().parent().parent().attr('id')
     console.log('postID : ' + postID)
     $(this).parent().parent().children().eq(1).attr('id', '_post' + postID)
@@ -301,10 +300,10 @@ $(document).on('click', '#commentButton', function (e) {
         data: {
             postId: postID
         },
-        success: function (data, status) {
+        success: function(data, status) {
             showComments(commentID, data)
         },
-        error: function (error) {
+        error: function(error) {
             console.log(error + " " + "error occurred");
         }
     });
