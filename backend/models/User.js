@@ -160,14 +160,14 @@ const saveSharedPost = async (req, res) => {
 
         let existingUser = await SignUpModel.findById({ '_id': req.headers.tokenValue })
         let postData = new PostModel({
-            userName: existingShare.firstName + ' ' + existingShare.lastName,
+            userName: existingUser.firstName + ' ' + existingUser.lastName,
             userId: req.headers.tokenValue,
             likeCounts: 0,
             shareCounts: 0,
-            postData: req.body.postData
+            postText: req.body.postData
         })
         postData.save()
-        return res.sendStatus(200)
+        return res.status(200)
     }
 }
 module.exports = {
