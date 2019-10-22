@@ -19,6 +19,8 @@ app.use(cors())
 app.options("*",cors())
 
 app.use('/Client/assets',express.static('public'))
+app.use(express.static('../../Client/assets'))
+
 app.use(router())
 app.listen(PORT,HOST, err=>{
     if(err) throw err;
