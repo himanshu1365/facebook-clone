@@ -144,6 +144,10 @@ $(document).ready(function() {
         success: function(data) {
 
             document.getElementById("userName").innerHTML = data.obj.name
+                // if( data.obj.image !=''){
+                // var img = document.getElementById("user-profile");
+                // img.setAttribute('src',data.obj.image);
+                // }
             showdata(data.post)
         },
         error: function(error) {
@@ -191,7 +195,7 @@ $(document).ready(function() {
         })
         //load user profile
     $("#user_profile").click(() => {
-            localStorage.removeItem('userToken')
+
             $(location).attr('href', '../views/profilePage.html')
         })
         //this will submit post
