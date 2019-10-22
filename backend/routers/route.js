@@ -44,7 +44,7 @@ module.exports = () => {
 
     //route to save user posts in backends
     app.post('/post', upload.single('image'), (req, res) => {
-        req.body['postImage'] = '/assets/' + req.file.filename;
+        req.body['postImage'] = '/Client/assets/' + req.file.filename;
 
         Users.saveUserPost(req, res);
     })
@@ -68,7 +68,7 @@ module.exports = () => {
     })
 
     app.delete('/post/like', (req, res) => {
-        Users.deleteLikes(req, res)
+        Users.removeLikes(req, res)
     })
 
     app.post('/post/sharePost', (req, res) => {
