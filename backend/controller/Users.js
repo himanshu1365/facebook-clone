@@ -94,8 +94,8 @@ const saveLikes = async(req,res)=>{
     return response
 }
 
-const deleteLikes = async(req,res)=>{
-    let response = await User.deleteLikes(req,res)
+const removeLikes = async(req,res)=>{
+    let response = await User.removeLikes(req,res)
     return response
 }
 
@@ -115,8 +115,7 @@ module.exports = {
     updateUsername,
     viewPost,
     saveLikes,
-    deleteLikes,
-    saveSharedPost,
+    removeLikes,
     particularUserData,
-    uploadImage
+    saveSharedPost
 }
