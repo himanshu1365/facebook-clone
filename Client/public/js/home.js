@@ -8,29 +8,16 @@ function showComments(id, data) {
             $('#' + id).show()
             $('#' + id).empty()
             for (i = 0; i < data.length; i++) {
-                let comment_div = document.createElement('div')
-                comment_div.setAttribute('class','comment-div')
-                let comment_user_image = document.createElement('img')
-                comment_user_image.setAttribute('src','../assets/1571682893768-baby.jpeg')
-                comment_div.appendChild(comment_user_image)
-                let comment_container = document.createElement('div')
-                comment_container.setAttribute('class','comment_container')
-                let comment_user = document.createElement('h4');
-                comment_user.innerHTML = data[i].userName
-                comment_container.appendChild(comment_user)
-                let comment_Text = document.createElement('p')
-                comment_Text.innerHTML = data[i].commentText
-                comment_container.appendChild(comment_Text)
-                let comment_At = document.createElement('h6')
-                comment_At.innerHTML = moment(data[i].createdAt).calendar()
-                comment_container.appendChild(comment_At)
-                comment_div.appendChild(comment_container)
-                b.appendChild(comment_div)
+                var a = document.createElement('div')
+                a.innerHTML = data[i].commentText + data[i].createdAt
+                b.appendChild(a)
             }
 
         }
     });
 }
+
+
 function showdata(data) {
     for (let i = 0; i < data.length; i++) {
         let body = document.getElementById('show-post-div')
@@ -58,7 +45,7 @@ function showdata(data) {
         let date = document.createElement('p')
         date.setAttribute('class', 'post-date')
         cardheader.appendChild(date)
-        date.innerHTML = moment(data[i].postedAt).calendar();
+        date.innerHTML = data[i].postedAt
 
         let cardbody = document.createElement("div")
         let postContent = document.createElement("p")
@@ -121,6 +108,9 @@ function showdata(data) {
 
         let cardfooter = document.createElement("div")
         cardfooter.setAttribute('class', 'card-footer')
+        let likeOutput = document.createElement("div")
+        postcard.appendChild(likeOutput)
+        
         let input = document.createElement('input')
         input.setAttribute('type', 'text')
         input.setAttribute('class', 'send-comment')
@@ -139,9 +129,7 @@ $(document).ready(function () {
             token: localStorage.getItem('userToken')
         },
         success: function (data) {
-
-            document.getElementById("userName").innerHTML = data.obj.name
-            showdata(data.post)
+            showdata(data)
         },
         error: function (error) {
             localStorage.removeItem("userToken")
@@ -150,15 +138,15 @@ $(document).ready(function () {
     })
     $(document).on('keydown', 'input.send-comment', function (e) {
         let classnName = document.getElementsByClassName('send-comment');
-        //check for enter press and submit comments to backend on enter press
+        let comments = ''
         if (e.key == 'Enter') {
             let i = 0
             for (; i < classnName.length; i++) {
                 if ($(classnName[i]).val() != '') {
+                    comments += $(classnName[i]).val();
                     break
                 }
             }
-            //route to save comment of particular post
             $.ajax("http://localhost:9000/post/comment", {
                 type: "POST",
                 dataType: "json",
@@ -180,17 +168,12 @@ $(document).ready(function () {
             });
         }
     })
-    $(".fa-sign-out").click(()=>{
-        localStorage.removeItem('userToken')
-        $(location).attr('href','../index.html')
-    })
-    //this will submit post
+
     $("#btn").click(function () {
-        //get text
         var postText = $.trim($("#myTextarea").val());
         var formData = new FormData();
         formData.append('postText', postText);
-        // Attach upload file
+        // Attach file
         formData.append('image', $('input[type=file]')[0].files[0]);
         $.ajax("http://localhost:9000/post", {
             type: "POST",
@@ -202,7 +185,8 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: function (data, status) {
-                location.reload(true);
+                console.log(data.msg + " " + status);
+                // location.reload(true);
             },
             error: function (error) {
                 console.log(error + " " + "error occurred");
@@ -218,7 +202,6 @@ $(document).on('click', '#saveLike', function () {
     let likeID = $(this).parent().parent().parent().parent().children(":nth-last-child(2)").attr("id")
     if ($(this).css("color") == 'rgb(128, 128, 128)') {
         $(this).css("color", "blue")
-        
         $.ajax('http://localhost:9000/post/like', {
             type: 'POST',
             dataType: 'JSON',
@@ -280,9 +263,7 @@ $(document).on('click', '#commentButton', function (e) {
     $(this).parent().parent().children().eq(1).attr('id', '_post' + postID)
     let commentID = $(this).parent().parent().children().eq(1).attr('id')
     $.ajax("http://localhost:9000/post/comment", {
-
         type: "GET",
-
         headers: {
             token: localStorage.getItem('userToken')
         },
