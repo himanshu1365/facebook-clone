@@ -1,4 +1,6 @@
+
 $(document).ready( function(){
+    $('.loader').hide()
     document.getElementById('btnSave').addEventListener('click',validateForm)
     function validateForm(){
         var fname = document.getElementById("SignUpFirstName").value;
@@ -87,6 +89,12 @@ $(document).ready( function(){
 
                 data:JSON.stringify(signUpData),
                 contentType: "application/json; charset=utf-8",
+                beforeSend: function(){
+                    $('.loader').show()
+                },
+                complete: function(){
+                    $('.loader').hide()
+                },
                 success:function(data, status){
                     //console.log(data.msg)
                 },
@@ -139,12 +147,17 @@ $(document).ready( function(){
                 email: $('#LoginFormEmail').val(),
                 password: $("#LoginFormPassword").val()
             }
-            console.log(logindata)
             $.ajax("http://localhost:9000/login",{
                 type:"POST",
                 dataType:"json",
                 contentType:"application/json",
                 data:JSON.stringify(logindata),
+                beforeSend: function(){
+                    $('.loader').show()
+                },
+                complete: function(){
+                    $('.loader').hide()
+                },
                 success: function(data,status){
                     console.log("data: "+data)
                     localStorage.setItem('userToken',data.token)
