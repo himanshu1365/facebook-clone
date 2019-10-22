@@ -2,131 +2,128 @@
 <html>
 
 <head>
-	<title>Facebook</title>
-	<link href="./public/css/index.css" type="text/css" rel="stylesheet" />
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
-	<link rel="stylesheet"
-		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-	<script src="./public/js/index.js"></script>
-	<link rel="stylesheet" href="./public/css/loader.css">
+    <title>Facebook</title>
+    <link href="./public/css/index.css" type="text/css" rel="stylesheet" />
+    <link href="./assets/social-facebook-box-blue-icon.png" rel="icon" type="image/x-icon" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="./public/js/index.js"></script>
+    <link rel="stylesheet" href="./public/css/loader.css">
 </head>
 
 <body>
-	
-	<div id="header_main">
-		<div id="header">
-			<li id="sitename">
-				<a href="#">Facebook</a>
-			</li>
-			
-			<form>
-				<li>Email or Phone
-					<br>
-					<input type="text" name="email" id="LoginFormEmail">
-				</li>
-				<li>Password
-					<br>
-					<input type="password" name="password" id="LoginFormPassword">
-					<br>
-				</li>
-				<li>
-					<button type="button" id="loginbtn">login</button>
-				</li>
-			</form>
-			<div class="loader"></div>
-		</div>
-	</div>
-	<div id="content">
-		<div id="div1">
-			<p>Facebook helps you connect and share with the
-				<br>people in your life.
-			</p>
-			<img src="./assets/facebook.png" style="height: 200px; width: 500px">
-		</div>
-		<div id="div2">
-			<h1>Create an account</h1>
-			<form name="contactForm">
-				<!-- <div class="input-icons"> -->
-				<li>
-					<input type="text" placeholder="First Name" id="SignUpFirstName" name="fname" class="input-field">
-					<!-- </div> -->
-					<!-- <p id="demo"></p> -->
-				<li>
-					<input type="text" placeholder="LastName" id="SignUpLastName" name="lname">
-				</li>
 
-				<li>
-					<input type="email" placeholder="Email address" id="SignUpFormEmail" name="email">
-				</li>
-				<li>
-					<input type="text" placeholder="Mobile Number" id="SignUpFormPhone" name="phone">
+    <div id="header_main">
+        <div id="header">
+            <li id="sitename">
+                <a href="#">Facebook</a>
+            </li>
+            <form>
+                <li>Email or Phone
+                    <br>
+                    <input type="text" name="email" id="LoginFormEmail">
+                </li>
+                <li>Password
+                    <br>
+                    <input type="password" name="password" id="LoginFormPassword">
+                    <br>
+                </li>
+                <li>
+                    <button type="button" id="loginbtn">login</button>
+                </li>
+            </form>
 
-				</li>
-				<li>
-					<input type="password" placeholder="Password" id="SignUpFormPassword" name="pwd">
-				</li>
-				<li>
-					<input type="password" placeholder="Confirm Password" id="SignUpFormConfirmPassword"
-						name="confirmpwd">
-				</li>
-				<li>
-					<button type="button" id="btnSave">
+            <div class="loader"></div>
+        </div>
+    </div>
+    <div id="content">
+        <div id="div1">
+            <p>Facebook helps you connect and share with the
+                <br>people in your life.
+            </p>
+            <img src="./assets/facebook.png" style="height: 200px; width: 500px">
+        </div>
+        <div id="div2">
+            <p id="show-messages"></p>
+            <h1>Create an account</h1>
+            <form name="contactForm">
+
+                <li>
+                    <input type="text" placeholder="First Name" id="SignUpFirstName" name="fname" class="input-field">
+                    <li>
+                        <input type="text" placeholder="LastName" id="SignUpLastName" name="lname">
+                    </li>
+
+                    <li>
+                        <input type="email" placeholder="Email address" id="SignUpFormEmail" name="email">
+                    </li>
+                    <li>
+                        <input type="text" placeholder="Mobile Number" id="SignUpFormPhone" name="phone">
+
+                    </li>
+                    <li>
+                        <input type="password" placeholder="Password" id="SignUpFormPassword" name="pwd">
+                    </li>
+                    <li>
+                        <input type="password" placeholder="Confirm Password" id="SignUpFormConfirmPassword" name="confirmpwd">
+                    </li>
+                    <li>
+                        <button type="button" id="btnSave">
 						Create an account
 					</button>
-				</li>
-		</div>
-		</form>
-	</div>
-	<div id="footer_wrapper">
-		<br>
-		<br>
-		<div id="footer1">
-			<a href="">English (UK)</a>
-			<a href="">हिन्दी</a>
-			<a href="">ਪੰਜਾਬੀ</a>
-			<a href=""> اردو</a>
-			<a href="">தமிழ்</a>
-			<a href="">বাংলা</a>
-			<a href="">मराठी</a>
-			<a href="">తెలుగు</a>
-			<a href="">ગુજરાતી</a>
-			<a href="">ಕನ್ನಡ</a>
-			<a href="">മലയാളം</a>
-		</div>
-		<div id="footer2">
-			<a href="">Sign Up</a>
-			<a href="">Log In</a>
-			<a href="">Messenger</a>
-			<a href="">Facebook Lite</a>
-			<a href="">People</a>
-			<a href="">Pages</a>
-			<a href="">Page Categories</a>
-			<a href="">Places</a>
-			<a href="">Game</a>
-			<a href="">Locations</a>
-			<a href="">Marketplace</a>
-			<a href="">Groups</a>
-			<a href="">Instagram</a>
-			<a href="">Local</a>
-			<a href="">Fundraisers</a>
-			<a href="">Services</a>
-			<a href="">About</a>
-			<a href="">Create ad</a>
-			<a href="">Create Page</a>
-			<a href="">Developers</a>
-			<a href="">Careers</a>
-			<a href="">Privacy</a>
-			<a href="">Cookies</a>
-			<a href="">adChoices</a>
-			<a href="">Terms</a>
-			<a href="">Help</a>
-		</div>
-	</div>
+                    </li>
+        </div>
+        </form>
+    </div>
+    <div id="footer_wrapper">
+        <br>
+        <br>
+        <div id="footer1">
+            <a href="">English (UK)</a>
+            <a href="">हिन्दी</a>
+            <a href="">ਪੰਜਾਬੀ</a>
+            <a href=""> اردو</a>
+            <a href="">தமிழ்</a>
+            <a href="">বাংলা</a>
+            <a href="">मराठी</a>
+            <a href="">తెలుగు</a>
+            <a href="">ગુજરાતી</a>
+            <a href="">ಕನ್ನಡ</a>
+            <a href="">മലയാളം</a>
+        </div>
+        <div id="footer2">
+            <a href="">Sign Up</a>
+            <a href="">Log In</a>
+            <a href="">Messenger</a>
+            <a href="">Facebook Lite</a>
+            <a href="">People</a>
+            <a href="">Pages</a>
+            <a href="">Page Categories</a>
+            <a href="">Places</a>
+            <a href="">Game</a>
+            <a href="">Locations</a>
+            <a href="">Marketplace</a>
+            <a href="">Groups</a>
+            <a href="">Instagram</a>
+            <a href="">Local</a>
+            <a href="">Fundraisers</a>
+            <a href="">Services</a>
+            <a href="">About</a>
+            <a href="">Create ad</a>
+            <a href="">Create Page</a>
+            <a href="">Developers</a>
+            <a href="">Careers</a>
+            <a href="">Privacy</a>
+            <a href="">Cookies</a>
+            <a href="">adChoices</a>
+            <a href="">Terms</a>
+            <a href="">Help</a>
+        </div>
+    </div>
 
 </body>
 
