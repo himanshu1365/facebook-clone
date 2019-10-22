@@ -50,8 +50,12 @@ const particularUserData = async (req, res) => {
 //get post of all users
 const viewPost = async (req, res) => {
     try {
+        let user = await SignUpModel.find({_id:req.headers.tokenValue})
+        let obj = new Object()
+        obj.name = user[0].firstName+' '+user[0].lastName
+        
         let post = await PostModel.find().sort({ "postedAt": 'desc' })
-        return post;
+        return ({post,obj});
     }
     catch (error) {
         return error
