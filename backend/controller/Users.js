@@ -55,6 +55,39 @@ const getComments = async( req, res )=>{
         console.log(error)
     }
 }
+const particularUserData = async(req,res)=>{
+    let response
+    //console.log("welcome to users.js")
+    response = await User.particularUserData(req,res)
+    return response
+}
+const updatePassword = async(req , res )=>{
+    try{
+        let pass = await User.updatePassword(req , res );
+        res.send(pass);
+    }
+    catch(error){
+        console.log(error)
+    }
+}
+const updateUsername = async(req , res )=>{
+    try{
+        let update = await User.updateUsername(req , res )
+        return update
+    }
+    catch(error){
+        console.log(error)
+    }
+}
+const uploadImage = async( req , res )=>{
+    try{
+        let profileImage = await User.uploadImage(req, res)
+        res.send(profileImage)
+    }
+    catch(error){
+        console.log(error)
+    }
+}
 
 const saveLikes = async(req,res)=>{
     let response = await User.saveLikes(req,res)
@@ -78,8 +111,11 @@ module.exports = {
     saveUserPost,
     userComment,
     getComments,
+    updatePassword,
+    updateUsername,
     viewPost,
     saveLikes,
     removeLikes,
+    particularUserData,
     saveSharedPost
 }

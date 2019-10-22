@@ -2,7 +2,7 @@ const {mongoose} = require('../db/connection');
 
 const Schema = mongoose.Schema;
 
-const PostModel = new Schema({
+const postModel = new Schema({
     userName : String,
     userId : String,
     postImage:String,
@@ -20,4 +20,4 @@ const PostModel = new Schema({
     },
     postText: String
 })
-module.exports = mongoose.model("Post", PostModel)
+module.exports = mongoose.model("Post", postModel)

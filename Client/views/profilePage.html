@@ -1,114 +1,273 @@
 <!DOCTYPE html>
-<html>
-
 <head>
     <title>Profile Page</title>
     <meta charset="utf-8">
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="../public/profile.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
    
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+ 
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script> -->
+ 
+  <script src="https://use.fontawesome.com/7bfc1da72e.js"></script>
+  <link rel="stylesheet" type="text/css" href="../public/profile.css">
+  <link rel="stylesheet" href="../public/css/home.css">
+  <script src="../public/js/profile.js"></script>
+
 </head>
 
 <body>
-
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <a class="navbar-brand" href="#">Facebook</a>
+   <div class="container-fluid"> 
+    <!-- <div class="container"> -->
+        <nav class="navbar navbar-expand-sm navbar-fixed-top" style="background-color: #4c66a4">
+         <a class="logo" href="#"><img src="../assets/fblogo.jpg" alt="fb logo"></a>
+         &nbsp;&nbsp;
+        <form class="navbar-form navbar-left" action="/action_page.php">
+          <div class="input-group">
+            <div>
+            <input type="text" class="form-control" placeholder="Search" name="search">
+          </div>
+            <div class="input-group-btn">
+              <button class="btn btn-default" type="submit">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+        
+        <a class="nav-link text-color" href="#">Facebook</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
+              <!-- <a class="nav-link text-color "  href="#"> -->
+                <!-- <img class="rounded-circle user-profile" src="../assets/post.jpg"></a> -->
+               <a class="nav-link text-color" id="profileToHome" href="#">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
+              <a class="nav-link text-color"  href="#">Photos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>    
+              <a class="nav-link text-color" href="#">Create</a>
+            </li>  
           </ul>
-        </div>  
-      </nav>  
-    <!-- <br>
-    <br><br><br> -->
-    <div class="container" >
+        </div> 
+        <div class="dropdown" style="padding-left: 200px;">
+            <button id="mybtn" type="button" class="dropdown-toggle" data-toggle="dropdown">
+              
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" id="logout" href="#">
+                  <div class="container">
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Logout">
+                          Logout
+                        </button>
+                   </div>
+              </a>
+              <a class="dropdown-item" id="Password" href="#">
+                <div class="container">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changePassword">
+                        Update Password
+                      </button>
+                 </div>
+               </a>
+              <a class="dropdown-item" id="updateUserDetails" href="#"> 
+                  <div class="container">
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateDetails">
+                          Update User Details
+                        </button>
+                   </div>
+              </a>
+            </div>
+          </div>
         
-        <h2 class="textcolor">Profile Image</h2>
+      </div>
+    </div> 
+      </nav>  
+    <br>
+    <div class="container" >
+        <!-- <h2 class="textcolor">Profile Image</h2> -->
 
-        <div class="card">
-            <img class="img-responsive" src="../assets/profileImage.jpg" alt="Profile image" style="width:50%">
-            <div class="card-body">
-                <h4 class="card-title">ASHISH CHOPRA</h4>
-                <p class="card-text">Ashish Chopra is an engineer</p>
-                
-                <!-- <a href="#" class="btn btn-primary">See Profile</a> -->
+        <div class="card" style="background-color: black;">
+            <img class="img-responsive rounded-circle" src="" alt="Profile image" style="width:20%" id="profile-pic">
+            
+            <div class="card-body" style="padding: 0px;">
+                <!-- <h4 class="card-title">ASHISH CHOPRA</h4>
+                <p class="card-text">Ashish Chopra is an engineer</p> -->
+                <nav class="navbar navbar-expand-sm bg-light">
+                  <ul class="navbar-nav spacing">
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Timeline</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Friends</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Photos</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Archive</a>
+                    </li>
+                  </ul>
+                </nav>
+                 <!-- <a href="#" class="btn btn-primary">See Profile</a>  -->
             </div>
         </div>
     </div>
+    <br>
+    <br>
+    <br>
     <div class="container" style="margin-top:30px">
-        <div class="row">
-          <div class="col-sm-4">
-            <h2>About Me</h2>
-            <h5>Photo of me:</h5>
-            <ul>
-              <div class="fakeimg"><li>FULL STACK WEB DEVELOPER</li></div>
-            <li><p>Joined facebook on 13th January,2010</p></li>
+      <div class="row">
+        <div class="col-sm-3">
+          <h2>About Me</h2>
+          <p id="showName" class="name">
+              
+          </p>
+          <hr>
+          
+              <form class="post" name="formdata" id="post-form">
+                  <h5><b>Upload your Profile Pic:</b></h5>
+                  <!-- <textarea id="myTextarea" rows="3" placeholder="Write something..."></textarea><br> -->
+                  <div class="input-image-post">
+                      <input type="file" name="myProfileImage" id="pp" accept="image/x-png,image/gif,image/jpeg" /><br><br>
+                      <button type="button" class="btn btn-primary" id="uploadpp">Upload Image</button>
+                  </div>
+                  <hr>
+              </form>
+            <div class="fakeimg"><li>FULL STACK WEB DEVELOPER</div>
+        <p>Joined facebook on 13th January,2010</p>
+        
+          <h3>Some Links</h3>
+          <p>Birthday Details</p>
+          <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Birth Date</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Hometown</a>
+            </li>
+            <li class="nav-item">
+              
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">Disabled</a>
+            </li>
           </ul>
-            <h3>Some Links</h3>
-            <p>Birthday Details</p>
-            <ul class="nav nav-pills flex-column">
-              <li class="nav-item">
-                <a class="nav-link active" href="#">Birth Date</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Hometown</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Current City</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-              </li>
-            </ul>
-            <hr class="d-sm-none">
+          <hr class="d-sm-none">
+        </div>
+        
+        <!-- <div class="col-sm-8" id = "posts-background">
+          <h2 class ="bg-color">POST 1 HEADING</h2>
+          <h5>Post description, Oct 11, 2019</h5>
+          <div class="fakeimg">User1 Image</div>
+          <p>Hey</p>
+          <p>Udemy.com is the world's largest online learning platform. It is aimed at professional adults and students. Udemy has more than 30 million students and 50,000 instructors teaching courses in over 60 languages.</p>
+          <br>
+          <h2 class="bg-color">POST 2 HEADING</h2>
+          <h5>Post description, Oct 11, 2019</h5>
+          <div class="fakeimg">User2 Image</div>
+          <p>Hey..</p>
+          <p>Udemy.com is the world's largest online learning platform. It is aimed at professional adults and students. Udemy has more than 30 million students and 50,000 instructors teaching courses in over 60 languages.</p>
+          <h2 class = "bg-color">POST 3 HEADING</h2>
+          <h5>Post description, Oct 11, 2019</h5>
+          <div class="fakeimg">User1 Image</div>
+          <p>Hey</p>
+          <p>Udemy.com is the world's largest online learning platform. It is aimed at professional adults and students. Udemy has more than 30 million students and 50,000 instructors teaching courses in over 60 languages.</p>
+          <br>
+        </div> -->
+        <div class="col-sm-9 main">
+          <form class="post">
+              <h5>Create Your Post:</h5>
+              <textarea id="myTextarea" rows="4" placeholder="Write something..."></textarea><br>
+              <div class="input-image-post">
+                  <input type="file" name="myImage" id="image" accept="image/x-png,image/gif,image/jpeg" />
+                  <button type="button" class="btn btn-primary" id="createPost">Post</button>
+              </div>
+              <hr>
+          </form>
+          <div id="show-post-div">
+              
           </div>
-          <div class="col-sm-8" id = "posts-background">
-            <h2 class ="bg-color">POST 1 HEADING</h2>
-            <h5>Post description, Oct 11, 2019</h5>
-            <div class="fakeimg">User1 Image</div>
-            <p>Hey</p>
-            <p>Udemy.com is the world's largest online learning platform. It is aimed at professional adults and students. Udemy has more than 30 million students and 50,000 instructors teaching courses in over 60 languages.</p>
-            <br>
-            <h2 class="bg-color">POST 2 HEADING</h2>
-            <h5>Post description, Oct 11, 2019</h5>
-            <div class="fakeimg">User2 Image</div>
-            <p>Hey..</p>
-            <p>Udemy.com is the world's largest online learning platform. It is aimed at professional adults and students. Udemy has more than 30 million students and 50,000 instructors teaching courses in over 60 languages.</p>
-            <h2 class = "bg-color">POST 3 HEADING</h2>
-            <h5>Post description, Oct 11, 2019</h5>
-            <div class="fakeimg">User1 Image</div>
-            <p>Hey</p>
-            <p>Udemy.com is the world's largest online learning platform. It is aimed at professional adults and students. Udemy has more than 30 million students and 50,000 instructors teaching courses in over 60 languages.</p>
-            <br>
-          </div>
+          <div class="card-footer">
+            <input type="text" class="send-comment" placeholder="Share your comments">
         </div>
       </div>
+      
+      </div>
+    </div>
+    <div class="co"></div>
+      <div class="modal fade" id="Logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Logout</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+            <p>Are you sure you want to logout?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" id="logout" class="btn btn-primary">Logout</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      <div class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Update Password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
 
-
-
-
-
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+                
+                <input type="password" id="oldPwd" name="Old password" placeholder="Old Password"><br>
+                <input type="password" id="newPwd" name="New password" placeholder="Enter New Password"><br>
+                <input type="password" id="cnfPwd" name="Confirm Password" placeholder="Re-enter New Password">
+              </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" id="updatePassword" class="btn btn-primary">Save New Password</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade" id="updateDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Update User Details</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <input type="text" id="oldEmail" name="Old Username" placeholder="Old Username"><br>
+                  <input type="text" id="newEmail" name="New Username" placeholder="Enter New Username"><br> 
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" id="update" class="btn btn-primary">Update Changes</button>
+                </div>
+              </div>
+            <!-- </div> -->
+          </div>
 
 </body>
 
