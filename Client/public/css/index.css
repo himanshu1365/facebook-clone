@@ -6,6 +6,12 @@ body {
     background: linear-gradient(white, #D3D8E8);
 }
 
+#show-messages {
+    font-size: 14px!important;
+    color: green!important;
+    font-weight: bold;
+}
+
 #header_main {
     width: 100%;
     min-width: 980px;
