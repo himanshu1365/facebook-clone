@@ -20,7 +20,6 @@ const saveSignUpData = async (req, res, data) => {
     }
 }
 
-<<<<<<< Updated upstream
 const loginUser = async (req, res) => {
     let checkUser = await signupdata.find({ email: req.body.email })
     if (checkUser.length != 0) {
@@ -33,44 +32,23 @@ const loginUser = async (req, res) => {
         }
         else {
             return res.status(400).send({ msg: 'Incorrect Login Credentials' })
-=======
-const loginUser = async(req,res)=>{
-    
-    let checkUser = await signupdata.find({email: req.body.email})
-    if(checkUser.length != 0){
-        //console.log("in if loop")        
-        let password = checkUser[0].password
-       
-        let status = bcryptjs.compareSync(req.body.password,password)
-       // console.log(status)
-        if(status){
-            jwt.sign({userToken: checkUser[0]._id},SECRET,{ expiresIn: '24h'},(err,token)=>{
-                return res.status(200).send({msg:'Login Successful',token: token})
-            })
-        }
-        else{
-            console.log("in else loop")
-            return res.status(400).send({msg:'Incorrect Login Credentials'})
->>>>>>> Stashed changes
         }
     }
 }
 
-<<<<<<< Updated upstream
-const particularUserData = async (req, res) => {
-    try {
-        let fetchId = await PostModel.findOne({ _id: req.query._id })
-        if (fetchId.length != 0) {
-            return res.status(200).send(fetchId.data);
-        }
-=======
 const particularUserData  = async(req,res)=>{
+    console.log("user.js")
     try{
-        let userData = await PostModel.findOne({_id: req.headers.tokenValue})
-        
+        let signUpUser = await signupdata.find({ _id: req.headers.tokenValue })
+        console.log("userId is : "+signUpUser[0].email)
+        email = signUpUser[0].email
+        let userData = await PostModel.find({userId: email}).sort({"postedAt":'desc'})
+
+        console.log("token value is : " +req.headers.tokenValue)
+        console.log("details acc to email "+" "+ email + " -"+ userData)
+        //let particularPosts = await 
             return res.status(200).send(userData);
         
->>>>>>> Stashed changes
     }
     catch (error) {
         return res.status(200).send({ message: 'No Posts exist for this user' })
@@ -201,7 +179,7 @@ const updateUsername = async(req , res )=>{
         
         if(checkEmailExistence1 == null){
             let checkEmailExistence = await signupdata.find({email:oldEmail})
-            //console.log(checkEmailExistence)
+            console.log(checkEmailExistence)
             
                 await signupdata.findOneAndUpdate({
                     _id : req.headers.tokenValue
@@ -211,6 +189,15 @@ const updateUsername = async(req , res )=>{
                         "email" : newEmail
                     }
                 });
+                await PostModel.findOneAndUpdate({
+                    userId: oldEmail
+                },
+                {
+                    $set:{
+                        "userId" : newEmail
+                    }
+                });
+                
                 res.send({
                     status:200,
                     msg:'Email/username Updated'

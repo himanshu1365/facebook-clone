@@ -57,6 +57,7 @@ const getComments = async( req, res )=>{
 }
 const particularUserData = async(req,res)=>{
     let response
+    console.log("welcome to users.js")
     response = await User.particularUserData(req,res)
     return response
 }
