@@ -37,21 +37,42 @@ const loginUser = async (req, res) => {
 }
 
 const particularUserData  = async(req,res)=>{
-    console.log("user.js")
+    //console.log("user.js")
     try{
         let signUpUser = await signupdata.find({ _id: req.headers.tokenValue })
-        console.log("userId is : "+signUpUser[0].email)
+        let obj = new Object();
+        obj.name = signUpUser[0].firstName +' '+signUpUser[0].lastName
+        obj.uploadImage = signUpUser[0].profileImage
         email = signUpUser[0].email
-        let userData = await PostModel.find({userId: email}).sort({"postedAt":'desc'})
+        console.log(obj);
+        let userPost = await PostModel.find({userId: email}).sort({"postedAt":'desc'})
 
-        console.log("token value is : " +req.headers.tokenValue)
-        console.log("details acc to email "+" "+ email + " -"+ userData)
-        //let particularPosts = await 
-            return res.status(200).send(userData);
+            return res.status(200).send( {userPost, obj} );
         
     }
     catch (error) {
         return res.status(200).send({ message: 'No Posts exist for this user' })
+    }
+}
+const uploadImage = async(req,res)=>{
+    try{
+        //let userDetails = await signupdata.find({_id: req.headers.tokenValue })
+        //console.log(userDetails)
+        await signupdata.findOneAndUpdate({
+            _id : req.headers.tokenValue
+        },
+        {
+            $set:{
+                "profileImage" : req.body.profileImage
+            }
+        })
+        return {
+            status: 200,
+            msg: 'Profile picture uploaded'
+        }
+    }
+    catch(error){
+        return res.status(200).send({ message: 'No image uploaded for this user' })
     }
 }
 //get post of all users
@@ -131,16 +152,13 @@ const updatePassword = async(req ,res )=>{
     try{
         
         let userId = await signupdata.findOne({ _id : req.headers.tokenValue})
-       // console.log(req.headers.tokenValue)
         oldPwd = req.body.oldPwd //oldp fetches Password that is input from the user while updating the password
         newPassword = req.body.newPassword//The new password input from the user
         let password = userId.password//hashed password fetched from the database 
-       // console.log("old password from database is " +password)
         let status = bcryptjs.compareSync(oldPwd,password) //password = password set at signup.
-        //console.log("status of matching old password is : " + status)
         var hash = bcryptjs.hashSync(newPassword, 8)
         newPassword = hash
-        //console.log("new password after hashing is " + newPassword)
+        
         
         
         if(status){
@@ -153,8 +171,7 @@ const updatePassword = async(req ,res )=>{
                 "password" : newPassword
                 }
             }
-            );
-            //console.log('check'+updation)    
+            );   
         }
     }
     catch(error){
@@ -179,7 +196,7 @@ const updateUsername = async(req , res )=>{
         
         if(checkEmailExistence1 == null){
             let checkEmailExistence = await signupdata.find({email:oldEmail})
-            console.log(checkEmailExistence)
+            //console.log(checkEmailExistence)
             
                 await signupdata.findOneAndUpdate({
                     _id : req.headers.tokenValue
@@ -266,5 +283,6 @@ module.exports = {
     updateUsername,
     saveLikes,
     deleteLikes,
-    saveSharedPost
+    saveSharedPost,
+    uploadImage
 }

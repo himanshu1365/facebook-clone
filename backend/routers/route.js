@@ -33,7 +33,7 @@ module.exports = () => {
     })
 
     app.post('/login',(req,res)=>{
-        console.log("hello")
+       // console.log("hello")
         Users.checkLoginUser(req,res)
     })
 
@@ -44,13 +44,11 @@ module.exports = () => {
 
     
     app.get('/profilePage',(req,res)=>{
-        console.log("welcome to profile page")
+        
         Users.particularUserData(req,res)
     })
     app.patch('/profilePage/updatePassword',(req,res)=>{
-       // console.log(req.body.oldPwd)
-        //console.log(req.body.newPassword)
-       // console.log(req.headers)
+       
        Users.updatePassword(req,res);
 
     })
@@ -60,6 +58,11 @@ module.exports = () => {
        // console.log(req.headers)
        Users.updateUsername(req,res);
 
+    })
+    app.patch('/profilePage/uploadProfilePhoto',upload.single('image'),(req,res)=>{
+        console.log(req.file)
+        req.body['profileImage'] = '/assets/' + req.file.filename;
+        Users.uploadImage(req,res);
     })
 
     //route to save user posts in backends

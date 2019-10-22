@@ -17,7 +17,8 @@ const SignUpModel = new Schema({
     },
     phone_number: {
         type: String
-    }
+    },
+    profileImage:String
 })
 
 module.exports = mongoose.model('SignUpModel',SignUpModel)

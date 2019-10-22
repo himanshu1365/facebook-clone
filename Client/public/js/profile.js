@@ -91,39 +91,15 @@ function showdata1(data){
 }
 
    $(document).ready(function(){
-       $("uploadpp").click(()=>{
-          console.log("You are on the right pa\th to upload your image")
-          var formData = new formData();
-          formData.append('image', $('input[type=file]')[0].files[0]); 
-          c
-          $.ajax("http://localhost:9000/post",{
-                    type:"POST",
-                    data:formData,
-                    dataType: "json",
-                    headers:{
-                        token: localStorage.getItem('userToken')
-                    },
-                    contentType: false,
-                    processData: false,
-                    success:function(data, status){
-                        console.log(data.msg +" "+status);
-                        location.reload(true);
-                    },
-                    error: function(error){
-                        console.log(error +" "+ "error occurred");
-                }
-            });
-   });
 
 
-
-
+      
    $("#profileToHome").click(()=>{
       $(location).attr('href','../views/home.html')
       //console.log("route hit on clicking profile")
   })
 
-   console.log('ajax called')
+   //console.log('ajax called')
    $.ajax("http://localhost:9000/profilePage",{
             type:'GET',
             dataType:'JSON',
@@ -132,7 +108,10 @@ function showdata1(data){
             },
             success: function(data){
                 console.log(data)
-                showdata1(data)
+                var img = document.getElementById('profile-pic');
+                img.setAttribute('src',data.obj.uploadImage)
+                document.getElementById('showName').innerHTML = data.obj.name
+                showdata1(data.userPost)
             },
             error: function(error){
                 localStorage.removeItem("userToken")
@@ -213,29 +192,31 @@ function showdata1(data){
      
 
      })
-     $("#createPost").click( function(){
-      var postText = $.trim($("#myTextarea").val());
-      var formData = new FormData();
-      formData.append('postText',postText );
-      // Attach file
-      formData.append('image', $('input[type=file]')[0].files[0]); 
-      $.ajax("http://localhost:9000/post",{
-                  type:"POST",
-                  data:formData,
-                  dataType: "json",
-                  headers:{
-                      token: localStorage.getItem('userToken')
-                  },
-                  contentType: false,
-                  processData: false,
-                  success:function(data, status){
-                      console.log(data.msg +" "+status);
-                      // location.reload(true);
-                  },
-                  error: function(error){
-                      console.log(error +" "+ "error occurred");
-              }
-          });
-  });
+    
+  $("#uploadpp").click(()=>{
+   console.log("You are on the right path to upload your image")
+   var formData = new FormData();
+  
+   formData.append('image', $('input[type=file]')[0].files[0]); 
+   console.log("jhjhjkvsdadfSGVREV")
+   console.log(formData.values('image'));
+      $.ajax("http://localhost:9000/profilePage/uploadProfilePhoto",{
+             type:"PATCH",
+             data:formData,
+             dataType: "json",
+             headers:{
+                 token: localStorage.getItem('userToken')
+             },
+             contentType: false,
+             processData: false,
+             success:function(data, status){
+                 console.log(data.msg +" "+status);
+                 location.reload(true);
+             },
+             error: function(error){
+                 console.log(error +" "+ "error occurred");
+         }
+     });
+})
    
 })
