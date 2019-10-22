@@ -133,6 +133,10 @@ $(document).ready( function(){
                 $(location).attr('href','../index.html')
             }
         })
+    $("#homeToProfile").click(()=>{
+        $(location).attr('href','../views/profilePage.html')
+        console.log("route hit on clicking profile")
+    })
     $(document).on('keydown','input.send-comment',function(e){
         let classnName = document.getElementsByClassName('send-comment');
         let comments =''
@@ -186,7 +190,7 @@ $(document).ready( function(){
                     processData: false,
                     success:function(data, status){
                         console.log(data.msg +" "+status);
-                        // location.reload(true);
+                        location.reload(true);
                     },
                     error: function(error){
                         console.log(error +" "+ "error occurred");

@@ -1,4 +1,4 @@
-function showdata(data){
+function showdata1(data){
    for(let i=0;i<data.length;i++){
        let body = document.getElementById('show-post-div')
 
@@ -90,9 +90,40 @@ function showdata(data){
    }
 }
 
-$(document).ready(function()
-{
-   console.log('ajax calledx')
+   $(document).ready(function(){
+       $("uploadpp").click(()=>{
+          console.log("You are on the right pa\th to upload your image")
+          var formData = new formData();
+          formData.append('image', $('input[type=file]')[0].files[0]); 
+          c
+          $.ajax("http://localhost:9000/post",{
+                    type:"POST",
+                    data:formData,
+                    dataType: "json",
+                    headers:{
+                        token: localStorage.getItem('userToken')
+                    },
+                    contentType: false,
+                    processData: false,
+                    success:function(data, status){
+                        console.log(data.msg +" "+status);
+                        location.reload(true);
+                    },
+                    error: function(error){
+                        console.log(error +" "+ "error occurred");
+                }
+            });
+   });
+
+
+
+
+   $("#profileToHome").click(()=>{
+      $(location).attr('href','../views/home.html')
+      //console.log("route hit on clicking profile")
+  })
+
+   console.log('ajax called')
    $.ajax("http://localhost:9000/profilePage",{
             type:'GET',
             dataType:'JSON',
@@ -101,13 +132,13 @@ $(document).ready(function()
             },
             success: function(data){
                 console.log(data)
-                showdata(data)
+                showdata1(data)
             },
             error: function(error){
                 localStorage.removeItem("userToken")
-                
+               //  $(location).attr('href','../index.html')
             }
-        })
+         })
    
    
    $("#updatePassword").click(function(event){
@@ -182,5 +213,29 @@ $(document).ready(function()
      
 
      })
+     $("#createPost").click( function(){
+      var postText = $.trim($("#myTextarea").val());
+      var formData = new FormData();
+      formData.append('postText',postText );
+      // Attach file
+      formData.append('image', $('input[type=file]')[0].files[0]); 
+      $.ajax("http://localhost:9000/post",{
+                  type:"POST",
+                  data:formData,
+                  dataType: "json",
+                  headers:{
+                      token: localStorage.getItem('userToken')
+                  },
+                  contentType: false,
+                  processData: false,
+                  success:function(data, status){
+                      console.log(data.msg +" "+status);
+                      // location.reload(true);
+                  },
+                  error: function(error){
+                      console.log(error +" "+ "error occurred");
+              }
+          });
+  });
    
 })

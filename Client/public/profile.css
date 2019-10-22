@@ -7,17 +7,17 @@ h2.textcolor{
 }
 
 body{
-    background-color:lightgrey;
+    background-color:white;
 }
 .card{
-    background-color:rgba(0, 0, 0, 0.61);
+    background-color:lightgrey;
 }
 
 a.text-color{
     color:white;
 }  
 a img{
-    height: 35px;
+    height: 40px;
     width: 35px;
 }
 li a{

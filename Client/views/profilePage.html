@@ -46,17 +46,17 @@
             <li class="nav-item">
               <!-- <a class="nav-link text-color "  href="#"> -->
                 <!-- <img class="rounded-circle user-profile" src="../assets/post.jpg"></a> -->
-               <a class="nav-link text-color"  href="#">Home</a>
+               <a class="nav-link text-color" id="profileToHome" href="#">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-color"  href="#">Home</a>
+              <a class="nav-link text-color"  href="#">Photos</a>
             </li>
             <li class="nav-item">
               <a class="nav-link text-color" href="#">Create</a>
             </li>  
           </ul>
         </div> 
-        <div class="dropdown">
+        <div class="dropdown" style="padding-left: 200px;">
             <button id="mybtn" type="button" class="dropdown-toggle" data-toggle="dropdown">
               
             </button>
@@ -94,7 +94,7 @@
 
         <div class="card">
             <img class="img-responsive rounded-circle" src="../assets/profileImage.jpg" alt="Profile image" style="width:50%">
-           
+            
             <div class="card-body" style="padding: 0px;">
                 <!-- <h4 class="card-title">ASHISH CHOPRA</h4>
                 <p class="card-text">Ashish Chopra is an engineer</p> -->
@@ -128,8 +128,17 @@
       <div class="row">
         <div class="col-sm-3">
           <h2>About Me</h2>
-          <h5>Photo of me:</h5>
+          <hr>
           <ul>
+              <form class="post" name="formdata" id="post-form">
+                  <h5><b>Upload your Profile Pic:</b></h5>
+                  <!-- <textarea id="myTextarea" rows="3" placeholder="Write something..."></textarea><br> -->
+                  <div class="input-image-post">
+                      <input type="file" name="myProfileImage" id="pp" accept="image/x-png,image/gif,image/jpeg" /><br><br>
+                      <button type="button" class="btn btn-primary" id="uploadpp">Post</button>
+                  </div>
+                  <hr>
+              </form>
             <div class="fakeimg"><li>FULL STACK WEB DEVELOPER</li></div>
           <li><p>Joined facebook on 13th January,2010</p></li>
         </ul>
@@ -143,7 +152,7 @@
               <a class="nav-link" href="#">Hometown</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Current City</a>
+              
             </li>
             <li class="nav-item">
               <a class="nav-link disabled" href="#">Disabled</a>
@@ -174,16 +183,19 @@
         <div class="col-sm-9 main">
           <form class="post">
               <h5>Create Your Post:</h5>
-              <textarea id="myTextarea" rows="3" placeholder="Write something..."></textarea><br>
+              <textarea id="myTextarea" rows="4" placeholder="Write something..."></textarea><br>
               <div class="input-image-post">
                   <input type="file" name="myImage" id="image" accept="image/x-png,image/gif,image/jpeg" />
-                  <button type="button" class="btn btn-primary" id="btn">Post</button>
+                  <button type="button" class="btn btn-primary" id="createPost">Post</button>
               </div>
               <hr>
           </form>
           <div id="show-post-div">
               
           </div>
+          <div class="card-footer">
+            <input type="text" class="send-comment" placeholder="Share your comments">
+        </div>
       </div>
       
       </div>
